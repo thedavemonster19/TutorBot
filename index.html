@@ -205,7 +205,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </section>
 </div>
 
-<!-- Card bank. data-unit: quadratics | radicals | rationals | mixed. data-level: core | think | challenge -->
+<!-- Card bank. data-unit: rationals (Unit 1) | quadratics (2) | radicals (3) | ratfuncs (4) | mixed. data-level: core | think | challenge -->
 <div id="cards" hidden>
 
 <!-- ============ QUADRATICS ============ -->
@@ -817,6 +817,229 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
+<!-- ============ RATIONAL FUNCTIONS (Unit 4) ============ -->
+<article data-id="f1" data-unit="ratfuncs" data-level="core">
+  <div class="q"><p>For the parent function \(f(x) = \dfrac{1}{x}\), state the equations of the asymptotes, the domain and the range. List six key points you would use to sketch it.</p></div>
+  <div class="hint">What value can \(x\) never be? What value can \(\tfrac1x\) never equal?</div>
+  <div class="ans">Asymptotes \(x = 0\) and \(y = 0\). Domain \(\{x \in \mathbb{R} \mid x \ne 0\}\), range \(\{y \in \mathbb{R} \mid y \ne 0\}\). Points \((1, 1), (2, \tfrac12), (\tfrac12, 2), (-1, -1), (-2, -\tfrac12), (-\tfrac12, -2)\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(\tfrac10\) is undefined, so \(x \ne 0\). The graph has a vertical asymptote at \(x = 0\).</li>
+      <li>A fraction with numerator 1 can never equal 0, so \(y \ne 0\). As \(x\) gets very large (positive or negative), \(\tfrac1x\) gets very close to 0, so there's a horizontal asymptote at \(y = 0\).</li>
+      <li>Key points come in reciprocal pairs: \((1, 1)\), \((2, \tfrac12)\), \((\tfrac12, 2)\), and the same with both signs negative.</li>
+      <li>The graph has two branches: one in quadrant 1, one in quadrant 3.</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> Small inputs give big outputs and big inputs give small outputs. That's what makes the graph shoot up near \(x = 0\) and flatten out far away.</p>
+    <p class="trap"><b>Watch out.</b> The graph never touches either asymptote. Draw the branches getting closer and closer, never crossing.</p>
+  </div>
+</article>
+
+<article data-id="f2" data-unit="ratfuncs" data-level="core">
+  <div class="q"><p>Describe the transformations that map \(y = \dfrac1x\) onto \(y = \dfrac{2}{x - 3} + 1\). State the asymptotes, domain and range, and map four key points.</p></div>
+  <div class="hint">Compare with \(y = a\left(\dfrac{1}{k(x - d)}\right) + c\). The asymptotes move with the translations.</div>
+  <div class="ans">Vertical stretch by 2, right 3, up 1. Asymptotes \(x = 3\), \(y = 1\). Domain \(x \ne 3\), range \(y \ne 1\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(a = 2\): vertical stretch by a factor of 2. \(d = 3\): right 3. \(c = 1\): up 1.</li>
+      <li>The vertical asymptote moves from \(x = 0\) to \(x = 3\); the horizontal one from \(y = 0\) to \(y = 1\).</li>
+      <li>Mapping rule: \((x, y) \to (x + 3,\ 2y + 1)\).</li>
+      <li>\((1, 1) \to (4, 3)\), \((2, \tfrac12) \to (5, 2)\), \((-1, -1) \to (2, -1)\), \((-2, -\tfrac12) \to (1, 0)\).</li>
+      <li>Domain \(\{x \in \mathbb{R} \mid x \ne 3\}\), range \(\{y \in \mathbb{R} \mid y \ne 1\}\).</li>
+    </ol>
+    <p class="why"><b>Check a point.</b> \(x = 5\): \(\tfrac{2}{2} + 1 = 2\). ✓ Draw the asymptotes first as dashed lines, then place the points around them.</p>
+    <p class="trap"><b>Watch out.</b> The stretch doesn't move the asymptotes. Only \(d\) and \(c\) do: they are always \(x = d\) and \(y = c\).</p>
+  </div>
+</article>
+
+<article data-id="f3" data-unit="ratfuncs" data-level="core">
+  <div class="q"><p>For \(y = -\dfrac{1}{x + 4} + 2\), state the asymptotes, domain and range. Which two regions around the asymptotes do the branches lie in?</p></div>
+  <div class="hint">\(a = -1\) is a reflection in the \(x\)-axis. Test one \(x\) value on each side of the vertical asymptote.</div>
+  <div class="ans">Asymptotes \(x = -4\), \(y = 2\). Domain \(x \ne -4\), range \(y \ne 2\). Branches are top-left and bottom-right of where the asymptotes cross.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(d = -4\), \(c = 2\): asymptotes \(x = -4\) and \(y = 2\).</li>
+      <li>The parent's branches are top-right and bottom-left. The reflection (\(a = -1\)) flips them to top-left and bottom-right.</li>
+      <li>Check: \(x = -3\) gives \(-\tfrac11 + 2 = 1\): right of the asymptote, below \(y = 2\). \(x = -5\) gives \(-\tfrac{1}{-1} + 2 = 3\): left, above. ✓</li>
+    </ol>
+    <p class="why"><b>Fast habit.</b> Plugging in one point on each side of the vertical asymptote tells you where the branches go, with no memorising.</p>
+    <p class="trap"><b>Watch out.</b> \(x + 4\) means the asymptote is \(x = -4\), not \(x = 4\). Ask: what makes the denominator zero?</p>
+  </div>
+</article>
+
+<article data-id="f4" data-unit="ratfuncs" data-level="core">
+  <div class="q"><p>Find the \(x\)- and \(y\)-intercepts of \(f(x) = \dfrac{4}{x + 2} - 1\).</p></div>
+  <div class="hint">\(x\)-intercept: set \(y = 0\). \(y\)-intercept: set \(x = 0\).</div>
+  <div class="ans">\(x\)-intercept \((2, 0)\), \(y\)-intercept \((0, 1)\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x\)-intercept: \(0 = \dfrac{4}{x + 2} - 1 \Rightarrow \dfrac{4}{x + 2} = 1 \Rightarrow x + 2 = 4 \Rightarrow x = 2\).</li>
+      <li>\(y\)-intercept: \(f(0) = \dfrac{4}{2} - 1 = 1\).</li>
+    </ol>
+    <p class="why"><b>Use them.</b> Intercepts are free extra points for your sketch, on top of the asymptotes and the mapped key points.</p>
+    <p class="trap"><b>Watch out.</b> Students often swap the two. On the \(x\)-axis, \(y = 0\); on the \(y\)-axis, \(x = 0\). Write intercepts as points, not single numbers.</p>
+  </div>
+</article>
+
+<article data-id="f5" data-unit="ratfuncs" data-level="core">
+  <div class="q"><p>For \(f(x) = \dfrac{1}{2x - 6}\), find the asymptotes, domain and range, and describe the transformations of \(y = \dfrac1x\).</p></div>
+  <div class="hint">Factor the denominator to get the form \(k(x - d)\).</div>
+  <div class="ans">\(f(x) = \dfrac{1}{2(x - 3)}\): horizontal compression by \(\tfrac12\), right 3. Asymptotes \(x = 3\), \(y = 0\). Domain \(x \ne 3\), range \(y \ne 0\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(2x - 6 = 2(x - 3)\), so \(k = 2\) and \(d = 3\).</li>
+      <li>\(k = 2\): horizontal compression by a factor of \(\tfrac12\). \(d = 3\): right 3.</li>
+      <li>Vertical asymptote where the denominator is 0: \(2x - 6 = 0 \Rightarrow x = 3\). No vertical shift, so the horizontal asymptote stays at \(y = 0\).</li>
+    </ol>
+    <p class="why"><b>Same graph, two descriptions.</b> \(\dfrac{1}{2(x - 3)} = \dfrac12 \cdot \dfrac{1}{x - 3}\), so a vertical compression by \(\tfrac12\) gives the same graph. Either is accepted if you're consistent.</p>
+    <p class="trap"><b>Watch out.</b> Reading \(2x - 6\) as “right 6” is wrong. Always factor out \(k\) first, the same as with radical functions.</p>
+  </div>
+</article>
+
+<article data-id="f6" data-unit="ratfuncs" data-level="think">
+  <div class="q"><p>A function of the form \(y = \dfrac{a}{x - d} + c\) has asymptotes \(x = -1\) and \(y = 2\), and passes through \((1, 5)\). Find its equation.</p></div>
+  <div class="hint">The asymptotes give \(d\) and \(c\). Substitute the point to find \(a\).</div>
+  <div class="ans">\(y = \dfrac{6}{x + 1} + 2\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(d = -1\), \(c = 2\): \(y = \dfrac{a}{x + 1} + 2\).</li>
+      <li>Substitute \((1, 5)\): \(5 = \dfrac{a}{2} + 2 \Rightarrow \dfrac a2 = 3 \Rightarrow a = 6\).</li>
+      <li>Check: \(x = 1\): \(\tfrac{6}{2} + 2 = 5\). ✓</li>
+    </ol>
+    <p class="why"><b>Same method as before.</b> This is exactly how you found radical and quadratic equations: fixed features first, then one point for the stretch.</p>
+    <p class="trap"><b>Watch out.</b> The asymptote \(x = -1\) becomes \((x + 1)\) in the equation.</p>
+  </div>
+</article>
+
+<article data-id="f7" data-unit="ratfuncs" data-level="think">
+  <div class="q"><p>Write \(y = \dfrac{2x + 5}{x + 1}\) in the form \(y = \dfrac{a}{x - d} + c\), and state the asymptotes.</p><p class="askq">If your class hasn't used this form yet, it still shows where a horizontal asymptote comes from.</p></div>
+  <div class="hint">Write the numerator as a multiple of \((x + 1)\) plus whatever is left over.</div>
+  <div class="ans">\(y = \dfrac{3}{x + 1} + 2\). Asymptotes \(x = -1\), \(y = 2\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(2x + 5 = 2(x + 1) + 3\).</li>
+      <li>\(y = \dfrac{2(x + 1) + 3}{x + 1} = \dfrac{2(x + 1)}{x + 1} + \dfrac{3}{x + 1} = 2 + \dfrac{3}{x + 1}\).</li>
+      <li>Asymptotes: \(x = -1\) and \(y = 2\).</li>
+      <li>Check with \(x = 0\): original \(\tfrac{5}{1} = 5\); new form \(\tfrac31 + 2 = 5\). ✓</li>
+    </ol>
+    <p class="why"><b>Shortcut to remember.</b> When top and bottom are both linear, the horizontal asymptote is the ratio of the \(x\) coefficients: \(\tfrac21 = 2\).</p>
+    <p class="trap"><b>Watch out.</b> The horizontal asymptote is not \(y = 0\) here, and not \(y = 5\). It's \(y = 2\).</p>
+  </div>
+</article>
+
+<article data-id="f8" data-unit="ratfuncs" data-level="think">
+  <div class="q"><p>For \(f(x) = \dfrac{x - 2}{x^2 - 4}\), find the domain, the vertical asymptote and the coordinates of the hole.</p></div>
+  <div class="hint">Factor the denominator. A factor that cancels makes a hole; a factor left in the denominator makes an asymptote.</div>
+  <div class="ans">Domain \(x \ne \pm 2\). Vertical asymptote \(x = -2\). Hole at \(\left(2, \tfrac14\right)\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(f(x) = \dfrac{x - 2}{(x - 2)(x + 2)}\). Restrictions: \(x \ne 2, -2\).</li>
+      <li>Cancel: \(f(x) = \dfrac{1}{x + 2}\), \(x \ne 2\).</li>
+      <li>\((x + 2)\) is still in the denominator: vertical asymptote \(x = -2\).</li>
+      <li>\((x - 2)\) cancelled: a hole at \(x = 2\). Its \(y\)-value comes from the simplified form: \(\tfrac{1}{2 + 2} = \tfrac14\).</li>
+    </ol>
+    <p class="why"><b>Links to Unit 1.</b> This is why you stated restrictions before cancelling. The cancelled restriction becomes a hole on the graph.</p>
+    <p class="trap"><b>Watch out.</b> Both 2 and −2 are restrictions, but only −2 is an asymptote. Find the hole's \(y\) from the simplified function; the original gives \(\tfrac00\).</p>
+  </div>
+</article>
+
+<article data-id="f9" data-unit="ratfuncs" data-level="think">
+  <div class="q"><p>Find the inverse of \(f(x) = \dfrac{1}{x - 2} + 3\). Compare the asymptotes of \(f\) and \(f^{-1}\).</p></div>
+  <div class="hint">Swap \(x\) and \(y\). Isolate the fraction before you flip both sides.</div>
+  <div class="ans">\(f^{-1}(x) = \dfrac{1}{x - 3} + 2\). \(f\) has asymptotes \(x = 2,\ y = 3\); \(f^{-1}\) has \(x = 3,\ y = 2\). They swap.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Swap: \(x = \dfrac{1}{y - 2} + 3\).</li>
+      <li>Isolate the fraction: \(x - 3 = \dfrac{1}{y - 2}\).</li>
+      <li>Take the reciprocal of both sides: \(y - 2 = \dfrac{1}{x - 3}\).</li>
+      <li>\(y = \dfrac{1}{x - 3} + 2\).</li>
+      <li>Check: \(f(3) = \tfrac11 + 3 = 4\) and \(f^{-1}(4) = \tfrac11 + 2 = 3\). ✓</li>
+    </ol>
+    <p class="why"><b>Why they swap.</b> The inverse reflects the graph in \(y = x\), which turns vertical lines into horizontal ones. Domain and range trade places too.</p>
+    <p class="trap"><b>Watch out.</b> You can only flip both sides when each side is a single fraction. Flipping \(\tfrac{1}{y-2} + 3\) as a whole is wrong.</p>
+  </div>
+</article>
+
+<article data-id="f10" data-unit="ratfuncs" data-level="think">
+  <div class="q"><p>For \(y = \dfrac{3}{x - 1} + 2\), describe what happens to \(y\): (a) as \(x\) approaches 1 from the right; (b) from the left; (c) as \(x\) becomes very large positive; (d) very large negative.</p></div>
+  <div class="hint">Try \(x = 1.01\), \(0.99\), \(1001\) and \(-999\).</div>
+  <div class="ans">(a) \(y\) increases without bound. (b) \(y\) decreases without bound. (c) \(y\) approaches 2 from above. (d) \(y\) approaches 2 from below.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x = 1.01\): \(\tfrac{3}{0.01} + 2 = 302\). The denominator is a tiny positive number, so \(y\) is huge and positive.</li>
+      <li>\(x = 0.99\): \(\tfrac{3}{-0.01} + 2 = -298\). Tiny negative denominator, so \(y\) is huge and negative.</li>
+      <li>\(x = 1001\): \(\tfrac{3}{1000} + 2 = 2.003\), slightly above 2.</li>
+      <li>\(x = -999\): \(\tfrac{3}{-1000} + 2 = 1.997\), slightly below 2.</li>
+    </ol>
+    <p class="why"><b>This is what “asymptote” means.</b> Near \(x = 1\) the graph shoots up or down; far away it settles toward \(y = 2\).</p>
+    <p class="trap"><b>Watch out.</b> The two sides of a vertical asymptote usually go in opposite directions. Check both sides; don't assume.</p>
+  </div>
+</article>
+
+<article data-id="f11" data-unit="ratfuncs" data-level="challenge">
+  <div class="q"><p>Find the points where \(y = \dfrac{2}{x - 1}\) and \(y = x\) intersect.</p></div>
+  <div class="hint">Set them equal, state the restriction, and multiply both sides by \((x - 1)\).</div>
+  <div class="ans">\((2, 2)\) and \((-1, -1)\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(\dfrac{2}{x - 1} = x\), with \(x \ne 1\).</li>
+      <li>Multiply by \((x - 1)\): \(2 = x(x - 1) = x^2 - x\).</li>
+      <li>\(x^2 - x - 2 = 0 \Rightarrow (x - 2)(x + 1) = 0\), so \(x = 2\) or \(x = -1\).</li>
+      <li>Neither is the restriction. Check: \(\tfrac{2}{1} = 2\) ✓ and \(\tfrac{2}{-2} = -1\) ✓.</li>
+    </ol>
+    <p class="why"><b>Three units in one.</b> Rational function, restriction from Unit 1, quadratic from Unit 2. Tests love this combination.</p>
+    <p class="trap"><b>Watch out.</b> If a solution equals a restriction, it must be rejected. State the restriction first so you remember to check.</p>
+  </div>
+</article>
+
+<article data-id="f12" data-unit="ratfuncs" data-level="challenge">
+  <div class="q"><p>A trip is 240 km. The time in hours is \(t = \dfrac{240}{v}\), where \(v\) is the speed in km/h.</p><p>(a) What is a sensible domain? (b) How long does the trip take at 80 km/h? (c) What speed saves 1 hour? (d) What speed would save a second hour? What does this show about the graph?</p></div>
+  <div class="hint">For (c), solve \(\tfrac{240}{v} = 2\). For (d), solve \(\tfrac{240}{v} = 1\).</div>
+  <div class="ans">(a) \(v \gt 0\). (b) 3 h. (c) 120 km/h, 40 km/h faster. (d) 240 km/h, another 120 km/h faster. Each hour saved costs more speed: the curve flattens.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>(a) Speed must be positive, and \(v = 0\) is undefined: \(v \gt 0\).</li>
+      <li>(b) \(t = \tfrac{240}{80} = 3\) h.</li>
+      <li>(c) \(2 = \tfrac{240}{v} \Rightarrow v = 120\) km/h.</li>
+      <li>(d) \(1 = \tfrac{240}{v} \Rightarrow v = 240\) km/h.</li>
+      <li>The first hour saved needs +40 km/h; the second needs +120 km/h. As \(v\) grows, \(t\) drops more and more slowly toward the asymptote \(t = 0\).</li>
+    </ol>
+    <p class="why"><b>Context.</b> This is inverse variation: double the speed, halve the time. Only the first quadrant branch makes sense here.</p>
+    <p class="trap"><b>Watch out.</b> “Explain what this shows” is a Communication mark. Use the numbers you found in a full sentence.</p>
+  </div>
+</article>
+
+<article data-id="f13" data-unit="ratfuncs" data-level="challenge">
+  <div class="q"><p><b>Find the mistake.</b> A student says the asymptotes of \(y = \dfrac{3}{2x + 8} - 5\) are \(x = -8\) and \(y = -5\). Find the error and correct it.</p></div>
+  <div class="hint">What value of \(x\) actually makes \(2x + 8 = 0\)?</div>
+  <div class="ans">The vertical asymptote is \(x = -4\), not \(-8\). The horizontal asymptote \(y = -5\) is correct.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>The student read the 8 straight off the denominator.</li>
+      <li>Solve \(2x + 8 = 0\): \(x = -4\). Or factor: \(2x + 8 = 2(x + 4)\), so \(d = -4\).</li>
+      <li>\(c = -5\), so \(y = -5\) is right.</li>
+      <li>Check: at \(x = -4\) the denominator is \(2(-4) + 8 = 0\). ✓ At \(x = -8\) it's \(-8\), which is fine.</li>
+    </ol>
+    <p class="why"><b>One rule covers it.</b> The vertical asymptote is where the denominator equals zero. Solve it every time instead of reading it off.</p>
+    <p class="trap"><b>Watch out.</b> This is the same trap as \(\sqrt{-x + 4}\) in the radicals unit: factor out \(k\) before you read \(d\).</p>
+  </div>
+</article>
+
+<article data-id="f14" data-unit="ratfuncs" data-level="challenge">
+  <div class="q"><p>Write the equation of a function \(y = \dfrac{a}{x - d} + c\) with asymptotes \(x = 2\) and \(y = -3\) that passes through the origin. Which regions do its branches lie in?</p></div>
+  <div class="hint">Substitute \((0, 0)\) to find \(a\). The sign of \(a\) tells you about the branches.</div>
+  <div class="ans">\(y = -\dfrac{6}{x - 2} - 3\). \(a \lt 0\), so the branches are top-left and bottom-right of the asymptotes.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(y = \dfrac{a}{x - 2} - 3\).</li>
+      <li>Substitute \((0, 0)\): \(0 = \dfrac{a}{-2} - 3 \Rightarrow \dfrac{a}{-2} = 3 \Rightarrow a = -6\).</li>
+      <li>\(a \lt 0\): reflected, so branches are top-left and bottom-right.</li>
+      <li>Check: the origin is left of \(x = 2\) and above \(y = -3\): top-left. ✓ And \(x = 3\) gives \(-6 - 3 = -9\): bottom-right. ✓</li>
+    </ol>
+    <p class="why"><b>Reasoning, not memorising.</b> The point told you \(a\), and the sign of \(a\) told you the shape. That's the Thinking-category skill.</p>
+    <p class="trap"><b>Watch out.</b> Dividing by \(-2\) is where sign errors happen. Multiply both sides by \(-2\) carefully: \(a = 3 \times (-2) = -6\).</p>
+  </div>
+</article>
+
 <!-- ============ MIXED ONLY ============ -->
 <article data-id="m1" data-unit="mixed" data-level="think">
   <div class="q"><p>Find the exact \(x\)-intercepts and the equation of the axis of symmetry of \(y = x^2 - 2x - 1\).</p></div>
@@ -871,8 +1094,11 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
     quadratics:{name:'Quadratic Functions', blurb:'Completing the square, factoring, the formula, the discriminant, line–parabola systems and max/min problems.'},
     radicals:{name:'Radicals & Radical Functions', blurb:'Simplifying and multiplying radicals, transformations of y = √x, domain and range, inverses.'},
     rationals:{name:'Rational Expressions', blurb:'Simplifying, multiplying, dividing, adding and subtracting, and getting every restriction right.'},
+    ratfuncs:{name:'Rational Functions', blurb:'The reciprocal function y = 1/x and its transformations: asymptotes, domain and range, holes, inverses and applications.'},
     mixed:{name:'Mixed Review', blurb:'Every card from every unit, shuffled, plus questions that join units together. Use this before a test.'}
   };
+  const UNIT_NO = {rationals:1, quadratics:2, radicals:3, ratfuncs:4};
+  const CURRENT = 'ratfuncs';
   const LEVEL_NAME = {core:'Core', think:'Thinking', challenge:'Challenge'};
   const ORDER = {core:0, think:1, challenge:2};
 
@@ -905,7 +1131,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   function renderHome(){
     const grid = $('#unitGrid');
     grid.innerHTML = '';
-    ['quadratics','radicals','rationals','mixed'].forEach(u => {
+    ['ratfuncs','rationals','quadratics','radicals','mixed'].forEach(u => {
       const list = cardsFor(u);
       const got = list.filter(c => marks[c.id] === 'got').length;
       const counts = {core:0, think:0, challenge:0};
@@ -913,7 +1139,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
       const el = document.createElement('div');
       el.className = 'unit' + (u === 'mixed' ? ' mixed' : '');
       el.innerHTML =
-        '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : 'Unit') + ' · ' + list.length + ' cards</p>' +
+        '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : 'Unit ' + UNIT_NO[u]) + (u === CURRENT ? ' · current unit' : '') + ' · ' + list.length + ' cards</p>' +
         '<h2>' + UNITS[u].name + '</h2>' +
         '<p>' + UNITS[u].blurb + '</p>' +
         '<div class="tally">' +

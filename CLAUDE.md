@@ -21,8 +21,10 @@ Build on the teacher's schedule (`docs/course-plan.md`): have each unit's materi
 
 ## Where the course is
 
-- **Tests already written:** Quadratic Functions, Radicals & Radical Functions.
-- **Also covered:** rational expressions: simplifying, multiplying, dividing, adding and subtracting, with restrictions.
+- **Unit 1:** Rational Expressions & Factoring (done).
+- **Unit 2:** Quadratic Functions (test written).
+- **Unit 3:** Radicals: radical expressions, transformations and graphing (test written).
+- **Unit 4:** Rational Functions: **current unit, test Mon Nov 9.** He says he hasn't learned much of it yet and needs the most help here. The `ratfuncs` deck was written from the Ontario curriculum before seeing the teacher's lessons; he will send a screenshot of the Unit 4 lesson list, so realign the deck (add, cut or relabel cards) when it arrives.
 - **Teacher's schedule:** `docs/course-plan.md` (Unit 4 test Nov 9, then Unit 5 Exponential, Unit 6 Trig Ratios, Unit 7 Trig Functions). Units 1–4 topics and the plan after Jan 11 are still to come.
 
 ## What he asked for (the flashcard app)
@@ -46,7 +48,9 @@ A flashcard-style app: question on the front, full worked solution with explanat
 
 ## Planned (agreed, not built yet)
 
-- Diagnostic covering the whole course (agreed to wait for the teacher's plan; plan received).
+- Diagnostic: Units 1–3 plus the earlier-grade skills Units 5–7 depend on (exponent laws, SOH CAH TOA), then a short readiness check at the start of each later unit. Testing untaught units would only show they haven't been taught.
+- Unit 4 practice test in the teacher's format, ready by about Nov 5 (test Nov 9).
+- Unit 5 (Exponential) deck ready by Nov 10, practice test by Nov 20.
 
 ## Ideas discussed but not built yet
 - "Daily 5": 3 questions on the current unit, 2 from earlier units, with missed ones coming back sooner.

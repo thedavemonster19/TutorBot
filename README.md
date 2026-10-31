@@ -15,12 +15,15 @@ Study tools for Grade 11 Functions (Ontario, MCR3U).
 
 ### Units
 
-| Unit | Cards |
-|---|---|
-| Quadratic Functions | 13 |
-| Radicals & Radical Functions | 12 |
-| Rational Expressions | 14 |
-| Mixed-only (questions that join units) | 3 |
+| Unit | `data-unit` | Cards |
+|---|---|---|
+| 1. Rational Expressions & Factoring | `rationals` | 14 |
+| 2. Quadratic Functions | `quadratics` | 13 |
+| 3. Radicals & Radical Functions | `radicals` | 12 |
+| 4. Rational Functions (current) | `ratfuncs` | 14 |
+| Mixed-only (questions that join units) | `mixed` | 3 |
+
+The current unit is set by `CURRENT` in the script and is shown first on the home page.
 
 ### Adding cards
 
@@ -39,7 +42,7 @@ Cards live in the hidden `<div id="cards">` block as `<article>` elements:
 </article>
 ```
 
-- `data-unit`: `quadratics`, `radicals`, `rationals` or `mixed`. A new unit also needs an entry in the `UNITS` object and in the list in `renderHome()`.
+- `data-unit`: one of the keys above. A new unit also needs entries in `UNITS` and `UNIT_NO`, and a place in the list in `renderHome()`.
 - `data-level`: `core`, `think` or `challenge`.
 - `data-id` must be unique and should never change, because saved progress is keyed on it.
 - Math is rendered with MathJax 3 (inline `\( \)`, display `\[ \]`).
