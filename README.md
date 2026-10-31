@@ -27,14 +27,14 @@ The current unit is set by `CURRENT` in the script and is shown first on the hom
 
 ### Study mode (endless practice)
 
-Units with question generators open in **study mode** instead of a fixed deck. Unit 4 is the first.
+Every unit, and Mixed Review, opens in **study mode** instead of a fixed deck. There are 41 skill generators: 10 in Unit 1, 9 in Unit 2, 10 in Unit 3 and 12 in Unit 4. Mixed Review draws from all of them, the way a test mixes topics.
 
 - There are no "card 3 of 14" counters. Each question is freshly generated with random numbers, and the unit's hand-written cards are mixed in about 30% of the time.
 - Skills he has missed recently come up more often. A question marked "Still learning" comes back about four questions later.
 - **Progress** opens a panel with this session's tally, accuracy over the last 10 tries per skill, the weakest skills (each with a tip and a "Practise just this" button) and skills not tried yet. **Copy a summary to send** produces a text summary to paste to a parent or to Claude.
 - Study history is saved in `localStorage` under `mcr3u-study-v1`.
 
-Generators live in the `<script id="study-gen">` block, grouped by unit and keyed by skill. Each has a `name`, `level`, `tip` and a `gen()` that returns `q`, `hint`, `ans`, `steps`, `whyT`/`why`, `trap` and a `verify()`. `verify()` must re-check the stated answer numerically from the original function, not from the formula used to build it. Hand-written cards join a skill's pool through `data-skill="<skill>"`.
+Generators live in the `<script id="study-gen">` block, grouped by unit and keyed by skill. Each has a `name`, `level`, `tip` and a `gen()` that returns `q`, `hint`, `ans`, `steps`, `whyT`/`why`, `trap` and a `verify()`. `verify()` must re-check the stated answer numerically from the original function, not from the formula used to build it. Hand-written cards join a skill's pool through `data-skill="<skill>"`. Mixed-only cards use `data-skill="<unit>:<skill>"` so their results count toward that unit's skill.
 
 After changing any generator, run:
 

@@ -165,6 +165,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 .skills .acc .meter i{display:block;height:100%;background:var(--ok)}
 .skills .acc.low .meter i{background:var(--warn)}
 .skills .muted{color:var(--ink-soft);font-size:13px}
+.skills .row.grp{display:block;border-bottom:0;padding:14px 0 2px;font:800 15px var(--display);color:var(--ink)}
 .sumtext{width:100%;min-height:120px;font:13px/1.5 var(--mono);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px}
 @media (max-width:640px){.skills .row{grid-template-columns:minmax(0,1fr) 54px 84px}}
 
@@ -232,7 +233,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 <div id="cards" hidden>
 
 <!-- ============ QUADRATICS ============ -->
-<article data-id="q1" data-unit="quadratics" data-level="core">
+<article data-id="q1" data-skill="vertex" data-unit="quadratics" data-level="core">
   <div class="q"><p>Complete the square to write \(f(x) = 2x^2 - 12x + 7\) in vertex form. State the vertex and whether it is a maximum or a minimum.</p></div>
   <div class="hint">Factor the 2 out of the first two terms only, then add and subtract \(\left(\tfrac{b}{2}\right)^2\) inside the bracket.</div>
   <div class="ans">\(f(x) = 2(x-3)^2 - 11\). Vertex \((3, -11)\), a minimum.</div>
@@ -249,7 +250,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q2" data-unit="quadratics" data-level="core">
+<article data-id="q2" data-skill="factorsolve" data-unit="quadratics" data-level="core">
   <div class="q"><p>Solve by factoring: \(3x^2 - 5x - 2 = 0\).</p></div>
   <div class="hint">Find two numbers that multiply to \(a \times c = -6\) and add to \(-5\). Then split the middle term.</div>
   <div class="ans">\(x = -\tfrac{1}{3}\) or \(x = 2\)</div>
@@ -265,7 +266,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q3" data-unit="quadratics" data-level="core">
+<article data-id="q3" data-skill="formula" data-unit="quadratics" data-level="core">
   <div class="q"><p>Use the quadratic formula to solve \(x^2 + 4x - 1 = 0\). Give exact answers in simplest radical form.</p></div>
   <div class="hint">\(a = 1,\ b = 4,\ c = -1\). Simplify the root, then divide every term by the denominator.</div>
   <div class="ans">\(x = -2 \pm \sqrt{5}\)</div>
@@ -281,7 +282,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q4" data-unit="quadratics" data-level="core">
+<article data-id="q4" data-skill="discriminant" data-unit="quadratics" data-level="core">
   <div class="q"><p>Without solving, how many zeros does \(f(x) = 4x^2 - 12x + 9\) have? What does that tell you about its graph?</p></div>
   <div class="hint">Calculate the discriminant \(b^2 - 4ac\).</div>
   <div class="ans">Exactly one zero. The vertex sits on the \(x\)-axis.</div>
@@ -296,7 +297,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q5" data-unit="quadratics" data-level="think">
+<article data-id="q5" data-skill="kroots" data-unit="quadratics" data-level="think">
   <div class="q"><p>For what values of \(k\) does \(kx^2 + 6x + k = 0\) have <b>two distinct real roots</b>?</p></div>
   <div class="hint">Two distinct real roots means \(D \gt 0\). Then ask yourself: what happens when \(k = 0\)?</div>
   <div class="ans">\(-3 \lt k \lt 3\) and \(k \ne 0\)</div>
@@ -311,7 +312,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q6" data-unit="quadratics" data-level="think">
+<article data-id="q6" data-skill="fromzeros" data-unit="quadratics" data-level="think">
   <div class="q"><p>A parabola has zeros at \(x = -1\) and \(x = 5\) and passes through \((2, -18)\). Find its equation in standard form. What is special about the point \((2, -18)\)?</p></div>
   <div class="hint">Start from factored form \(y = a(x - r)(x - s)\) and use the point to find \(a\).</div>
   <div class="ans">\(y = 2x^2 - 8x - 10\). The point \((2, -18)\) is the vertex.</div>
@@ -327,7 +328,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q7" data-unit="quadratics" data-level="think">
+<article data-id="q7" data-skill="linepar" data-unit="quadratics" data-level="think">
   <div class="q"><p>Does the line \(y = 2x - 3\) intersect the parabola \(y = x^2 - 4x + 6\)? If so, where?</p></div>
   <div class="hint">Set the two right sides equal, move everything to one side, then look at the discriminant.</div>
   <div class="ans">Yes, at exactly one point: \((3, 3)\). The line is tangent to the parabola.</div>
@@ -343,7 +344,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q8" data-unit="quadratics" data-level="challenge">
+<article data-id="q8" data-skill="tangent" data-unit="quadratics" data-level="challenge">
   <div class="q"><p>Find every value of \(k\) for which the line \(y = kx - 1\) is tangent to the parabola \(y = x^2 + 3\). Find the points of tangency.</p></div>
   <div class="hint">Tangent means exactly one intersection, so set \(D = 0\).</div>
   <div class="ans">\(k = 4\), touching at \((2, 7)\); and \(k = -4\), touching at \((-2, 7)\).</div>
@@ -359,7 +360,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q9" data-unit="quadratics" data-level="core">
+<article data-id="q9" data-skill="optimize" data-unit="quadratics" data-level="core">
   <div class="q"><p>A ball is thrown so that its height in metres after \(t\) seconds is \(h(t) = -4.9t^2 + 19.6t + 2\).</p><p>(a) What is the maximum height, and when does it happen? (b) When does the ball hit the ground?</p></div>
   <div class="hint">(a) The vertex. (b) Solve \(h(t) = 0\) with the quadratic formula and reject any answer that does not make sense.</div>
   <div class="ans">(a) 21.6 m at \(t = 2\) s. (b) About 4.10 s.</div>
@@ -375,7 +376,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q10" data-unit="quadratics" data-level="challenge">
+<article data-id="q10" data-skill="optimize" data-unit="quadratics" data-level="challenge">
   <div class="q"><p>A theatre sells 400 tickets at \$12 each. For every \$1 increase in price, 20 fewer tickets sell. What price gives the maximum revenue, and what is that revenue?</p></div>
   <div class="hint">Let \(x\) be the number of \$1 increases. Revenue = (price)(tickets sold).</div>
   <div class="ans">\$16 per ticket, 320 tickets, revenue \$5120.</div>
@@ -391,7 +392,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q11" data-unit="quadratics" data-level="think">
+<article data-id="q11" data-skill="optimize" data-unit="quadratics" data-level="think">
   <div class="q"><p>Two numbers differ by 10. What are they if their product is as small as possible?</p></div>
   <div class="hint">Call them \(x\) and \(x + 10\). The product is a quadratic in \(x\).</div>
   <div class="ans">\(-5\) and \(5\). Minimum product \(-25\).</div>
@@ -406,7 +407,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q12" data-unit="quadratics" data-level="think">
+<article data-id="q12" data-skill="discriminant" data-unit="quadratics" data-level="think">
   <div class="q"><p>Explain why \(f(x) = a(x - h)^2 + k\) has <b>no</b> \(x\)-intercepts when \(a \lt 0\) and \(k \lt 0\). Give a graphical reason and an algebraic one.</p></div>
   <div class="hint">Which way does it open, and where is its highest point?</div>
   <div class="ans">It opens down and its highest point is \(k \lt 0\), so the whole graph is below the \(x\)-axis.</div>
@@ -421,7 +422,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="q13" data-unit="quadratics" data-level="challenge">
+<article data-id="q13" data-skill="vertex" data-unit="quadratics" data-level="challenge">
   <div class="q"><p><b>Find the mistake.</b> A student completed the square like this:</p><p>\(f(x) = -x^2 + 6x - 5\)<br>\(= -(x^2 + 6x) - 5\)<br>\(= -(x + 3)^2 + 9 - 5\)<br>\(= -(x + 3)^2 + 4\)</p><p>Find the error, fix it, and explain why the final \(k\) still happens to be right.</p></div>
   <div class="hint">Check the sign inside the bracket after factoring out \(-1\).</div>
   <div class="ans">Line 2 should be \(-(x^2 - 6x) - 5\). Correct answer: \(f(x) = -(x - 3)^2 + 4\), vertex \((3, 4)\).</div>
@@ -438,7 +439,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 </article>
 
 <!-- ============ RADICALS ============ -->
-<article data-id="r1" data-unit="radicals" data-level="core">
+<article data-id="r1" data-skill="simplify" data-unit="radicals" data-level="core">
   <div class="q"><p>Simplify \(\sqrt{72}\).</p></div>
   <div class="hint">Find the largest perfect square that divides 72.</div>
   <div class="ans">\(6\sqrt2\)</div>
@@ -452,7 +453,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r2" data-unit="radicals" data-level="core">
+<article data-id="r2" data-skill="addsub" data-unit="radicals" data-level="core">
   <div class="q"><p>Simplify \(3\sqrt{20} - \sqrt{45} + \sqrt5\).</p></div>
   <div class="hint">Simplify each radical first. You can only combine like radicals.</div>
   <div class="ans">\(4\sqrt5\)</div>
@@ -467,7 +468,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r3" data-unit="radicals" data-level="core">
+<article data-id="r3" data-skill="multiply" data-unit="radicals" data-level="core">
   <div class="q"><p>Expand and simplify \((2\sqrt3 - \sqrt2)(\sqrt3 + 4\sqrt2)\).</p></div>
   <div class="hint">FOIL, then multiply coefficients with coefficients and radicals with radicals.</div>
   <div class="ans">\(-2 + 7\sqrt6\)</div>
@@ -484,7 +485,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r4" data-unit="radicals" data-level="think">
+<article data-id="r4" data-skill="compare" data-unit="radicals" data-level="think">
   <div class="q"><p>Which is larger, \(3\sqrt5\) or \(2\sqrt{11}\)? Decide <b>without</b> a calculator.</p></div>
   <div class="hint">Move each coefficient inside its root.</div>
   <div class="ans">\(3\sqrt5\) is larger.</div>
@@ -499,7 +500,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r5" data-unit="radicals" data-level="core">
+<article data-id="r5" data-skill="transform" data-unit="radicals" data-level="core">
   <div class="q"><p>Describe the transformations that map \(y = \sqrt x\) onto \(y = -2\sqrt{x + 3} + 1\). Sketch using key points, and state the domain and range.</p></div>
   <div class="hint">Compare with \(y = a\sqrt{k(x - d)} + c\). Map the points \((0,0), (1,1), (4,2)\).</div>
   <div class="ans">Vertical stretch by 2, reflection in the \(x\)-axis, left 3, up 1. Domain \(x \ge -3\), range \(y \le 1\).</div>
@@ -516,7 +517,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r6" data-unit="radicals" data-level="think">
+<article data-id="r6" data-skill="inside" data-unit="radicals" data-level="think">
   <div class="q"><p>Describe the transformations of \(y = \sqrt x\) that give \(y = \sqrt{-x + 4}\). State the domain and range.</p></div>
   <div class="hint">Factor \(-1\) out of the inside first.</div>
   <div class="ans">\(y = \sqrt{-(x - 4)}\): reflection in the \(y\)-axis, then shift right 4. Domain \(x \le 4\), range \(y \ge 0\).</div>
@@ -532,7 +533,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r7" data-unit="radicals" data-level="think">
+<article data-id="r7" data-skill="transform" data-unit="radicals" data-level="think">
   <div class="q"><p>Show that \(y = \sqrt{4x}\) and \(y = 2\sqrt x\) have the same graph. What does that tell you about horizontal compressions of root functions?</p></div>
   <div class="hint">Use \(\sqrt{ab} = \sqrt a\sqrt b\).</div>
   <div class="ans">\(\sqrt{4x} = \sqrt4\,\sqrt x = 2\sqrt x\) for \(x \ge 0\). A horizontal compression by \(\tfrac14\) gives the same graph as a vertical stretch by 2.</div>
@@ -547,7 +548,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r8" data-unit="radicals" data-level="core">
+<article data-id="r8" data-skill="inverse" data-unit="radicals" data-level="core">
   <div class="q"><p>Find the inverse of \(f(x) = (x - 2)^2 + 1\), \(x \ge 2\). State the domain and range of \(f^{-1}\).</p></div>
   <div class="hint">Swap \(x\) and \(y\), solve for \(y\). Which sign of the square root keeps the range correct?</div>
   <div class="ans">\(f^{-1}(x) = 2 + \sqrt{x - 1}\). Domain \(x \ge 1\), range \(y \ge 2\).</div>
@@ -563,7 +564,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r9" data-unit="radicals" data-level="think">
+<article data-id="r9" data-skill="inverse" data-unit="radicals" data-level="think">
   <div class="q"><p>Why must the domain of \(f(x) = x^2\) be restricted before its inverse is a function? Give a restriction that works and the inverse it produces.</p></div>
   <div class="hint">Think about the horizontal line test, and try \(f(2)\) and \(f(-2)\).</div>
   <div class="ans">\(f\) fails the horizontal line test (\(f(2) = f(-2) = 4\)). Restrict to \(x \ge 0\), and then \(f^{-1}(x) = \sqrt x\).</div>
@@ -579,7 +580,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r10" data-unit="radicals" data-level="challenge">
+<article data-id="r10" data-skill="solve" data-unit="radicals" data-level="challenge">
   <div class="q"><p>Solve \(\sqrt{x + 7} = x - 5\). Check your answers.</p></div>
   <div class="hint">Square both sides, solve the quadratic, then put each answer back into the <i>original</i> equation.</div>
   <div class="ans">\(x = 9\). (\(x = 2\) is extraneous.)</div>
@@ -595,7 +596,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r11" data-unit="radicals" data-level="challenge">
+<article data-id="r11" data-skill="equation" data-unit="radicals" data-level="challenge">
   <div class="q"><p>A radical function \(y = a\sqrt{x - h} + k\) starts at \((2, -3)\) and passes through \((6, 1)\). Find its equation.</p></div>
   <div class="hint">The starting point gives \(h\) and \(k\). Use the other point to find \(a\).</div>
   <div class="ans">\(y = 2\sqrt{x - 2} - 3\)</div>
@@ -610,7 +611,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="r12" data-unit="radicals" data-level="challenge">
+<article data-id="r12" data-skill="rationalize" data-unit="radicals" data-level="challenge">
   <div class="q"><p>Simplify by rationalizing the denominator: (a) \(\dfrac{6}{\sqrt3}\) &nbsp; (b) \(\dfrac{\sqrt5 + 1}{\sqrt5 - 1}\)</p><p class="askq">Part (b) goes a step past the usual test questions.</p></div>
   <div class="hint">(a) Multiply top and bottom by \(\sqrt3\). (b) Multiply by the conjugate \(\sqrt5 + 1\).</div>
   <div class="ans">(a) \(2\sqrt3\) &nbsp; (b) \(\dfrac{3 + \sqrt5}{2}\)</div>
@@ -627,7 +628,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 </article>
 
 <!-- ============ RATIONAL EXPRESSIONS ============ -->
-<article data-id="x1" data-unit="rationals" data-level="core">
+<article data-id="x1" data-skill="simplify" data-unit="rationals" data-level="core">
   <div class="q"><p>Simplify \(\dfrac{x^2 - 9}{x^2 + 5x + 6}\) and state the restrictions.</p></div>
   <div class="hint">Factor top and bottom. Find restrictions from the denominator <i>before</i> you cancel.</div>
   <div class="ans">\(\dfrac{x - 3}{x + 2}\), \(x \ne -2, -3\)</div>
@@ -643,7 +644,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x2" data-unit="rationals" data-level="core">
+<article data-id="x2" data-skill="monomial" data-unit="rationals" data-level="core">
   <div class="q"><p>Simplify \(\dfrac{6x^2 y}{9xy^3}\) and state the restrictions.</p></div>
   <div class="hint">Simplify the numbers, then subtract exponents for each variable.</div>
   <div class="ans">\(\dfrac{2x}{3y^2}\), \(x \ne 0,\ y \ne 0\)</div>
@@ -657,7 +658,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x3" data-unit="rationals" data-level="core">
+<article data-id="x3" data-skill="multiply" data-unit="rationals" data-level="core">
   <div class="q"><p>Simplify \(\dfrac{x^2 - 4}{x^2 + x - 6} \times \dfrac{x + 3}{x + 2}\) and state the restrictions.</p></div>
   <div class="hint">Factor everything first, then cancel factors across the multiplication.</div>
   <div class="ans">\(1\), with \(x \ne -3, -2, 2\)</div>
@@ -673,7 +674,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x4" data-unit="rationals" data-level="think">
+<article data-id="x4" data-skill="divide" data-unit="rationals" data-level="think">
   <div class="q"><p>Simplify \(\dfrac{x^2 - 25}{x^2 - 4x} \div \dfrac{x + 5}{x^2}\) and state <b>all</b> restrictions.</p></div>
   <div class="hint">Multiply by the reciprocal. The second fraction's numerator becomes a denominator, so it adds a restriction.</div>
   <div class="ans">\(\dfrac{x(x - 5)}{x - 4}\), \(x \ne -5, 0, 4\)</div>
@@ -689,7 +690,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x5" data-unit="rationals" data-level="core">
+<article data-id="x5" data-skill="addsub" data-unit="rationals" data-level="core">
   <div class="q"><p>Simplify \(\dfrac{3}{x} + \dfrac{2}{x + 1}\) and state the restrictions.</p></div>
   <div class="hint">The lowest common denominator is \(x(x + 1)\).</div>
   <div class="ans">\(\dfrac{5x + 3}{x(x + 1)}\), \(x \ne 0, -1\)</div>
@@ -703,7 +704,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x6" data-unit="rationals" data-level="think">
+<article data-id="x6" data-skill="shared" data-unit="rationals" data-level="think">
   <div class="q"><p>Simplify \(\dfrac{x}{x^2 - 1} - \dfrac{1}{x - 1}\) and state the restrictions.</p></div>
   <div class="hint">Factor \(x^2 - 1\). Put the subtracted numerator in brackets.</div>
   <div class="ans">\(\dfrac{-1}{(x - 1)(x + 1)}\), \(x \ne \pm 1\)</div>
@@ -718,7 +719,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x7" data-unit="rationals" data-level="think">
+<article data-id="x7" data-skill="opposite" data-unit="rationals" data-level="think">
   <div class="q"><p>Simplify \(\dfrac{1}{x - 2} + \dfrac{1}{2 - x}\).</p></div>
   <div class="hint">Look closely at \(2 - x\). How is it related to \(x - 2\)?</div>
   <div class="ans">\(0\), with \(x \ne 2\)</div>
@@ -733,7 +734,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x8" data-unit="rationals" data-level="think">
+<article data-id="x8" data-skill="shared" data-unit="rationals" data-level="think">
   <div class="q"><p>Simplify \(\dfrac{2}{x^2 - x - 6} + \dfrac{3}{x^2 - 9}\) and state the restrictions.</p></div>
   <div class="hint">Factor both denominators. They share one factor. The LCD uses each different factor once.</div>
   <div class="ans">\(\dfrac{5x + 12}{(x - 3)(x + 2)(x + 3)}\), \(x \ne 3, -2, -3\)</div>
@@ -749,7 +750,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x9" data-unit="rationals" data-level="core">
+<article data-id="x9" data-skill="simplify" data-unit="rationals" data-level="core">
   <div class="q"><p>Simplify \(\dfrac{2x^2 + 7x + 3}{4x^2 - 1}\) and state the restrictions.</p></div>
   <div class="hint">Top: decompose with \(ac = 6\). Bottom: difference of squares.</div>
   <div class="ans">\(\dfrac{x + 3}{2x - 1}\), \(x \ne \pm\tfrac12\)</div>
@@ -764,7 +765,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x10" data-unit="rationals" data-level="think">
+<article data-id="x10" data-skill="opposite" data-unit="rationals" data-level="think">
   <div class="q"><p>Simplify \(\dfrac{4 - x}{x^2 - 16}\) and state the restrictions.</p></div>
   <div class="hint">\(4 - x = -(x - 4)\).</div>
   <div class="ans">\(-\dfrac{1}{x + 4}\), \(x \ne \pm 4\)</div>
@@ -779,7 +780,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x11" data-unit="rationals" data-level="challenge">
+<article data-id="x11" data-skill="build" data-unit="rationals" data-level="challenge">
   <div class="q"><p>Write a rational expression that simplifies to \(\dfrac{x + 1}{x - 4}\) and has restrictions \(x \ne 4\) <b>and</b> \(x \ne -2\). Give it in expanded form.</p></div>
   <div class="hint">Multiply top and bottom by the same factor. Which factor creates the restriction \(x \ne -2\)?</div>
   <div class="ans">\(\dfrac{x^2 + 3x + 2}{x^2 - 2x - 8}\) (other answers are possible)</div>
@@ -794,7 +795,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x12" data-unit="rationals" data-level="challenge">
+<article data-id="x12" data-skill="simplify" data-unit="rationals" data-level="challenge">
   <div class="q"><p>Is \(f(x) = \dfrac{x^2 - 4}{x - 2}\) the same function as \(g(x) = x + 2\)? Explain, and describe how their graphs differ.</p></div>
   <div class="hint">Try \(x = 2\) in both.</div>
   <div class="ans">No. They're equal for every \(x \ne 2\), but \(f(2)\) is undefined. The graph of \(f\) is the line \(y = x + 2\) with a hole at \((2, 4)\).</div>
@@ -810,7 +811,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x13" data-unit="rationals" data-level="challenge">
+<article data-id="x13" data-skill="complex" data-unit="rationals" data-level="challenge">
   <div class="q"><p>Simplify \(\dfrac{1 - \frac{1}{x}}{1 - \frac{1}{x^2}}\) and state the restrictions.</p><p class="askq">A step past the usual test questions, but it uses only what you know.</p></div>
   <div class="hint">Write the top and the bottom as single fractions first, then divide.</div>
   <div class="ans">\(\dfrac{x}{x + 1}\), \(x \ne 0, 1, -1\)</div>
@@ -825,7 +826,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="x14" data-unit="rationals" data-level="think">
+<article data-id="x14" data-skill="simplify" data-unit="rationals" data-level="think">
   <div class="q"><p><b>Find the mistake.</b> A student wrote \(\dfrac{x + 3}{x + 6} = \dfrac{3}{6} = \dfrac12\) by “cancelling the \(x\)'s.” Explain what's wrong, and prove it with a number.</p></div>
   <div class="hint">Can you cancel terms that are being added? Try \(x = 3\).</div>
   <div class="ans">You can only cancel common <b>factors</b>, never terms joined by \(+\) or \(-\). At \(x = 3\), the expression is \(\tfrac{6}{9} = \tfrac23\), not \(\tfrac12\).</div>
@@ -1064,7 +1065,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 </article>
 
 <!-- ============ MIXED ONLY ============ -->
-<article data-id="m1" data-unit="mixed" data-level="think">
+<article data-id="m1" data-skill="quadratics:formula" data-unit="mixed" data-level="think">
   <div class="q"><p>Find the exact \(x\)-intercepts and the equation of the axis of symmetry of \(y = x^2 - 2x - 1\).</p></div>
   <div class="hint">It doesn't factor. Use the quadratic formula and simplify the radical.</div>
   <div class="ans">\(x = 1 \pm \sqrt2\). Axis of symmetry \(x = 1\).</div>
@@ -1079,7 +1080,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="m2" data-unit="mixed" data-level="challenge">
+<article data-id="m2" data-skill="rationals:divide" data-unit="mixed" data-level="challenge">
   <div class="q"><p>A rectangle has area \(\dfrac{x^2 + 7x + 12}{x - 2}\) and width \(\dfrac{x + 3}{x^2 - 4}\). Find its length in simplest form and state the restrictions.</p></div>
   <div class="hint">Length = area ÷ width. Factor everything.</div>
   <div class="ans">\((x + 4)(x + 2) = x^2 + 6x + 8\), with \(x \ne 2, -2, -3\)</div>
@@ -1095,7 +1096,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="m3" data-unit="mixed" data-level="core">
+<article data-id="m3" data-skill="quadratics:vertex" data-unit="mixed" data-level="core">
   <div class="q"><p>Find the exact zeros of \(f(x) = 2(x - 3)^2 - 10\).</p></div>
   <div class="hint">In vertex form, isolate the square and take the square root of both sides.</div>
   <div class="ans">\(x = 3 \pm \sqrt5\)</div>
@@ -1451,7 +1452,622 @@ window.STUDY_GEN = (function(){
       } }
   };
 
-  const REG = { ratfuncs: ratfuncs };
+  /* ---- polynomial helpers (coefficient arrays, lowest power first) ---- */
+  const sumT = arr => { let s = ''; arr.forEach(([c, mon]) => { if (!c) return; const ac = Math.abs(c); const body = (ac === 1 && mon) ? mon : ac + mon; s += s ? (c < 0 ? ' - ' : ' + ') + body : (c < 0 ? '-' : '') + body; }); return s || '0'; };
+  const fmtP = (P, v) => { v = v || 'x'; const arr = []; for (let i = P.length - 1; i >= 0; i--) arr.push([P[i], i === 0 ? '' : i === 1 ? v : v + '^' + i]); return sumT(arr); };
+  const pmul = (A, B) => { const out = new Array(A.length + B.length - 1).fill(0); A.forEach((a, i) => B.forEach((b, j) => { out[i + j] += a * b; })); return out; };
+  const pev = (P, x) => P.reduce((s, c, i) => s + c * Math.pow(x, i), 0);
+  const lf = r => [-r, 1];                                                    /* x - r */
+  const restr = rs => 'x \\ne ' + [...new Set(rs)].sort((a, b) => a - b).join(',\\ ');
+  const XS = [-7.3, -2.1, 0.37, 1.9, 4.6, 8.2];
+  const same = (f, g) => XS.every(x => near(f(x), g(x)));
+  const distinct = (n, lo, hi, zeroOk) => { const out = []; while (out.length < n) { const v = R(lo, hi); if ((zeroOk || v !== 0) && !out.includes(v)) out.push(v); } return out; };
+  const facK = (k, r) => r === 0 ? coef(k) + 'x' : coef(k) + '(' + xm(r) + ')';    /* k(x - r) */
+  const dfr = (n, d) => '\\dfrac{' + n + '}{' + d + '}';
+  const pw = (v, e) => e === 1 ? v : v + '^{' + e + '}';
+  function decompSteps(p, q, r, s){
+    /* (px + q)(rx + s) by splitting the middle term */
+    const a = p * r, b = p * s + q * r, c = q * s, inner = fmtP([s, r]);
+    if (a === 1) return ['Find two numbers that multiply to ' + T(String(c)) + ' and add to ' + T(String(b)) + ': ' + T(q + '') + ' and ' + T(s + '') + '.', 'So it factors as ' + T('(' + fmtP([q, 1]) + ')(' + fmtP([s, 1]) + ')') + '.'];
+    return [
+      T('ac = ' + a + ' \\times ' + par(c) + ' = ' + a * c) + '. Two numbers with product ' + a * c + ' and sum ' + b + ': ' + T(String(p * s)) + ' and ' + T(String(q * r)) + '.',
+      'Split the middle term: ' + T(sumT([[a, 'x^2'], [p * s, 'x'], [q * r, 'x'], [c, '']])) + '.',
+      'Group: ' + T(fmtP([0, p]) + '(' + inner + ')' + (q < 0 ? ' - ' : ' + ') + (Math.abs(q) === 1 ? '' : Math.abs(q)) + '(' + inner + ')') + ' = ' + T('(' + fmtP([q, p]) + ')(' + inner + ')') + '.'
+    ];
+  }
+  const SQF = [2, 3, 5, 6, 7, 10, 11];
+  const rad = (c, t) => (c === 1 ? '' : c === -1 ? '-' : c) + '\\sqrt{' + t + '}';
+  const sumR = arr => { let s = ''; arr.forEach(([c, n]) => { if (!c) return; const ac = Math.abs(c); const body = n === 1 ? String(ac) : (ac === 1 ? '' : ac) + '\\sqrt{' + n + '}'; s += s ? (c < 0 ? ' - ' : ' + ') + body : (c < 0 ? '-' : '') + body; }); return s || '0'; };
+
+  /* ================= Unit 1: Rational expressions & factoring ================= */
+  const rationals = {
+    monomial: { name: 'Simplifying monomials', level: 'core',
+      tip: 'Simplify the numbers, subtract exponents for each variable, and take restrictions from the original denominator.',
+      gen(){
+        const g = pick([2, 3, 4, 5]); let a1, b1; do { a1 = R(1, 6); b1 = R(2, 6); } while (gcd(a1, b1) !== 1);
+        const sg = pick([1, 1, -1]), A = sg * g * a1, B = g * b1;
+        const m = R(1, 5), p = R(1, 5), n = R(1, 4), q = R(1, 4);
+        const mono = (c, ex, ey) => { const body = (ex ? pw('x', ex) : '') + (ey ? pw('y', ey) : ''); return body ? coef(c) + body : String(c); };
+        const top = mono(sg * a1, Math.max(m - p, 0), Math.max(n - q, 0)), bot = mono(b1, Math.max(p - m, 0), Math.max(q - n, 0));
+        const res = top.charAt(0) === '-' ? '-' + dfr(top.slice(1), bot) : dfr(top, bot);
+        const ex = (v, a, b) => T(dfr(pw(v, a), pw(v, b)) + ' = ' + (a > b ? pw(v, a - b) : a < b ? dfr(1, pw(v, b - a)) : '1')) + (a > b ? ' (stays on top)' : a < b ? ' (goes to the bottom)' : ' (cancels)');
+        return {
+          q: '<p>Simplify ' + T(dfr(mono(A, m, n), mono(B, p, q))) + ' and state the restrictions.</p>',
+          hint: 'Simplify the numbers first, then subtract exponents for each variable.',
+          ans: T(res) + ', ' + T('x \\ne 0,\\ y \\ne 0'),
+          steps: ['Numbers: ' + T('\\tfrac{' + A + '}{' + B + '} = ' + fr(A, B)) + '.', 'Powers of ' + T('x') + ': ' + ex('x', m, p) + '.', 'Powers of ' + T('y') + ': ' + ex('y', n, q) + '.',
+            'Result: ' + T(res) + '. The original denominator ' + T(mono(B, p, q)) + ' is zero when ' + T('x = 0') + ' or ' + T('y = 0') + '.'],
+          whyT: 'Exponent law.', why: T('\\dfrac{x^a}{x^b} = x^{a - b}') + '. Subtract, don’t divide.',
+          trap: m >= p ? T('x \\ne 0') + ' stays, even though no ' + T('x') + ' is left in the simplified denominator.' : 'Subtract exponents: ' + T(dfr(pw('x', m), pw('x', p))) + ' is not ' + T('x^{' + fr(m, p) + '}') + '.',
+          verify: () => [[1.3, 0.7], [-0.6, 2.2]].every(([x, y]) => near(A * x ** m * y ** n / (B * x ** p * y ** q), (sg * a1 / b1) * x ** (m - p) * y ** (n - q)))
+        };
+      } },
+
+    factor: { name: 'Factoring', level: 'core',
+      tip: 'Common factor first. Then check for a difference of squares, or find two numbers that multiply to ac and add to b.',
+      gen(){
+        const v = pick(['simple', 'simple', 'decomp', 'decomp', 'squares', 'common']);
+        if (v === 'squares') {
+          let p, q; do { p = pick([1, 2, 3, 4, 5]); q = R(1, 9); } while (gcd(p, q) !== 1);
+          const P = [-q * q, 0, p * p], ans = '(' + fmtP([-q, p]) + ')(' + fmtP([q, p]) + ')';
+          return { q: '<p>Factor fully: ' + T(fmtP(P)) + '.</p>', hint: 'Both terms are perfect squares, and they are subtracted.', ans: T(ans),
+            steps: ['Both terms are perfect squares: ' + T(fmtP([0, 0, p * p]) + ' = (' + fmtP([0, p]) + ')^2') + ' and ' + T(q * q + ' = ' + q + '^2') + '.', 'Difference of squares: ' + T('a^2 - b^2 = (a - b)(a + b)') + ', so ' + T(fmtP(P) + ' = ' + ans) + '.'],
+            whyT: 'Check it.', why: 'Expanding gives ' + T(fmtP(P)) + ': the middle terms cancel.', trap: 'A sum of squares like ' + T(fmtP([q * q, 0, p * p])) + ' does not factor this way.',
+            verify: () => same(x => pev(P, x), x => (p * x - q) * (p * x + q)) };
+        }
+        if (v === 'common') {
+          const k = pick([2, 3, 4, 5, -1, -2, -3]), q = nz(-6, 6), s = nz(-6, 6), P = pmul([q, 1], [s, 1]).map(c => c * k);
+          const ans = coef(k) + '(' + fmtP([q, 1]) + ')(' + fmtP([s, 1]) + ')';
+          return { q: '<p>Factor fully: ' + T(fmtP(P)) + '.</p>', hint: 'Take out the common factor first.', ans: T(ans),
+            steps: ['Common factor ' + T(String(k)) + ': ' + T(fmtP(P) + ' = ' + coef(k) + '(' + fmtP(pmul([q, 1], [s, 1])) + ')') + '.'].concat(decompSteps(1, q, 1, s)).concat(['Fully factored: ' + T(ans) + '.']),
+            whyT: 'Order.', why: 'Taking out the common factor first leaves a simpler trinomial.', trap: 'Don’t lose the common factor ' + k + ' in the final answer.',
+            verify: () => same(x => pev(P, x), x => k * (x + q) * (x + s)) };
+        }
+        let p = 1, r = 1, q, s;
+        if (v === 'decomp') { do { p = pick([1, 2, 3, 5]); r = pick([2, 3, 5]); q = nz(-7, 7); s = nz(-7, 7); } while (gcd(p, q) !== 1 || gcd(r, s) !== 1); }
+        else { q = nz(-9, 9); s = nz(-9, 9); }
+        const P = pmul([q, p], [s, r]), ans = '(' + fmtP([q, p]) + ')(' + fmtP([s, r]) + ')';
+        return { q: '<p>Factor: ' + T(fmtP(P)) + '.</p>', hint: p * r === 1 ? 'Find two numbers that multiply to the constant and add to the middle coefficient.' : 'Find two numbers that multiply to ' + T('ac') + ' and add to ' + T('b') + ', then split the middle term.', ans: T(ans),
+          steps: decompSteps(p, q, r, s),
+          whyT: 'Check it.', why: 'Expand your answer: ' + T(ans + ' = ' + fmtP(P)) + '.', trap: 'Sign errors in the two numbers are the usual problem. Their product must be ' + (p * r * q * s) + ' and their sum ' + (p * s + q * r) + '.',
+          verify: () => same(x => pev(P, x), x => (p * x + q) * (r * x + s)) };
+      } },
+
+    simplify: { name: 'Simplifying', level: 'core',
+      tip: 'Factor top and bottom completely, state restrictions from the original denominator, then cancel common factors.',
+      gen(){
+        const [p, q, r] = distinct(3, -6, 6, true), N = pmul(lf(p), lf(q)), D = pmul(lf(p), lf(r));
+        return {
+          q: '<p>Simplify ' + T(dfr(fmtP(N), fmtP(D))) + ' and state the restrictions.</p>',
+          hint: 'Factor top and bottom. Find the restrictions <i>before</i> you cancel.',
+          ans: T(dfr(xm(q), xm(r))) + ', ' + T(restr([p, r])),
+          steps: ['Top: ' + T(fmtP(N) + ' = ' + fac(p) + fac(q)) + '.', 'Bottom: ' + T(fmtP(D) + ' = ' + fac(p) + fac(r)) + '.', 'Restrictions from the original denominator: ' + T(restr([p, r])) + '.', 'Cancel ' + T(fac(p)) + ': ' + T(dfr(xm(q), xm(r))) + '.'],
+          whyT: 'Why keep ' + T('x \\ne ' + p) + '?', why: 'The original is undefined at ' + T('x = ' + p) + '. Simplifying doesn’t change that; the graph has a hole there.',
+          trap: 'If you find restrictions after cancelling, you’ll miss ' + T('x \\ne ' + p) + '.',
+          verify: () => same(x => pev(N, x) / pev(D, x), x => (x - q) / (x - r)) && pev(D, p) === 0 && pev(D, r) === 0
+        };
+      } },
+
+    multiply: { name: 'Multiplying', level: 'core',
+      tip: 'Factor everything, list restrictions from every denominator, then cancel across the multiplication.',
+      gen(){
+        const [p, q, r, s] = distinct(4, -6, 6, true), k = pick([1, 1, 2, 3, -1]);
+        const AN = pmul(lf(p), lf(q)), AD = pmul(lf(r), lf(s)), BN = [-k * r, k];
+        const res = k === -1 ? '-' + dfr(xm(q), xm(s)) : dfr(k === 1 ? xm(q) : facK(k, q), xm(s));
+        return {
+          q: '<p>Simplify ' + T(dfr(fmtP(AN), fmtP(AD)) + ' \\times ' + dfr(fmtP(BN), xm(p))) + ' and state the restrictions.</p>',
+          hint: 'Factor everything first, then cancel factors across the multiplication.',
+          ans: T(res) + ', ' + T(restr([r, s, p])),
+          steps: ['Factor: ' + T(dfr(fac(p) + fac(q), fac(r) + fac(s)) + ' \\times ' + dfr(facK(k, r), xm(p))) + '.', 'Restrictions from both denominators: ' + T(restr([r, s, p])) + '.', 'Cancel ' + T(fac(p)) + ' and ' + T(fac(r)) + ': ' + T(res) + '.'],
+          whyT: 'Why it works.', why: 'Multiplying fractions multiplies tops and bottoms, so any factor on a top can cancel with the same factor on any bottom.',
+          trap: 'Restrictions come from every denominator in the original question, including ones that cancel.',
+          verify: () => same(x => pev(AN, x) / pev(AD, x) * pev(BN, x) / (x - p), x => k * (x - q) / (x - s))
+        };
+      } },
+
+    addsub: { name: 'Adding and subtracting', level: 'core',
+      tip: 'Use the lowest common denominator, put every subtracted numerator in brackets, then expand and collect.',
+      gen(){
+        const [p, q] = distinct(2, -6, 6, true), a = nz(-5, 5), b = R(1, 5), op = pick([1, -1]);
+        const N = [-(a * q + op * b * p), a + op * b], LCD = fac(p) + fac(q);
+        return {
+          q: '<p>Simplify ' + T(fx(a, p) + (op > 0 ? ' + ' : ' - ') + dfr(b, xm(q))) + ' and state the restrictions.</p>',
+          hint: 'The lowest common denominator is ' + T(LCD) + '.',
+          ans: T(dfr(fmtP(N), LCD)) + ', ' + T(restr([p, q])),
+          steps: ['LCD ' + T('= ' + LCD) + '.', 'Rewrite: ' + T(dfr(facK(a, q), LCD) + (op > 0 ? ' + ' : ' - ') + dfr(facK(b, p), LCD)) + '.',
+            'Combine: ' + T(dfr(sumT([[a, 'x'], [-a * q, '']]) + (op > 0 ? ' + ' : ' - ') + '(' + sumT([[b, 'x'], [-b * p, '']]) + ')', LCD) + ' = ' + dfr(fmtP(N), LCD)) + '.'],
+          whyT: 'Check with a number.', why: 'Substitute any allowed value, like ' + T('x = ' + (Math.max(p, q) + 1)) + ', into the question and your answer. They should match.',
+          trap: op < 0 ? 'The minus applies to the whole second numerator. Put it in brackets before expanding.' : 'Never add denominators: ' + T(dfr('a', 'b') + ' + ' + dfr('c', 'd') + ' \\ne ' + dfr('a + c', 'b + d')) + '.',
+          verify: () => same(x => a / (x - p) + op * b / (x - q), x => pev(N, x) / ((x - p) * (x - q)))
+        };
+      } },
+
+    divide: { name: 'Dividing', level: 'think',
+      tip: 'Multiply by the reciprocal. The divisor’s numerator becomes a denominator, so it adds a restriction.',
+      gen(){
+        const [p, q, r, s] = distinct(4, -6, 6, true), AN = pmul(lf(p), lf(q)), AD = pmul(lf(r), lf(s));
+        return {
+          q: '<p>Simplify ' + T(dfr(fmtP(AN), fmtP(AD)) + ' \\div ' + dfr(xm(q), xm(r))) + ' and state <b>all</b> restrictions.</p>',
+          hint: 'Multiply by the reciprocal. Which value would make the divisor equal to zero?',
+          ans: T(dfr(xm(p), xm(s))) + ', ' + T(restr([r, s, q])),
+          steps: ['Factor: ' + T(dfr(fac(p) + fac(q), fac(r) + fac(s)) + ' \\div ' + dfr(xm(q), xm(r))) + '.',
+            'Restrictions: ' + T('x \\ne ' + r + ',\\ ' + s) + ' from the first denominator, ' + T('x \\ne ' + r) + ' from the second, and ' + T('x \\ne ' + q) + ' because the divisor can’t be zero.',
+            'Multiply by the reciprocal: ' + T(dfr(fac(p) + fac(q), fac(r) + fac(s)) + ' \\times ' + dfr(xm(r), xm(q))) + '.',
+            'Cancel ' + T(fac(q)) + ' and ' + T(fac(r)) + ': ' + T(dfr(xm(p), xm(s))) + '.'],
+          whyT: 'Why ' + T('x \\ne ' + q) + '?', why: 'At ' + T('x = ' + q) + ' you would be dividing by zero. It’s easy to miss because ' + T(xm(q)) + ' started on top.',
+          trap: 'The restriction from the divisor’s numerator is the most-missed mark on division questions.',
+          verify: () => same(x => pev(AN, x) / pev(AD, x) / ((x - q) / (x - r)), x => (x - p) / (x - s))
+        };
+      } },
+
+    shared: { name: 'Shared denominators', level: 'think',
+      tip: 'Factor each denominator. The LCD uses each different factor once, not the product of the two denominators.',
+      gen(){
+        let p, q, r, a, b, op, N;
+        do { [p, q, r] = distinct(3, -5, 5, true); a = nz(-4, 4); b = R(1, 4); op = pick([1, -1]); N = [-(a * r + op * b * q), a + op * b]; }
+        while ((N[0] === 0 && N[1] === 0) || [p, q, r].some(t => pev(N, t) === 0));
+        const D1 = pmul(lf(p), lf(q)), D2 = pmul(lf(p), lf(r)), LCD = fac(p) + fac(q) + fac(r);
+        return {
+          q: '<p>Simplify ' + T((a < 0 ? '-' : '') + dfr(Math.abs(a), fmtP(D1)) + (op > 0 ? ' + ' : ' - ') + dfr(b, fmtP(D2))) + ' and state the restrictions.</p>',
+          hint: 'Factor both denominators. They share one factor.',
+          ans: T(dfr(fmtP(N), LCD)) + ', ' + T(restr([p, q, r])),
+          steps: ['Factor: ' + T(fmtP(D1) + ' = ' + fac(p) + fac(q)) + ' and ' + T(fmtP(D2) + ' = ' + fac(p) + fac(r)) + '.', 'LCD ' + T('= ' + LCD) + '.',
+            'Rewrite over the LCD: ' + T(dfr(facK(a, r) + (op > 0 ? ' + ' : ' - ') + facK(b, q), LCD)) + '.',
+            'Expand the numerator: ' + T(dfr(fmtP(N), LCD)) + '. It shares no factor with the denominator, so it’s fully simplified.'],
+          whyT: 'Why the LCD?', why: 'Multiplying the two denominators gives ' + T(fac(p) + '^2') + ' and a much messier numerator. Same answer, more chances to slip.',
+          trap: op < 0 ? 'The minus applies to the whole second numerator after you multiply it out.' : 'Each fraction gets multiplied by the factor it is missing, top and bottom.',
+          verify: () => same(x => a / pev(D1, x) + op * b / pev(D2, x), x => pev(N, x) / ((x - p) * (x - q) * (x - r)))
+        };
+      } },
+
+    opposite: { name: 'Opposite factors', level: 'think',
+      tip: 'Spot a − b and b − a: they are opposites, so b − a = −(a − b).',
+      gen(){
+        const p = nz(-6, 6), a = nz(-6, 6), b = R(1, 6), op = pick([1, -1]), c = a - op * b, pmx = p + ' - x';
+        return {
+          q: '<p>Simplify ' + T(fx(a, p) + (op > 0 ? ' + ' : ' - ') + dfr(b, pmx)) + '.</p>',
+          hint: 'Look closely at ' + T(pmx) + '. How is it related to ' + T(xm(p)) + '?',
+          ans: T(c === 0 ? '0' : fx(c, p)) + ', ' + T('x \\ne ' + p),
+          steps: [T(pmx + ' = -(' + xm(p) + ')') + ', so ' + T(dfr(b, pmx) + ' = -' + dfr(b, xm(p))) + '.',
+            'The expression becomes ' + T(fx(a, p) + (op > 0 ? ' - ' : ' + ') + dfr(b, xm(p))) + '.',
+            'Same denominator, so combine the numerators: ' + T(dfr(a + (op > 0 ? ' - ' : ' + ') + b, xm(p)) + ' = ' + (c === 0 ? '0' : fx(c, p))) + ', with ' + T('x \\ne ' + p) + '.'],
+          whyT: 'Spot it fast.', why: 'Look for ' + T('a - b') + ' and ' + T('b - a') + ' in every rational question. Flipping one saves a long LCD.',
+          trap: 'Using ' + T('(' + xm(p) + ')(' + pmx + ')') + ' as the LCD still works, but it’s longer and easy to mess up.',
+          verify: () => same(x => a / (x - p) + op * b / (p - x), x => c / (x - p))
+        };
+      } },
+
+    build: { name: 'Building expressions', level: 'challenge',
+      tip: 'Work backwards: multiply top and bottom by the factor that creates the restriction you need.',
+      gen(){
+        const [p, q, r] = distinct(3, -5, 5, true), N = pmul(lf(q), lf(p)), D = pmul(lf(r), lf(p));
+        return {
+          q: '<p>Write a rational expression that simplifies to ' + T(dfr(xm(q), xm(r))) + ' and has restrictions ' + T('x \\ne ' + r) + ' <b>and</b> ' + T('x \\ne ' + p) + '. Give it in expanded form.</p>',
+          hint: 'Multiply top and bottom by the same factor. Which factor creates the restriction ' + T('x \\ne ' + p) + '?',
+          ans: T(dfr(fmtP(N), fmtP(D))) + ' (other answers are possible, e.g. with a constant multiplied top and bottom)',
+          steps: ['To get ' + T('x \\ne ' + p) + ', the denominator needs the factor ' + T(fac(p)) + '. Multiply top and bottom by it: ' + T(dfr(fac(q) + fac(p), fac(r) + fac(p))) + '.',
+            'Expand the top: ' + T(fmtP(N)) + '. Expand the bottom: ' + T(fmtP(D)) + '.',
+            'Check: factoring gives back ' + T(dfr(fac(q) + fac(p), fac(r) + fac(p))) + ', which simplifies to ' + T(dfr(xm(q), xm(r))) + ' with ' + T(restr([r, p])) + '. ✓'],
+          whyT: 'Why this is a great question.', why: 'It runs simplifying backwards. If you can build one, you understand where restrictions come from.',
+          trap: 'Multiplying only the denominator changes the value. Always multiply top and bottom.',
+          verify: () => same(x => pev(N, x) / pev(D, x), x => (x - q) / (x - r)) && pev(D, p) === 0 && pev(D, r) === 0
+        };
+      } },
+
+    complex: { name: 'Complex fractions', level: 'challenge',
+      tip: 'Write the top and the bottom as single fractions first, then multiply by the reciprocal.',
+      gen(){
+        const t = nz(-6, 6), top = '1' + (t > 0 ? ' + ' : ' - ') + dfr(Math.abs(t), 'x'), bot = '1 - ' + dfr(t * t, 'x^2');
+        return {
+          q: '<p>Simplify ' + T(dfr(top, bot)) + ' and state the restrictions.</p><p class="askq">A step past the usual test questions, but it uses only what you know.</p>',
+          hint: 'Write the top and the bottom as single fractions first, then divide.',
+          ans: T(dfr('x', xm(t))) + ', ' + T(restr([0, t, -t])),
+          steps: ['Top: ' + T(top + ' = ' + dfr(fmtP([t, 1]), 'x')) + '.', 'Bottom: ' + T(bot + ' = ' + dfr(fmtP([-t * t, 0, 1]), 'x^2') + ' = ' + dfr(fac(t) + '(' + fmtP([t, 1]) + ')', 'x^2')) + '.',
+            'Multiply by the reciprocal: ' + T(dfr(fmtP([t, 1]), 'x') + ' \\times ' + dfr('x^2', fac(t) + '(' + fmtP([t, 1]) + ')') + ' = ' + dfr('x', xm(t))) + '.',
+            'Restrictions: ' + T('x \\ne 0') + ' (inside the small fractions), and the bottom can’t be zero, so ' + T('x \\ne ' + t + ',\\ ' + (-t)) + '.'],
+          whyT: 'Habit.', why: 'List restrictions from every stage. Two of these disappear from the final form.',
+          trap: T('x \\ne ' + (-t)) + ' cancels out of the final answer. That’s exactly why you list restrictions from the start.',
+          verify: () => same(x => (1 + t / x) / (1 - t * t / (x * x)), x => x / (x - t))
+        };
+      } }
+  };
+
+  /* ================= Unit 2: Quadratic functions ================= */
+  const quadratics = {
+    vertex: { name: 'Completing the square', level: 'core',
+      tip: 'Factor a out of the x terms only, add and subtract (half of b)², and multiply what leaves the bracket by a.',
+      gen(){
+        const a = pick([1, -1, 2, -2, 3, -3]), h = nz(-5, 5), k = R(-9, 9), b = -2 * a * h, c = a * h * h + k;
+        const inner = fmtP([0, -2 * h, 1]), sq = '(' + xm(h) + ')^2', f = x => a * x * x + b * x + c;
+        return {
+          q: '<p>Complete the square to write ' + T('f(x) = ' + fmtP([c, b, a])) + ' in vertex form. State the vertex, whether it is a maximum or a minimum, and the range.</p>',
+          hint: a === 1 ? 'Add and subtract ' + T('\\left(\\tfrac{b}{2}\\right)^2') + '.' : 'Factor ' + a + ' out of the first two terms only, then add and subtract ' + T('\\left(\\tfrac{b}{2}\\right)^2') + ' inside the bracket.',
+          ans: T('f(x) = ' + coef(a) + sq + pc(k)) + '. Vertex ' + T(pt(h, k)) + ', a ' + (a > 0 ? 'minimum' : 'maximum') + '. Range ' + T('\\{y \\in \\mathbb{R} \\mid y ' + (a > 0 ? '\\ge ' : '\\le ') + k + '\\}') + '.',
+          steps: [
+            (a === 1 ? 'Group the ' + T('x') + ' terms: ' : 'Factor ' + a + ' from the ' + T('x') + ' terms: ') + T('f(x) = ' + coef(a) + '(' + inner + ')' + pc(c)) + '.',
+            'Half of ' + (-2 * h) + ' is ' + (-h) + '; squared it is ' + h * h + '. Add and subtract it inside: ' + T('f(x) = ' + coef(a) + '(' + inner + ' + ' + h * h + ' - ' + h * h + ')' + pc(c)) + '.',
+            'Move the ' + T('-' + h * h) + ' out' + (a === 1 ? '' : '. It gets multiplied by ' + a) + ': ' + T('f(x) = ' + coef(a) + '(' + inner + ' + ' + h * h + ')' + pc(-a * h * h) + pc(c)) + '.',
+            'Write the perfect square and combine: ' + T('f(x) = ' + coef(a) + sq + pc(k)) + '.',
+            T('a = ' + a + (a > 0 ? ' \\gt 0' : ' \\lt 0')) + (a > 0 ? ', so it opens up and the vertex is a minimum.' : ', so it opens down and the vertex is a maximum.')
+          ],
+          whyT: 'Check it.', why: 'The axis is ' + T('x = -\\tfrac{b}{2a} = ' + fr(-b, 2 * a)) + ', and ' + T('f(' + h + ') = ' + k) + '. Same vertex.',
+          trap: a === 1 ? 'The sign inside the bracket is the sign of half of ' + T('b') + ': ' + T(inner) + ' becomes ' + T(sq) + '.' : 'Whatever leaves the bracket is multiplied by the factor in front: ' + T('-' + h * h) + ' becomes ' + T(String(-a * h * h)) + ', not ' + T('-' + h * h) + '.',
+          verify: () => near(f(h), k) && near(f(h + 1), a + k) && near(f(h - 2), 4 * a + k)
+        };
+      } },
+
+    factorsolve: { name: 'Solving by factoring', level: 'core',
+      tip: 'Get 0 on one side, factor, then set each factor equal to zero.',
+      gen(){
+        let p, q, r, s; do { p = pick([1, 1, 2, 3]); r = pick([1, 2, 3, 5]); q = nz(-7, 7); s = nz(-7, 7); } while (gcd(p, q) !== 1 || gcd(r, s) !== 1 || q * r === s * p);
+        const P = pmul([q, p], [s, r]), roots = [[-q, p], [-s, r]].sort((u, v) => u[0] / u[1] - v[0] / v[1]);
+        const fs = '(' + fmtP([q, p]) + ')(' + fmtP([s, r]) + ')';
+        return {
+          q: '<p>Solve by factoring: ' + T(fmtP(P) + ' = 0') + '.</p>',
+          hint: p * r === 1 ? 'Find two numbers that multiply to the constant and add to the middle coefficient.' : 'Find two numbers that multiply to ' + T('ac') + ' and add to ' + T('b') + '. Then split the middle term.',
+          ans: T('x = ' + fr(roots[0][0], roots[0][1])) + ' or ' + T('x = ' + fr(roots[1][0], roots[1][1])),
+          steps: decompSteps(p, q, r, s).concat(['Set each factor to zero: ' + T(fmtP([q, p]) + ' = 0 \\Rightarrow x = ' + fr(-q, p)) + ' and ' + T(fmtP([s, r]) + ' = 0 \\Rightarrow x = ' + fr(-s, r)) + '.']),
+          whyT: 'Why it works.', why: 'If a product is zero, at least one factor must be zero. That only works when one side of the equation is 0.',
+          trap: 'Expand ' + T(fs) + ' to check it gives ' + T(fmtP(P)) + '. Sign errors in the split are the usual problem.',
+          verify: () => roots.every(([n, d]) => Math.abs(pev(P, n / d)) < 1e-9)
+        };
+      } },
+
+    formula: { name: 'Quadratic formula', level: 'core',
+      tip: 'Write down a, b and c first. Simplify the radical, then divide every term by the denominator.',
+      gen(){
+        const m = R(-5, 5), t = pick([2, 3, 5, 6, 7]), s = pick([1, 1, 2, 3]), c = m * m - s * s * t, b = 2 * m, D = b * b - 4 * c, P = [c, b, 1];
+        const root = (m === 0 ? '' : (-m) + ' ') + '\\pm ' + rad(s, t), num = (b === 0 ? '' : (-b) + ' ') + '\\pm ';
+        const r1 = -m + s * Math.sqrt(t), r2 = -m - s * Math.sqrt(t);
+        return {
+          q: '<p>Use the quadratic formula to solve ' + T(fmtP(P) + ' = 0') + '. Give exact answers in simplest radical form.</p>',
+          hint: T('a = 1,\\ b = ' + b + ',\\ c = ' + c) + '. Simplify the root, then divide every term by the denominator.',
+          ans: T('x = ' + root),
+          steps: [T('x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} = \\dfrac{' + num + '\\sqrt{' + par(b) + '^2 - 4(1)(' + c + ')}}{2}') + '.',
+            'Discriminant: ' + T(b * b + ' - ' + par(4 * c) + ' = ' + D) + ', so ' + T('x = \\dfrac{' + num + '\\sqrt{' + D + '}}{2}') + '.',
+            'Simplify the radical: ' + T('\\sqrt{' + D + '} = \\sqrt{' + 4 * s * s + '}\\sqrt{' + t + '} = ' + rad(2 * s, t)) + ', so ' + T('x = \\dfrac{' + num + rad(2 * s, t) + '}{2}') + '.',
+            'Divide every term by 2: ' + T('x = ' + root) + '.'],
+          whyT: 'Sense check.', why: 'The roots are about ' + r1.toFixed(2) + ' and ' + r2.toFixed(2) + '. Their average is ' + (-m) + ', the axis of symmetry ' + T('x = -\\tfrac{b}{2a}') + '.',
+          trap: 'Divide <i>every</i> term in the numerator by 2, not just one of them.',
+          verify: () => Math.abs(pev(P, r1)) < 1e-9 && Math.abs(pev(P, r2)) < 1e-9 && D === 4 * s * s * t
+        };
+      } },
+
+    discriminant: { name: 'The discriminant', level: 'core',
+      tip: 'D = b² − 4ac. Positive: two zeros. Zero: one (vertex on the axis). Negative: none.',
+      gen(){
+        const kind = pick(['two', 'one', 'none']); let a, b, c;
+        if (kind === 'one') { const p = pick([1, 2, 3]), q = nz(-5, 5), sg = pick([1, 1, -1]); a = sg * p * p; b = sg * 2 * p * q; c = sg * q * q; }
+        else { do { a = nz(-4, 4); b = R(-9, 9); c = R(-9, 9); } while ((b * b - 4 * a * c > 0) !== (kind === 'two') || b * b - 4 * a * c === 0); }
+        const D = b * b - 4 * a * c;
+        const ans = kind === 'two' ? 'Two zeros. The graph crosses the ' + T('x') + '-axis twice.' : kind === 'one' ? 'Exactly one zero. The vertex sits on the ' + T('x') + '-axis.' : 'No real zeros. The graph never meets the ' + T('x') + '-axis' + (a > 0 ? ': it opens up and its vertex is above the axis.' : ': it opens down and its vertex is below the axis.');
+        return {
+          q: '<p>Without solving, how many zeros does ' + T('f(x) = ' + fmtP([c, b, a])) + ' have? What does that tell you about its graph?</p>',
+          hint: 'Calculate the discriminant ' + T('b^2 - 4ac') + '.',
+          ans: ans,
+          steps: [T('D = b^2 - 4ac = ' + par(b) + '^2 - 4(' + a + ')(' + c + ') = ' + b * b + ' - ' + par(4 * a * c) + ' = ' + D) + '.',
+            T('D ' + (D > 0 ? '\\gt' : D < 0 ? '\\lt' : '=') + ' 0') + ': ' + (D > 0 ? 'two real zeros.' : D < 0 ? 'no real zeros.' : 'one real (double) zero.')],
+          whyT: 'The rule.', why: T('D \\gt 0') + ': two zeros. ' + T('D = 0') + ': one zero (vertex on the axis). ' + T('D \\lt 0') + ': no real zeros.',
+          trap: b < 0 ? T('b = ' + b) + ', and ' + T(par(b) + '^2 = +' + b * b) + '. Squaring a negative is always positive.' : 'Watch the sign of ' + T('-4ac') + ' when ' + T('a') + ' or ' + T('c') + ' is negative: here it is ' + T(String(-4 * a * c)) + '.',
+          verify: () => { const xv = -b / (2 * a), fv = a * xv * xv + b * xv + c; return kind === 'two' ? a * fv < 0 : kind === 'one' ? Math.abs(fv) < 1e-9 : a * fv > 0; }
+        };
+      } },
+
+    kroots: { name: 'Finding k for a number of roots', level: 'think',
+      tip: 'Write the discriminant in terms of k, then set it > 0, = 0 or < 0. If k multiplies x², check k = 0 separately.',
+      gen(){
+        const v = pick([1, 2, 3]);
+        if (v === 1) {
+          const n = R(1, 6), eq = 'x^2 + kx + ' + n * n;
+          return { q: '<p>For what values of ' + T('k') + ' does ' + T(eq + ' = 0') + ' have exactly one real root?</p>', hint: 'Exactly one root means the discriminant is 0.',
+            ans: T('k = ' + 2 * n) + ' or ' + T('k = ' + (-2 * n)),
+            steps: [T('D = k^2 - 4(1)(' + n * n + ') = k^2 - ' + 4 * n * n) + '.', 'One root: ' + T('k^2 - ' + 4 * n * n + ' = 0 \\Rightarrow k^2 = ' + 4 * n * n + ' \\Rightarrow k = \\pm ' + 2 * n) + '.',
+              'Check: ' + T('k = ' + 2 * n) + ' gives ' + T('(x + ' + n + ')^2') + ', and ' + T('k = ' + (-2 * n)) + ' gives ' + T('(x - ' + n + ')^2') + '. Both perfect squares. ✓'],
+            whyT: 'Picture it.', why: 'One root means the vertex touches the ' + T('x') + '-axis.', trap: T('k^2 = ' + 4 * n * n) + ' has two answers. Dropping the negative loses half the marks.',
+            verify: () => [2 * n, -2 * n].every(k => k * k - 4 * n * n === 0) };
+        }
+        if (v === 2) {
+          const b = nz(-8, 8), c = pick([1, 2, 3, 4, 5]), kc = b * b / (4 * c), eq = sumT([[1, 'kx^2'], [b, 'x'], [c, '']]), D = k => b * b - 4 * k * c;
+          return { q: '<p>For what values of ' + T('k') + ' does ' + T(eq + ' = 0') + ' have <b>two distinct real roots</b>?</p>', hint: 'Two distinct roots means ' + T('D \\gt 0') + '. Then ask: what happens when ' + T('k = 0') + '?',
+            ans: T('k \\lt ' + fr(b * b, 4 * c)) + ' and ' + T('k \\ne 0'),
+            steps: [T('D = ' + par(b) + '^2 - 4(k)(' + c + ') = ' + b * b + ' - ' + 4 * c + 'k') + '.', 'Two distinct roots: ' + T(b * b + ' - ' + 4 * c + 'k \\gt 0 \\Rightarrow k \\lt ' + fr(b * b, 4 * c)) + '.',
+              'If ' + T('k = 0') + ' the equation is ' + T(sumT([[b, 'x'], [c, '']]) + ' = 0') + ': linear, with one root. So ' + T('k = 0') + ' must be excluded.'],
+            whyT: 'Why exclude 0?', why: 'The discriminant only describes a quadratic. Before you trust it, make sure ' + T('a \\ne 0') + '.', trap: 'Forgetting ' + T('k \\ne 0') + ' is the usual lost mark here.',
+            verify: () => D(kc - 0.01) > 0 && D(kc + 0.01) < 0 };
+        }
+        const b = nz(-8, 8), eq = sumT([[1, 'x^2'], [b, 'x']]) + ' + k', D = k => b * b - 4 * k;
+        return { q: '<p>For what values of ' + T('k') + ' does ' + T(eq + ' = 0') + ' have <b>no real roots</b>?</p>', hint: 'No real roots means ' + T('D \\lt 0') + '.',
+          ans: T('k \\gt ' + fr(b * b, 4)),
+          steps: [T('D = ' + par(b) + '^2 - 4(1)(k) = ' + b * b + ' - 4k') + '.', 'No real roots: ' + T(b * b + ' - 4k \\lt 0 \\Rightarrow 4k \\gt ' + b * b + ' \\Rightarrow k \\gt ' + fr(b * b, 4)) + '.'],
+          whyT: 'Picture it.', why: 'Raising ' + T('k') + ' lifts the parabola. Past ' + T(fr(b * b, 4)) + ' its vertex is above the ' + T('x') + '-axis.', trap: 'Moving ' + T('4k') + ' across changes its sign. Check with a value: ' + T('k = ' + (Math.floor(b * b / 4) + 1)) + ' should give ' + T('D \\lt 0') + '.',
+          verify: () => D(b * b / 4 - 0.01) > 0 && D(b * b / 4 + 0.01) < 0 };
+      } },
+
+    fromzeros: { name: 'Equation from zeros and a point', level: 'think',
+      tip: 'Start from y = a(x − r)(x − s), substitute the point to find a, then expand.',
+      gen(){
+        const [r, s] = distinct(2, -6, 6, true), a = nz(-3, 3); let x0; do { x0 = R(-6, 6); } while (x0 === r || x0 === s);
+        const y0 = a * (x0 - r) * (x0 - s), m = (x0 - r) * (x0 - s), std = pmul(lf(r), lf(s)).map(c => c * a);
+        return {
+          q: '<p>A parabola has zeros at ' + T('x = ' + r) + ' and ' + T('x = ' + s) + ' and passes through ' + T(pt(x0, y0)) + '. Find its equation in standard form.</p>',
+          hint: 'Start from factored form ' + T('y = a(x - r)(x - s)') + ' and use the point to find ' + T('a') + '.',
+          ans: T('y = ' + fmtP(std)),
+          steps: ['Factored form with the zeros: ' + T('y = a' + fac(r) + fac(s)) + '.', 'Substitute ' + T(pt(x0, y0)) + ': ' + T(y0 + ' = a(' + x0 + ' - ' + par(r) + ')(' + x0 + ' - ' + par(s) + ') = ' + (m === 1 ? '' : m === -1 ? '-' : m) + 'a') + ', so ' + T('a = ' + a) + '.',
+            'Expand: ' + T('y = ' + coef(a) + '(' + fmtP(pmul(lf(r), lf(s))) + ') = ' + fmtP(std)) + '.'],
+          whyT: 'Bonus.', why: 'The axis of symmetry is halfway between the zeros: ' + T('x = ' + fr(r + s, 2)) + '.',
+          trap: 'A zero at ' + T('x = ' + r) + ' gives the factor ' + T(fac(r)) + ': the sign flips.',
+          verify: () => pev(std, x0) === y0 && pev(std, r) === 0 && pev(std, s) === 0
+        };
+      } },
+
+    linepar: { name: 'Line–parabola intersections', level: 'think',
+      tip: 'Set the two equal, move everything to one side, and use the discriminant to count intersections.',
+      gen(){
+        const m = nz(-3, 3), n = R(-5, 5), kind = pick(['two', 'two', 'tangent', 'none']); let p, q, r1, r2;
+        if (kind === 'none') { const u = R(-4, 4), w = Math.floor(u * u / 4) + R(1, 4); p = m + u; q = n + w; }
+        else { r1 = R(-4, 4); r2 = kind === 'tangent' ? r1 : R(-4, 4); while (kind === 'two' && r2 === r1) r2 = R(-4, 4); if (r1 > r2) [r1, r2] = [r2, r1]; p = m - (r1 + r2); q = n + r1 * r2; }
+        const diff = [q - n, p - m, 1], D = (p - m) * (p - m) - 4 * (q - n), line = sumT([[m, 'x'], [n, '']]), para = fmtP([q, p, 1]);
+        const P = r => pt(r, m * r + n);
+        const ans = kind === 'none' ? 'No. The discriminant is negative, so they never meet.' : kind === 'tangent' ? 'Yes, at exactly one point: ' + T(P(r1)) + '. The line is tangent to the parabola.' : 'Yes, at ' + T(P(r1)) + ' and ' + T(P(r2)) + '.';
+        const steps = ['Set them equal: ' + T(para + ' = ' + line) + '.', 'Move everything to one side: ' + T(fmtP(diff) + ' = 0') + '.', T('D = ' + par(p - m) + '^2 - 4(1)(' + (q - n) + ') = ' + D) + '.'];
+        if (kind === 'two') steps.push('Two intersections. Factor: ' + T(fac(r1) + fac(r2) + ' = 0') + ', so ' + T('x = ' + r1) + ' or ' + T('x = ' + r2) + '. Find ' + T('y') + ' from the line: ' + T(P(r1)) + ' and ' + T(P(r2)) + '.');
+        else if (kind === 'tangent') steps.push('One intersection: ' + T((r1 === 0 ? 'x^2' : '(' + xm(r1) + ')^2') + ' = 0') + ', so ' + T('x = ' + r1) + ' and ' + T('y = ' + (m * r1 + n)) + '.');
+        else steps.push(T('D \\lt 0') + ': no real solutions, so no intersection.');
+        return {
+          q: '<p>Does the line ' + T('y = ' + line) + ' intersect the parabola ' + T('y = ' + para) + '? If so, where?</p>',
+          hint: 'Set the two right sides equal, move everything to one side, then look at the discriminant.',
+          ans: ans, steps: steps,
+          whyT: 'The idea.', why: 'Solving the system gives a quadratic. Its discriminant counts the intersections: 2, 1 (tangent) or 0.',
+          trap: 'The question asks <i>where</i>: give points, not just ' + T('x') + '-values.',
+          verify: () => kind === 'none' ? D < 0 : (kind === 'tangent' ? D === 0 : D > 0) && [r1, r2].every(r => r * r + p * r + q === m * r + n)
+        };
+      } },
+
+    optimize: { name: 'Max/min word problems', level: 'challenge',
+      tip: 'Write the quantity as a quadratic, find the vertex (often halfway between the zeros), then answer what was asked.',
+      gen(){
+        const v = pick(['revenue', 'height', 'fence', 'numbers']);
+        if (v === 'revenue') {
+          let P0, N0, L, xs; do { P0 = pick([8, 10, 12, 15, 20]); N0 = pick([200, 300, 400, 500, 600]); L = pick([10, 20, 25, 50]); xs = (N0 / L - P0) / 2; } while (!Number.isInteger(N0 / L) || !Number.isInteger(xs) || xs <= 0);
+          const price = P0 + xs, tix = N0 - L * xs, rev = price * tix, Rf = x => (P0 + x) * (N0 - L * x);
+          return { q: '<p>A theatre sells ' + N0 + ' tickets at $' + P0 + ' each. For every $1 increase in price, ' + L + ' fewer tickets sell. What price gives the maximum revenue, and what is that revenue?</p>',
+            hint: 'Let ' + T('x') + ' be the number of $1 increases. Revenue = (price)(tickets sold).', ans: '$' + price + ' per ticket, ' + tix + ' tickets, revenue $' + rev + '.',
+            steps: ['Price ' + T('= ' + P0 + ' + x') + '. Tickets ' + T('= ' + N0 + ' - ' + L + 'x') + '.', T('R(x) = (' + P0 + ' + x)(' + N0 + ' - ' + L + 'x)') + '.', 'Zeros: ' + T('x = ' + (-P0)) + ' and ' + T('x = ' + N0 / L) + '. The vertex is halfway: ' + T('x = ' + xs) + '.', 'Price ' + T('= ' + price) + ', tickets ' + T('= ' + tix) + ', revenue ' + T('= ' + price + ' \\times ' + tix + ' = ' + rev) + '.'],
+            whyT: 'Shortcut.', why: 'Leave ' + T('R') + ' in factored form. The zeros are easy to read and the max is at their midpoint, so you never expand.', trap: T('x = ' + xs) + ' is the number of increases, not the price. Answer the question asked.',
+            verify: () => Rf(xs) === rev && Rf(xs) >= Rf(xs + 1) && Rf(xs) >= Rf(xs - 1) };
+        }
+        if (v === 'height') {
+          const b = pick([10, 20, 30, 40]), c = pick([0, 1, 2, 5, 10, 15]), t = b / 10, hm = c + b * b / 20;
+          return { q: '<p>A ball’s height in metres after ' + T('t') + ' seconds is ' + T('h(t) = -5t^2 + ' + b + 't' + pc(c)) + '. What is its maximum height, and when does it reach it?</p>',
+            hint: 'The maximum is at the vertex: ' + T('t = -\\tfrac{b}{2a}') + '.', ans: hm + ' m at ' + T('t = ' + t) + ' s.',
+            steps: [T('t = -\\dfrac{b}{2a} = -\\dfrac{' + b + '}{2(-5)} = ' + t) + '.', T('h(' + t + ') = -5(' + t + ')^2 + ' + b + '(' + t + ')' + pc(c) + ' = ' + (-5 * t * t) + ' + ' + b * t + pc(c) + ' = ' + hm) + ' m.'],
+            whyT: 'Why the vertex?', why: T('a = -5 \\lt 0') + ', so the parabola opens down and its vertex is the highest point.', trap: 'The question asks for both the height and the time. Give units: metres and seconds.',
+            verify: () => -5 * t * t + b * t + c === hm };
+        }
+        if (v === 'fence') {
+          const F = pick([40, 60, 80, 100, 120]), x = F / 4, len = F / 2, A = x * len;
+          return { q: '<p>A farmer has ' + F + ' m of fencing to enclose a rectangular field along a straight river. No fence is needed along the river. What dimensions give the largest area?</p>',
+            hint: 'Let ' + T('x') + ' be the two sides perpendicular to the river. The side parallel to the river is ' + T(F + ' - 2x') + '.', ans: x + ' m by ' + len + ' m (the ' + len + ' m side along the river), area ' + A + ' m².',
+            steps: ['Area ' + T('A(x) = x(' + F + ' - 2x)') + '.', 'Zeros: ' + T('x = 0') + ' and ' + T('x = ' + F / 2) + '. The vertex is halfway: ' + T('x = ' + x) + '.', 'The other side is ' + T(F + ' - 2(' + x + ') = ' + len) + ' m, and the area is ' + T(x + ' \\times ' + len + ' = ' + A) + ' m².'],
+            whyT: 'Same trick.', why: 'Factored form gives the zeros instantly, and the maximum is halfway between them.', trap: 'The two perpendicular sides each use ' + T('x') + ' metres of fence, so the parallel side is ' + T(F + ' - 2x') + ', not ' + T(F + ' - x') + '.',
+            verify: () => x * (F - 2 * x) === A && A >= (x + 1) * (F - 2 * (x + 1)) };
+        }
+        const D = pick([6, 8, 10, 12, 14, 16]), h = D / 2;
+        return { q: '<p>Two numbers differ by ' + D + '. What are they if their product is as small as possible?</p>', hint: 'Call them ' + T('x') + ' and ' + T('x + ' + D) + '. The product is a quadratic in ' + T('x') + '.',
+          ans: T(String(-h)) + ' and ' + T(String(h)) + '. Minimum product ' + T(String(-h * h)) + '.',
+          steps: [T('P(x) = x(x + ' + D + ') = x^2 + ' + D + 'x') + '. It opens up, so it has a minimum.', 'Zeros at ' + T('x = 0') + ' and ' + T('x = ' + (-D)) + ', so the vertex is at ' + T('x = ' + (-h)) + '.', 'The numbers are ' + T(String(-h)) + ' and ' + T(String(h)) + ', and ' + T('P(' + (-h) + ') = ' + (-h * h)) + '.'],
+          whyT: 'Intuition.', why: 'A negative times a positive is negative, and the product is most negative when the two are balanced around 0.', trap: 'Nothing says the numbers must be positive.',
+          verify: () => -h * (-h + D) === -h * h };
+      } },
+
+    tangent: { name: 'Tangent lines', level: 'challenge',
+      tip: 'Tangent means exactly one intersection, so set the discriminant equal to 0 and solve for the unknown.',
+      gen(){
+        const m = R(1, 4), c = R(-3, 5), n = c - m * m, y = m * m + c;
+        return {
+          q: '<p>Find every value of ' + T('k') + ' for which the line ' + T('y = kx' + pc(n)) + ' is tangent to the parabola ' + T('y = x^2' + pc(c)) + '. Find the points of tangency.</p>',
+          hint: 'Tangent means exactly one intersection, so ' + T('D = 0') + '.',
+          ans: T('k = ' + 2 * m) + ', touching at ' + T(pt(m, y)) + '; and ' + T('k = ' + (-2 * m)) + ', touching at ' + T(pt(-m, y)) + '.',
+          steps: [T('x^2' + pc(c) + ' = kx' + pc(n) + ' \\Rightarrow x^2 - kx + ' + m * m + ' = 0') + '.', 'One intersection: ' + T('D = k^2 - 4(1)(' + m * m + ') = 0 \\Rightarrow k^2 = ' + 4 * m * m + ' \\Rightarrow k = \\pm ' + 2 * m) + '.',
+            T('k = ' + 2 * m) + ': ' + T('(x - ' + m + ')^2 = 0') + ', so ' + T('x = ' + m) + ' and ' + T('y = ' + m + '^2' + pc(c) + ' = ' + y) + '.', T('k = ' + (-2 * m)) + ': ' + T('(x + ' + m + ')^2 = 0') + ', so ' + T('x = ' + (-m)) + ' and ' + T('y = ' + y) + '.'],
+          whyT: 'Picture it.', why: 'Every line ' + T('y = kx' + pc(n)) + ' passes through ' + T(pt(0, n)) + ', below the parabola. Two of them just touch it, one on each side, with opposite slopes.',
+          trap: T('k^2 = ' + 4 * m * m) + ' has two answers. Dropping ' + T('k = ' + (-2 * m)) + ' loses half the marks.',
+          verify: () => [2 * m, -2 * m].every(k => k * k - 4 * (c - n) === 0) && near(2 * m * m + n, m * m + c)
+        };
+      } }
+  };
+
+  /* ================= Unit 3: Radicals ================= */
+  function radMoves(a, k, d, c){
+    const out = [];
+    if (Math.abs(a) !== 1) out.push('a vertical stretch by a factor of ' + Math.abs(a));
+    if (a < 0) out.push('a reflection in the ' + T('x') + '-axis');
+    if (Math.abs(k) !== 1) out.push('a horizontal compression by a factor of ' + T('\\tfrac{1}{' + Math.abs(k) + '}'));
+    if (k < 0) out.push('a reflection in the ' + T('y') + '-axis');
+    if (d) out.push('a shift ' + (d > 0 ? 'right ' : 'left ') + Math.abs(d));
+    if (c) out.push('a shift ' + (c > 0 ? 'up ' : 'down ') + Math.abs(c));
+    return out;
+  }
+  const setD = (v, op, n) => T('\\{' + v + ' \\in \\mathbb{R} \\mid ' + v + ' ' + op + ' ' + n + '\\}');
+  const radicals = {
+    simplify: { name: 'Simplifying radicals', level: 'core',
+      tip: 'Find the largest perfect square that divides the number under the root.',
+      gen(){
+        const t = pick(SQF), s = R(2, 7), c = pick([1, 1, 1, 2, 3, -2]), n = s * s * t;
+        const squares = []; for (let i = 2; i * i <= n; i++) if (n % (i * i) === 0) squares.push(i * i);
+        return {
+          q: '<p>Simplify ' + T(coef(c) + '\\sqrt{' + n + '}') + '.</p>', hint: 'Find the largest perfect square that divides ' + n + '.',
+          ans: T(rad(c * s, t)),
+          steps: ['Perfect squares that divide ' + n + ': ' + squares.join(', ') + '. The largest is ' + s * s + '.', T('\\sqrt{' + n + '} = \\sqrt{' + s * s + ' \\times ' + t + '} = \\sqrt{' + s * s + '}\\,\\sqrt{' + t + '} = ' + rad(s, t)) + '.'].concat(c !== 1 ? ['Multiply by ' + c + ': ' + T(rad(c * s, t)) + '.'] : []),
+          whyT: 'Why it works.', why: T('\\sqrt{ab} = \\sqrt{a}\\,\\sqrt{b}') + ' for ' + T('a, b \\ge 0') + '.',
+          trap: squares.length > 1 ? 'Using ' + squares[0] + ' first gives ' + T(rad(Math.sqrt(squares[0]), n / squares[0])) + ', which is not simplest form. Use the largest perfect square, or keep going.' : 'Check the number left under the root has no perfect-square factor.',
+          verify: () => near(c * Math.sqrt(n), c * s * Math.sqrt(t))
+        };
+      } },
+
+    addsub: { name: 'Adding and subtracting radicals', level: 'core',
+      tip: 'Simplify every radical first. You can only combine like radicals.',
+      gen(){
+        const t = pick([2, 3, 5, 6, 7]); let terms; do { terms = [0, 1, 2].map(() => [pick([1, 2, 3, -1, -2]), R(1, 5)]); } while (terms.filter(x => x[1] > 1).length < 2);
+        const K = terms.reduce((sum, [c, s]) => sum + c * s, 0), orig = sumR(terms.map(([c, s]) => [c, s * s * t])), simp = sumR(terms.map(([c, s]) => [c * s, t]));
+        return {
+          q: '<p>Simplify ' + T(orig) + '.</p>', hint: 'Simplify each radical first. You can only combine like radicals.',
+          ans: T(K === 0 ? '0' : rad(K, t)),
+          steps: terms.map(([c, s]) => T(coef(c) + '\\sqrt{' + s * s * t + '} = ' + rad(c * s, t))).concat(['Combine: ' + T(simp + ' = ' + (K === 0 ? '0' : rad(K, t))) + '.']),
+          whyT: 'Think of it like algebra.', why: T('\\sqrt{' + t + '}') + ' behaves like a variable: you collect like terms.',
+          trap: 'You can’t add or subtract the numbers under the roots: ' + T('\\sqrt{a} + \\sqrt{b} \\ne \\sqrt{a + b}') + '.',
+          verify: () => near(terms.reduce((sum, [c, s]) => sum + c * Math.sqrt(s * s * t), 0) + 10, K * Math.sqrt(t) + 10)
+        };
+      } },
+
+    multiply: { name: 'Multiplying radicals', level: 'core',
+      tip: 'Expand (FOIL), multiply coefficients with coefficients and roots with roots, and use √a·√a = a.',
+      gen(){
+        const [a, b] = pick([[2, 3], [2, 5], [3, 5], [2, 7], [3, 7], [5, 7]]), p = nz(-3, 3), q = nz(-3, 3), r = nz(-3, 3), s = nz(-3, 3);
+        const R0 = p * r * a + q * s * b, C = p * s + q * r, res = sumR([[R0, 1], [C, a * b]]);
+        return {
+          q: '<p>Expand and simplify ' + T('(' + sumR([[p, a], [q, b]]) + ')(' + sumR([[r, a], [s, b]]) + ')') + '.</p>', hint: 'FOIL, then multiply coefficients with coefficients and radicals with radicals.',
+          ans: T(res),
+          steps: [T(rad(p, a) + ' \\cdot ' + rad(r, a) + ' = ' + p * r + ' \\cdot ' + a + ' = ' + p * r * a) + '.', T(rad(p, a) + ' \\cdot ' + rad(s, b) + ' = ' + rad(p * s, a * b)) + '.',
+            T(rad(q, b) + ' \\cdot ' + rad(r, a) + ' = ' + rad(q * r, a * b)) + '.', T(rad(q, b) + ' \\cdot ' + rad(s, b) + ' = ' + q * s + ' \\cdot ' + b + ' = ' + q * s * b) + '.',
+            'Combine: ' + T(res) + '.'],
+          whyT: 'Key fact.', why: T('\\sqrt{a} \\cdot \\sqrt{a} = a') + '. That is how the roots disappear in the first and last products.',
+          trap: T(rad(p, a) + ' \\cdot ' + rad(r, a)) + ' is ' + T(String(p * r * a)) + ', not ' + T(rad(p * r, a * a)) + ' left unsimplified.',
+          verify: () => near((p * Math.sqrt(a) + q * Math.sqrt(b)) * (r * Math.sqrt(a) + s * Math.sqrt(b)) + 100, R0 + C * Math.sqrt(a * b) + 100)
+        };
+      } },
+
+    compare: { name: 'Comparing radicals', level: 'think',
+      tip: 'Move each coefficient inside its root by squaring it, then compare the numbers under the roots.',
+      gen(){
+        let m, n, a, b, A, B; do { m = R(2, 7); n = R(2, 7); a = pick(SQF); b = pick(SQF); A = m * m * a; B = n * n * b; } while (a === b || A === B || Math.abs(A - B) > 12);
+        return {
+          q: '<p>Which is larger, ' + T(rad(m, a)) + ' or ' + T(rad(n, b)) + '? Decide <b>without</b> a calculator.</p>', hint: 'Move each coefficient inside its root.',
+          ans: T(A > B ? rad(m, a) : rad(n, b)) + ' is larger.',
+          steps: [T(rad(m, a) + ' = \\sqrt{' + m * m + '}\\sqrt{' + a + '} = \\sqrt{' + A + '}') + '.', T(rad(n, b) + ' = \\sqrt{' + n * n + '}\\sqrt{' + b + '} = \\sqrt{' + B + '}') + '.', T(Math.max(A, B) + ' \\gt ' + Math.min(A, B)) + ', so ' + T(A > B ? rad(m, a) : rad(n, b)) + ' is larger.'],
+          whyT: 'Why it works.', why: 'Square roots keep order: if ' + T('a \\gt b \\ge 0') + ' then ' + T('\\sqrt{a} \\gt \\sqrt{b}') + '.',
+          trap: 'Comparing just the coefficients, or just the numbers under the roots, doesn’t settle it. Combine them.',
+          verify: () => Math.sign(m * Math.sqrt(a) - n * Math.sqrt(b)) === Math.sign(A - B)
+        };
+      } },
+
+    transform: { name: 'Radical transformations', level: 'core',
+      tip: 'Use the mapping rule (x, y) → (x/k + d, ay + c) on (0, 0), (1, 1) and (4, 2). The start point gives domain and range.',
+      gen(){
+        let a, k, d, c; do { a = pick([1, -1, 2, -2, 3, -3]); k = pick([1, 1, -1, 2]); d = R(-5, 5); c = R(-5, 5); } while (radMoves(a, k, d, c).length === 0);
+        const inner = k === 1 ? xm(d) : k === -1 ? (d === 0 ? '-x' : '-(' + xm(d) + ')') : k + (d === 0 ? 'x' : '(' + xm(d) + ')');
+        const expr = coef(a) + '\\sqrt{' + inner + '}' + pc(c), f = x => a * Math.sqrt(k * (x - d)) + c, mv = radMoves(a, k, d, c);
+        const xr = k === 1 ? xm(-d) : k === -1 ? '-x' + pc(d) : '\\tfrac{x}{' + k + '}' + pc(d);
+        const rule = '(x, y) \\to \\left(' + xr + ',\\ ' + coef(a) + 'y' + pc(c) + '\\right)';
+        const P = [[0, 0], [1, 1], [4, 2]], img = P.map(([x, y]) => pt(fr(x + k * d, k), a * y + c)), src = ['(0, 0)', '(1, 1)', '(4, 2)'];
+        const dom = setD('x', k > 0 ? '\\ge' : '\\le', d), rng = setD('y', a > 0 ? '\\ge' : '\\le', c);
+        return {
+          q: '<p>Describe the transformations that map ' + T('y = \\sqrt{x}') + ' onto ' + T('y = ' + expr) + '. Map the key points and state the domain and range.</p>',
+          hint: 'Compare with ' + T('y = a\\sqrt{k(x - d)} + c') + '. Map ' + T('(0,0), (1,1), (4,2)') + '.',
+          ans: cap(list(mv)) + '. Domain ' + dom + ', range ' + rng + '.',
+          steps: ['Compare with ' + T('y = a\\sqrt{k(x - d)} + c') + ': ' + T('a = ' + a + ',\\ k = ' + k + ',\\ d = ' + d + ',\\ c = ' + c) + '.', 'So: ' + list(mv) + '.', 'Mapping rule: ' + T(rule) + '.',
+            src.map((s, i) => T(s + ' \\to ' + img[i])).join(', ') + '.', 'It starts at ' + T(pt(d, c)) + ' and goes ' + (a > 0 ? 'up' : 'down') + ' to the ' + (k > 0 ? 'right' : 'left') + '. Domain ' + dom + ', range ' + rng + '.'],
+          whyT: 'Order matters.', why: 'Stretches and reflections first, then translations. The mapping rule does this automatically.',
+          trap: a < 0 ? 'The reflection in the ' + T('x') + '-axis flips the range: without it the range would be ' + T('y \\ge ' + c) + '.' : k < 0 ? 'The reflection in the ' + T('y') + '-axis flips the domain: the graph goes left from ' + T('x = ' + d) + '.' : 'Inside the root the shift goes the opposite way to the sign you see.',
+          verify: () => P.every(([x, y]) => near(f((x + k * d) / k), a * y + c))
+        };
+      } },
+
+    inside: { name: 'Factoring inside the root', level: 'think',
+      tip: 'Factor k out of the inside first: √(kx + m) = √(k(x − d)). Then read the shift. Check the domain with inside ≥ 0.',
+      gen(){
+        const k = pick([-1, -1, 2, 3, -2]), d = nz(-5, 5), a = pick([1, 1, 2, -1, -2]), c = R(-4, 4), m = -k * d;
+        const inside = sumT([[k, 'x'], [m, '']]), facd = k === -1 ? '-(' + xm(d) + ')' : k + '(' + xm(d) + ')', expr = coef(a) + '\\sqrt{' + inside + '}' + pc(c), mv = radMoves(a, k, d, c);
+        const dom = setD('x', k > 0 ? '\\ge' : '\\le', d), rng = setD('y', a > 0 ? '\\ge' : '\\le', c), f = x => a * Math.sqrt(k * x + m) + c;
+        return {
+          q: '<p>Describe the transformations of ' + T('y = \\sqrt{x}') + ' that give ' + T('y = ' + expr) + '. State the domain and range.</p>',
+          hint: 'Factor ' + T(String(k)) + ' out of the inside first.',
+          ans: T('y = ' + coef(a) + '\\sqrt{' + facd + '}' + pc(c)) + ': ' + list(mv) + '. Domain ' + dom + ', range ' + rng + '.',
+          steps: ['Factor the inside: ' + T(inside + ' = ' + facd) + ', so ' + T('y = ' + coef(a) + '\\sqrt{' + facd + '}' + pc(c)) + '.', 'Transformations: ' + list(mv) + '.',
+            'Start point ' + T(pt(d, c)) + '. Domain ' + dom + ', range ' + rng + '.', 'Check the domain directly: the inside must be ' + T('\\ge 0') + ': ' + T(inside + ' \\ge 0 \\Rightarrow x ' + (k > 0 ? '\\ge ' : '\\le ') + d) + '. Same answer.'],
+          whyT: 'Same rule as rational functions.', why: 'Always factor out ' + T('k') + ' before you read ' + T('d') + '.',
+          trap: 'Reading ' + T('\\sqrt{' + inside + '}') + ' as a shift ' + (m < 0 ? 'right ' : 'left ') + Math.abs(m) + ' is the classic mistake. The shift is ' + (d > 0 ? 'right ' : 'left ') + Math.abs(d) + '.',
+          verify: () => k * d + m === 0 && near(f(d), c) && (k > 0 ? isFinite(f(d + 1)) && isNaN(f(d - 1)) : isFinite(f(d - 1)) && isNaN(f(d + 1)))
+        };
+      } },
+
+    equation: { name: 'Equation from a graph', level: 'think',
+      tip: 'The start point gives h and k. Substitute the other point to find a.',
+      gen(){
+        const a = pick([1, -1, 2, -2, 3, -3]), s = pick([1, 2, 3]), h = R(-5, 5), k = R(-5, 5), x0 = h + s * s, y0 = k + a * s;
+        return {
+          q: '<p>A radical function ' + T('y = a\\sqrt{x - h} + k') + ' starts at ' + T(pt(h, k)) + ' and passes through ' + T(pt(x0, y0)) + '. Find its equation.</p>',
+          hint: 'The starting point gives ' + T('h') + ' and ' + T('k') + '. Use the other point to find ' + T('a') + '.',
+          ans: T('y = ' + coef(a) + '\\sqrt{' + xm(h) + '}' + pc(k)),
+          steps: ['The endpoint is ' + T('(h, k) = ' + pt(h, k)) + ': ' + T('y = a\\sqrt{' + xm(h) + '}' + pc(k)) + '.', 'Substitute ' + T(pt(x0, y0)) + ': ' + T(y0 + ' = a\\sqrt{' + (x0 - h) + '}' + pc(k) + ' = ' + (s === 1 ? '' : s) + 'a' + pc(k)) + '.', T((s === 1 ? '' : s) + 'a = ' + (y0 - k) + ' \\Rightarrow a = ' + a) + '.'],
+          whyT: 'Check.', why: T('x = ' + x0) + ': ' + T(coef(a) + '\\sqrt{' + s * s + '}' + pc(k) + ' = ' + y0) + '. ✓',
+          trap: h !== 0 ? T('h = ' + h) + ' appears as ' + T(xm(h)) + ' inside the root: the opposite sign from the point’s coordinate.' : 'Subtract ' + T('k') + ' before you solve for ' + T('a') + '.',
+          verify: () => near(a * Math.sqrt(x0 - h) + k, y0)
+        };
+      } },
+
+    inverse: { name: 'Inverses of quadratics', level: 'core',
+      tip: 'Swap x and y, solve for y, and use the original domain restriction to choose the sign of the root.',
+      gen(){
+        const h = R(-5, 5), k = R(-5, 5), side = pick([1, 1, -1]);
+        const fx2 = (h === 0 ? 'x^2' : '(' + xm(h) + ')^2') + pc(k), inv = (h === 0 ? (side > 0 ? '' : '-') : h + (side > 0 ? ' + ' : ' - ')) + '\\sqrt{' + xm(k) + '}';
+        const f = x => (x - h) * (x - h) + k, g = x => h + side * Math.sqrt(x - k);
+        return {
+          q: '<p>Find the inverse of ' + T('f(x) = ' + fx2) + ', ' + T('x ' + (side > 0 ? '\\ge ' : '\\le ') + h) + '. State the domain and range of ' + T('f^{-1}') + '.</p>',
+          hint: 'Swap ' + T('x') + ' and ' + T('y') + ', then solve for ' + T('y') + '. Which sign of the root keeps the range right?',
+          ans: T('f^{-1}(x) = ' + inv) + '. Domain ' + setD('x', '\\ge', k) + ', range ' + setD('y', side > 0 ? '\\ge' : '\\le', h) + '.',
+          steps: ['Write ' + T('y = ' + fx2) + ' and swap: ' + T('x = ' + (h === 0 ? 'y^2' : '(' + xm(h, 'y') + ')^2') + pc(k)) + '.', T((h === 0 ? 'y^2' : '(' + xm(h, 'y') + ')^2') + ' = ' + xm(k)) + ', so ' + T(xm(h, 'y') + ' = \\pm\\sqrt{' + xm(k) + '}') + '.',
+            'The original domain ' + T('x ' + (side > 0 ? '\\ge ' : '\\le ') + h) + ' becomes the inverse’s range ' + T('y ' + (side > 0 ? '\\ge ' : '\\le ') + h) + ', so take the ' + (side > 0 ? T('+') : T('-')) + ' root: ' + T('f^{-1}(x) = ' + inv) + '.',
+            'The domain of ' + T('f^{-1}') + ' is the range of ' + T('f') + ': ' + T('x \\ge ' + k) + '.'],
+          whyT: 'Why it works.', why: 'An inverse swaps inputs and outputs, so domain and range trade places. Its graph is the reflection in ' + T('y = x') + '.',
+          trap: 'Without the restriction on ' + T('x') + ', the inverse would not be a function. That restriction is what decides the sign.',
+          verify: () => [h + side, h + 3 * side].every(x => near(g(f(x)), x)) && [k + 1, k + 5].every(x => near(f(g(x)), x))
+        };
+      } },
+
+    solve: { name: 'Radical equations', level: 'challenge',
+      tip: 'Square both sides, solve, then check every answer in the original equation. A square root is never negative.',
+      gen(){
+        let q, r1, r2, p; do { q = R(-4, 4); r1 = R(-3, 9); r2 = 1 - 2 * q - r1; p = q * q - r1 * r2; } while (!(r1 > 1 - q) || r1 === r2 || Math.abs(p) > 25 || r1 + p < 0 || r2 + p < 0);
+        const L = '\\sqrt{' + fmtP([p, 1]) + '}', Rt = fmtP([q, 1]), lo = Math.min(r1, r2), hi = Math.max(r1, r2);
+        return {
+          q: '<p>Solve ' + T(L + ' = ' + Rt) + '. Check your answers.</p>',
+          hint: 'Square both sides, solve the quadratic, then put each answer back into the <i>original</i> equation.',
+          ans: T('x = ' + r1) + ' (' + T('x = ' + r2) + ' is extraneous)',
+          steps: ['Square both sides: ' + T(fmtP([p, 1]) + ' = ' + (q === 0 ? 'x^2' : '(' + Rt + ')^2 = ' + fmtP([q * q, 2 * q, 1]))) + '.', 'Rearrange: ' + T(fmtP([q * q - p, 2 * q - 1, 1]) + ' = 0') + '.',
+            'Factor: ' + T(fac(lo) + fac(hi) + ' = 0') + ', so ' + T('x = ' + lo) + ' or ' + T('x = ' + hi) + '.',
+            'Check ' + T('x = ' + r2) + ': left side ' + T('\\sqrt{' + (r2 + p) + '} = ' + Math.abs(r2 + q)) + ', right side ' + T(r2 + pc(q) + ' = ' + (r2 + q)) + '. Not equal, so reject.',
+            'Check ' + T('x = ' + r1) + ': ' + T('\\sqrt{' + (r1 + p) + '} = ' + (r1 + q)) + ' and ' + T(r1 + pc(q) + ' = ' + (r1 + q)) + '. ✓'],
+          whyT: 'Why one answer is fake.', why: 'Squaring also solves ' + T('-' + L + ' = ' + Rt) + '. The extraneous answer belongs to that equation.',
+          trap: 'A square root is never negative. Any answer that makes the right side negative must be rejected.',
+          verify: () => Math.sqrt(r1 + p) === r1 + q && Math.sqrt(r2 + p) !== r2 + q
+        };
+      } },
+
+    rationalize: { name: 'Rationalizing denominators', level: 'challenge',
+      tip: 'Multiply top and bottom by the root, or by the conjugate if the bottom has two terms.',
+      gen(){
+        if (Math.random() < 0.5) {
+          const b = pick([2, 3, 5, 6, 7]), a = pick([1, 2, 3, 4, 6, 10, 12, 14, 15]), g = gcd(a, b), N = a / g, D = b / g;
+          const res = D === 1 ? rad(N, b) : dfr(rad(N, b), D);
+          return { q: '<p>Rationalize the denominator and simplify: ' + T(dfr(a, '\\sqrt{' + b + '}')) + '.</p>', hint: 'Multiply top and bottom by ' + T('\\sqrt{' + b + '}') + '.', ans: T(res),
+            steps: [T(dfr(a, '\\sqrt{' + b + '}') + ' \\cdot ' + dfr('\\sqrt{' + b + '}', '\\sqrt{' + b + '}') + ' = ' + dfr(rad(a, b), b)) + '.'].concat(g > 1 || D === 1 ? ['Simplify the numbers: ' + T(dfr(rad(a, b), b) + ' = ' + res) + '.'] : []),
+            whyT: 'Why it works.', why: 'Multiplying by ' + T(dfr('\\sqrt{' + b + '}', '\\sqrt{' + b + '}')) + ' is multiplying by 1, and ' + T('\\sqrt{' + b + '} \\cdot \\sqrt{' + b + '} = ' + b) + '.',
+            trap: 'Multiply the top as well as the bottom, or the value changes.',
+            verify: () => near(a / Math.sqrt(b), N * Math.sqrt(b) / D) };
+        }
+        let a, e, cn, den0; do { a = pick([2, 3, 5, 6, 7, 10, 11]); e = nz(-3, 3); cn = pick([1, 2, 3, 4, 6]); den0 = a - e * e; } while (den0 === 0);
+        const g = gcd(cn, den0); let N1 = cn / g, D = den0 / g; if (D < 0) { N1 = -N1; D = -D; }
+        const top = sumR([[N1, a], [-N1 * e, 1]]), res = D === 1 ? top : dfr(top, D), bot = '\\sqrt{' + a + '}' + pc(e), conj = '\\sqrt{' + a + '}' + pc(-e);
+        return { q: '<p>Rationalize the denominator and simplify: ' + T(dfr(cn, bot)) + '.</p><p class="askq">A step past the usual test questions.</p>', hint: 'Multiply top and bottom by the conjugate ' + T(conj) + '.', ans: T(res),
+          steps: ['Multiply by ' + T(dfr(conj, conj)) + '.', 'Denominator: ' + T('(' + bot + ')(' + conj + ') = ' + a + ' - ' + e * e + ' = ' + den0) + '.', 'Numerator: ' + T(cn + '(' + conj + ') = ' + sumR([[cn, a], [-cn * e, 1]])) + '.', 'Simplify: ' + T(dfr(sumR([[cn, a], [-cn * e, 1]]), den0) + ' = ' + res) + '.'],
+          whyT: 'Why conjugates work.', why: T('(a + b)(a - b) = a^2 - b^2') + ': squaring removes the root, so the middle terms cancel.',
+          trap: 'Every term on top must be divided when you simplify, not just one.',
+          verify: () => near(cn / (Math.sqrt(a) + e), N1 * (Math.sqrt(a) - e) / D) };
+      } }
+  };
+
+  const REG = { rationals: rationals, quadratics: quadratics, radicals: radicals, ratfuncs: ratfuncs };
   function solHtml(o){
     return '<ol class="steps">' + o.steps.map(s => '<li>' + s + '</li>').join('') + '</ol>' +
       (o.why ? '<p class="why"><b>' + o.whyT + '</b> ' + o.why + '</p>' : '') +
@@ -1461,7 +2077,7 @@ window.STUDY_GEN = (function(){
     const s = REG[unit][skill];
     for (let i = 0; i < 25; i++) {
       const o = s.gen();
-      if (o.verify()) return { skill: skill, level: s.level, q: o.q, hint: o.hint, ans: o.ans, sol: solHtml(o) };
+      if (o.verify()) return { unit: unit, skill: skill, level: s.level, q: o.q, hint: o.hint, ans: o.ans, sol: solHtml(o) };
     }
     return null;
   }
@@ -1484,7 +2100,9 @@ window.STUDY_GEN = (function(){
   const ORDER = {core:0, think:1, challenge:2};
 
   const CARDS = [...document.querySelectorAll('#cards article')].map(a => ({
-    id:a.dataset.id, unit:a.dataset.unit, level:a.dataset.level, skill:a.dataset.skill || null,
+    id:a.dataset.id, unit:a.dataset.unit, level:a.dataset.level,
+    sunit:(a.dataset.skill || '').includes(':') ? a.dataset.skill.split(':')[0] : a.dataset.unit,
+    skill:a.dataset.skill ? a.dataset.skill.split(':').pop() : null,
     q:a.querySelector('.q').innerHTML,
     hint:(a.querySelector('.hint')||{}).innerHTML || '',
     ans:a.querySelector('.ans').innerHTML,
@@ -1521,11 +2139,11 @@ window.STUDY_GEN = (function(){
       el.className = 'unit' + (u === 'mixed' ? ' mixed' : '');
       if (isStudy(u)) {
         el.innerHTML =
-          '<p class="eyebrow">Unit ' + UNIT_NO[u] + (u === CURRENT ? ' · current unit' : '') + ' · endless practice</p>' +
+          '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : 'Unit ' + UNIT_NO[u]) + (u === CURRENT ? ' · current unit' : '') + ' · endless practice</p>' +
           '<h2>' + UNITS[u].name + '</h2>' +
           '<p>' + UNITS[u].blurb + '</p>' +
-          '<p class="studynote">Fresh questions every time, weighted toward the skills you miss. Check your progress whenever you want.</p>' +
-          '<div class="meta"><span></span><button class="btn primary" type="button">Study →</button></div>';
+          '<p class="studynote">' + (u === 'mixed' ? 'Questions from every unit, mixed together the way a test mixes them. Best for test and exam review.' : 'Fresh questions every time, weighted toward the skills you miss. Check your progress whenever you want.') + '</p>' +
+          '<div class="meta"><span></span><button class="btn primary" type="button">' + (u === 'mixed' ? 'Start mixed review' : 'Study') + ' →</button></div>';
         el.querySelector('button').addEventListener('click', () => { location.hash = u; });
         grid.appendChild(el);
         return;
@@ -1547,7 +2165,7 @@ window.STUDY_GEN = (function(){
     });
     const total = CARDS.length, got = CARDS.filter(c => marks[c.id] === 'got').length;
     const learning = CARDS.filter(c => marks[c.id] === 'learning').length;
-    $('#overall').textContent = got + ' of ' + total + ' cards marked “got it” · ' + learning + ' still learning';
+    $('#overall').textContent = 'Your progress is saved in this browser.';
     typeset(grid);
   }
 
@@ -1559,15 +2177,20 @@ window.STUDY_GEN = (function(){
 
   /* ---------- Study mode (endless, generated questions) ---------- */
   const GEN = window.STUDY_GEN || null;
-  function isStudy(u){ return !!(GEN && GEN.units[u]); }
+  const STUDY_ORDER = ['rationals', 'quadratics', 'radicals', 'ratfuncs'];
+  function isStudy(u){ return !!GEN && (u === 'mixed' || !!GEN.units[u]); }
+  function studyUnits(){ return S.unit === 'mixed' ? STUDY_ORDER.filter(u => GEN.units[u]) : [S.unit]; }
   const SKEY = 'mcr3u-study-v1';
   let shist = {};
   try { shist = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch(e) { shist = {}; }
   function ssave(){ try { localStorage.setItem(SKEY, JSON.stringify(shist)); } catch(e) {} }
   const ST = { on:false, item:null, flipped:false, hint:false, n:0, recent:[], requeue:[], session:{}, showProgress:false, skillOnly:null };
   const pickOne = a => a[Math.floor(Math.random() * a.length)];
-  function hist(skill){ return ((shist[S.unit] || {})[skill]) || []; }
-  function skillName(skill){ return GEN.units[S.unit][skill].name; }
+  const sid = (u, k) => u + ':' + k;
+  const unsid = id => id.split(':');
+  function hist(u, k){ return ((shist[u] || {})[k]) || []; }
+  function sdef(u, k){ return GEN.units[u][k]; }
+  function skillLabel(u, k){ return (S.unit === 'mixed' ? 'Unit ' + UNIT_NO[u] + ' · ' : '') + sdef(u, k).name; }
 
   function startStudy(){
     ST.on = true; ST.item = null; ST.flipped = false; ST.hint = false; ST.n = 0; ST.recent = []; ST.requeue = [];
@@ -1580,37 +2203,40 @@ window.STUDY_GEN = (function(){
     ST.n++;
     const due = ST.requeue.findIndex(r => r.due <= ST.n);
     if (due >= 0) return ST.requeue.splice(due, 1)[0].item;
-    const reg = GEN.units[S.unit];
-    const okSkill = k => !ST.skillOnly || k === ST.skillOnly;
-    const genSkills = Object.keys(reg).filter(k => okSkill(k) && (S.level === 'all' || reg[k].level === S.level));
-    const hand = CARDS.filter(c => c.unit === S.unit && c.skill && okSkill(c.skill) && (S.level === 'all' || c.level === S.level));
-    let skills = [...new Set(genSkills.concat(hand.map(c => c.skill)))];
-    if (!skills.length) return null;
-    if (skills.length > 1 && ST.item) { const others = skills.filter(k => k !== ST.item.skill); if (others.length) skills = others; }
+    const units = studyUnits();
+    const okSkill = (u, k) => !ST.skillOnly || ST.skillOnly === sid(u, k);
+    const okLevel = lv => S.level === 'all' || lv === S.level;
+    const gens = [];
+    units.forEach(u => Object.keys(GEN.units[u]).forEach(k => { if (okSkill(u, k) && okLevel(GEN.units[u][k].level)) gens.push(sid(u, k)); }));
+    const hand = CARDS.filter(c => c.skill && units.includes(c.sunit) && (S.unit === 'mixed' || c.unit === S.unit) && okSkill(c.sunit, c.skill) && okLevel(c.level));
+    let ids = [...new Set(gens.concat(hand.map(c => sid(c.sunit, c.skill))))];
+    if (!ids.length) return null;
+    if (ids.length > 1 && ST.item) { const others = ids.filter(i => i !== sid(ST.item.unit, ST.item.skill)); if (others.length) ids = others; }
     /* Skills missed recently come up more often; untried skills get a nudge. */
-    const w = skills.map(k => { const h = hist(k).slice(-6); return 1 + (h.length ? 3 * h.filter(v => !v).length / h.length : 1.5); });
-    let r = Math.random() * w.reduce((s, x) => s + x, 0), sk = skills[0];
-    for (let i = 0; i < skills.length; i++) { r -= w[i]; if (r <= 0) { sk = skills[i]; break; } }
-    const canGen = genSkills.includes(sk);
-    const fresh = hand.filter(c => c.skill === sk && !ST.recent.includes(c.id));
+    const w = ids.map(i => { const [u, k] = unsid(i), h = hist(u, k).slice(-6); return 1 + (h.length ? 3 * h.filter(v => !v).length / h.length : 1.5); });
+    let r = Math.random() * w.reduce((s, x) => s + x, 0), id = ids[0];
+    for (let i = 0; i < ids.length; i++) { r -= w[i]; if (r <= 0) { id = ids[i]; break; } }
+    const [u, k] = unsid(id);
+    const canGen = gens.includes(id);
+    const mine = hand.filter(c => sid(c.sunit, c.skill) === id), fresh = mine.filter(c => !ST.recent.includes(c.id));
     let c = null;
     if (fresh.length && (!canGen || Math.random() < 0.3)) c = pickOne(fresh);
-    else if (!canGen) c = pickOne(hand.filter(h => h.skill === sk));
+    else if (!canGen) c = pickOne(mine);
     if (c) {
-      ST.recent.push(c.id); if (ST.recent.length > 8) ST.recent.shift();
-      return { skill:sk, level:c.level, q:c.q, hint:c.hint, ans:c.ans, sol:c.sol, id:c.id };
+      ST.recent.push(c.id); if (ST.recent.length > 12) ST.recent.shift();
+      return { unit:u, skill:k, level:c.level, q:c.q, hint:c.hint, ans:c.ans, sol:c.sol, id:c.id };
     }
-    return GEN.make(S.unit, sk);
+    return GEN.make(u, k);
   }
 
   function renderStudy(animate){
     $('#skillOnly').hidden = !ST.skillOnly;
-    if (ST.skillOnly) $('#skillOnly').textContent = 'Only: ' + skillName(ST.skillOnly) + ' ✕';
+    if (ST.skillOnly) { const [u, k] = unsid(ST.skillOnly); $('#skillOnly').textContent = 'Only: ' + sdef(u, k).name + ' ✕'; }
     $('#progressBtn').textContent = ST.showProgress ? 'Back to studying' : 'Progress';
     if (ST.showProgress) return renderProgress();
     const c = ST.item;
     if (!c) { stage.innerHTML = '<div class="summary empty"><h2>No questions match</h2><p>Switch the level filter back to All.</p></div>'; return; }
-    const label = '<span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="eyebrow">' + skillName(c.skill) + '</span>' + chip(c.level) + '</span>';
+    const label = '<span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="eyebrow">' + skillLabel(c.unit, c.skill) + '</span>' + chip(c.level) + '</span>';
     let html;
     if (!ST.flipped) {
       html = '<article class="flash ruled" id="card" aria-live="polite">' +
@@ -1649,10 +2275,11 @@ window.STUDY_GEN = (function(){
 
   function markStudy(got){
     const c = ST.item; if (!c) return;
-    const s = ST.session[c.skill] || (ST.session[c.skill] = {got:0, total:0});
+    const key = sid(c.unit, c.skill);
+    const s = ST.session[key] || (ST.session[key] = {got:0, total:0});
     s.total++; if (got) s.got++;
-    shist[S.unit] = shist[S.unit] || {};
-    const h = shist[S.unit][c.skill] = (shist[S.unit][c.skill] || []);
+    shist[c.unit] = shist[c.unit] || {};
+    const h = shist[c.unit][c.skill] = (shist[c.unit][c.skill] || []);
     h.push(got ? 1 : 0); if (h.length > 20) h.splice(0, h.length - 20);
     ssave();
     if (c.id) { marks[c.id] = got ? 'got' : 'learning'; save(); }
@@ -1663,44 +2290,52 @@ window.STUDY_GEN = (function(){
     window.scrollTo({top: deck.offsetTop, behavior: 'auto'});
   }
 
-  function accuracy(skill, n){ const h = hist(skill).slice(-(n || 10)); return h.length ? h.reduce((a, b) => a + b, 0) / h.length : null; }
+  function accuracy(u, k){ const h = hist(u, k).slice(-10); return h.length ? h.reduce((a, b) => a + b, 0) / h.length : null; }
+  function allIds(){ const out = []; studyUnits().forEach(u => Object.keys(GEN.units[u]).forEach(k => out.push(sid(u, k)))); return out; }
 
   function weakSkills(){
-    const reg = GEN.units[S.unit];
-    return Object.keys(reg).map(k => ({k, acc:accuracy(k), n:hist(k).slice(-10).length}))
+    return allIds().map(id => { const [u, k] = unsid(id); return {id, u, k, acc:accuracy(u, k), n:hist(u, k).slice(-10).length}; })
       .filter(x => x.n >= 2 && x.acc < 0.8).sort((a, b) => a.acc - b.acc).slice(0, 3);
   }
 
+  function sessionTotals(){ let done = 0, got = 0; Object.values(ST.session).forEach(s => { done += s.total; got += s.got; }); return {done, got}; }
+
   function renderProgress(){
-    const reg = GEN.units[S.unit];
-    const keys = Object.keys(reg);
-    let done = 0, got = 0;
-    keys.forEach(k => { const s = ST.session[k]; if (s) { done += s.total; got += s.got; } });
+    const {done, got} = sessionTotals();
     const weak = weakSkills();
-    const untried = keys.filter(k => !hist(k).length);
+    const ids = allIds();
+    const untried = ids.filter(id => { const [u, k] = unsid(id); return !hist(u, k).length; });
+    const anyHistory = ids.some(id => { const [u, k] = unsid(id); return hist(u, k).length; });
     let weakHtml;
     if (weak.length) {
       weakHtml = '<div class="weak">' + weak.map(x =>
-        '<div class="item"><b>' + reg[x.k].name + '</b><p>' + Math.round(x.acc * 100) + '% on your last ' + x.n + '. ' + reg[x.k].tip + '</p>' +
-        '<button class="btn" type="button" data-practice="' + x.k + '">Practise just this →</button></div>').join('') + '</div>';
+        '<div class="item"><b>' + skillLabel(x.u, x.k) + '</b><p>' + Math.round(x.acc * 100) + '% on your last ' + x.n + '. ' + sdef(x.u, x.k).tip + '</p>' +
+        '<button class="btn" type="button" data-practice="' + x.id + '">Practise just this →</button></div>').join('') + '</div>';
     } else {
-      weakHtml = '<p class="studynote">' + (done || keys.some(k => hist(k).length) ? 'No weak spots right now. Try the Thinking and Challenge filters to push further.' : 'Mark a few questions and your weak spots will show up here.') + '</p>';
+      weakHtml = '<p class="studynote">' + (anyHistory ? 'No weak spots right now. Try the Thinking and Challenge filters to push further.' : 'Mark a few questions and your weak spots will show up here.') + '</p>';
     }
-    const rows = keys.map(k => {
-      const s = ST.session[k], acc = accuracy(k), n = hist(k).slice(-10).length;
-      const accHtml = acc === null ? '<span class="muted">not tried yet</span>' :
-        '<span class="acc' + (acc < 0.8 ? ' low' : '') + '"><span class="num">' + Math.round(acc * 100) + '% of ' + n + '</span><span class="meter"><i style="width:' + Math.round(acc * 100) + '%"></i></span></span>';
-      return '<div class="row"><span>' + reg[k].name + ' ' + chip(reg[k].level) + '</span><span class="num">' + (s ? s.got + ' / ' + s.total : '–') + '</span>' + accHtml + '</div>';
-    }).join('');
+    let untriedHtml = '';
+    if (untried.length) untriedHtml = '<p class="studynote">' + (S.unit === 'mixed' && untried.length > 6
+      ? untried.length + ' skills not tried yet. They’ll come up as you go.'
+      : 'Not tried yet: ' + untried.map(id => { const [u, k] = unsid(id); return sdef(u, k).name; }).join(', ') + '. They’ll come up as you go.') + '</p>';
+    let rows = '';
+    studyUnits().forEach(u => {
+      if (S.unit === 'mixed') rows += '<div class="row grp"><span>Unit ' + UNIT_NO[u] + ' · ' + UNITS[u].name + '</span></div>';
+      Object.keys(GEN.units[u]).forEach(k => {
+        const s = ST.session[sid(u, k)], acc = accuracy(u, k), n = hist(u, k).slice(-10).length;
+        const accHtml = acc === null ? '<span class="muted">not tried yet</span>' :
+          '<span class="acc' + (acc < 0.8 ? ' low' : '') + '"><span class="num">' + Math.round(acc * 100) + '% of ' + n + '</span><span class="meter"><i style="width:' + Math.round(acc * 100) + '%"></i></span></span>';
+        rows += '<div class="row"><span>' + sdef(u, k).name + ' ' + chip(sdef(u, k).level) + '</span><span class="num">' + (s ? s.got + ' / ' + s.total : '–') + '</span>' + accHtml + '</div>';
+      });
+    });
     stage.innerHTML = '<div class="summary">' +
       '<p class="eyebrow">This session</p>' +
       '<h2>' + (done ? done + (done === 1 ? ' question' : ' questions') + ' so far' : 'Nothing marked yet this session') + '</h2>' +
       '<div class="nums"><div class="g"><strong>' + got + '</strong><span>got it</span></div><div class="l"><strong>' + (done - got) + '</strong><span>still learning</span></div></div>' +
-      '<h3>Work on next</h3>' + weakHtml +
-      (untried.length ? '<p class="studynote">Not tried yet: ' + untried.map(k => reg[k].name).join(', ') + '. They’ll come up as you go.</p>' : '') +
+      '<h3>Work on next</h3>' + weakHtml + untriedHtml +
       '<h3>By skill</h3>' +
       '<div class="skills"><div class="row head"><span>Skill</span><span>Session</span><span>Recent</span></div>' + rows + '</div>' +
-      '<p class="studynote">“Recent” is your last 10 tries at each skill, across every session on this device.</p>' +
+      '<p class="studynote">“Recent” is your last 10 tries at each skill, across every session on this device' + (S.unit === 'mixed' ? ', including ones in the unit decks' : '') + '.</p>' +
       '<div class="actions"><button class="btn" type="button" id="copySum">Copy a summary to send</button>' +
       '<button class="btn primary" type="button" id="backStudy">Back to studying</button></div>' +
       '<textarea class="sumtext" id="sumText" readonly hidden></textarea></div>';
@@ -1710,7 +2345,7 @@ window.STUDY_GEN = (function(){
     }));
     $('#backStudy').addEventListener('click', () => { ST.showProgress = false; renderStudy(); });
     $('#copySum').addEventListener('click', () => {
-      const text = summaryText(done, got);
+      const text = summaryText();
       const box = $('#sumText');
       const showBox = () => { box.hidden = false; box.value = text; box.focus(); box.select(); $('#copySum').textContent = 'Select and copy the text below'; };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $('#copySum').textContent = 'Copied'; }, showBox);
@@ -1718,13 +2353,17 @@ window.STUDY_GEN = (function(){
     });
   }
 
-  function summaryText(done, got){
-    const reg = GEN.units[S.unit];
-    const lines = ['Unit ' + UNIT_NO[S.unit] + ' ' + UNITS[S.unit].name + ' study, ' + new Date().toLocaleDateString(),
+  function summaryText(){
+    const {done, got} = sessionTotals();
+    const title = S.unit === 'mixed' ? 'Mixed review' : 'Unit ' + UNIT_NO[S.unit] + ' ' + UNITS[S.unit].name;
+    const lines = [title + ' study, ' + new Date().toLocaleDateString(),
       'This session: ' + done + ' questions, ' + got + ' got it, ' + (done - got) + ' still learning.', 'Recent accuracy by skill (last 10 tries):'];
-    Object.keys(reg).forEach(k => { const a = accuracy(k), n = hist(k).slice(-10).length; lines.push('- ' + reg[k].name + ': ' + (a === null ? 'not tried' : Math.round(a * 100) + '% of ' + n)); });
+    studyUnits().forEach(u => {
+      if (S.unit === 'mixed') lines.push('Unit ' + UNIT_NO[u] + ' ' + UNITS[u].name + ':');
+      Object.keys(GEN.units[u]).forEach(k => { const a = accuracy(u, k), n = hist(u, k).slice(-10).length; lines.push('- ' + sdef(u, k).name + ': ' + (a === null ? 'not tried' : Math.round(a * 100) + '% of ' + n)); });
+    });
     const weak = weakSkills();
-    if (weak.length) lines.push('Work on next: ' + weak.map(x => reg[x.k].name).join(', ') + '.');
+    if (weak.length) lines.push('Work on next: ' + weak.map(x => skillLabel(x.u, x.k)).join(', ') + '.');
     return lines.join('\n');
   }
 

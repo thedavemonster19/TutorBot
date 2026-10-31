@@ -10,7 +10,7 @@ const window = {};
 eval(src);
 const G = window.STUDY_GEN;
 const N = Number(process.argv[2]) || 3000;
-const BAD = /NaN|\bundefined\b(?! *:)|Infinity|\+ -|- -|\+ \+|\(x - 0\)|\(x \+ 0\)|0x\b|\b1y\b/;
+const BAD = /NaN|\bundefined\b(?! *:)|Infinity|\+ -|- -|\+ \+|\(x - 0\)|\(x \+ 0\)|(?<![0-9.])0x\b|\b1y\b/;
 let failed = 0;
 for (const [unit, skills] of Object.entries(G.units)) {
   for (const [skill, s] of Object.entries(skills)) {
