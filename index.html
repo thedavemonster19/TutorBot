@@ -1,0 +1,1096 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MCR3U Flashcards</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+/* Layout: graph-paper study desk (chalkboard in dark). Home = unit index cards; deck = one big index card with the solution on its back. */
+:root{
+  --paper:#F4F6F1; --grid:#DFE7EE; --card:#FFFFFF; --ink:#1C2A42; --ink-soft:#56637A;
+  --line:#D6DDE6; --margin:#D4503E; --ruled:#C9DAEC; --accent:#2457A8; --accent-ink:#FFFFFF;
+  --ok:#2C7A4D; --ok-soft:#E2F1E7; --warn:#B4512A; --warn-soft:#F8E6DC;
+  --core:#E8EDF4; --core-ink:#34445E; --think:#E1ECFB; --think-ink:#1F4E96; --chal:#FBE9DF; --chal-ink:#9A4320;
+  --shadow:rgba(28,42,66,.10);
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#16201C; --grid:#1D2924; --card:#202D27; --ink:#E7EEE9; --ink-soft:#A6B6AD;
+  --line:#33443C; --margin:#E2806D; --ruled:#2C3C35; --accent:#8FB9F3; --accent-ink:#0E1A2B;
+  --ok:#82D3A3; --ok-soft:#1D3729; --warn:#F1A27C; --warn-soft:#3A271E;
+  --core:#2A3933; --core-ink:#C9D6CF; --think:#1F3247; --think-ink:#A9CBF7; --chal:#3B2A20; --chal-ink:#F3B08D;
+  --shadow:rgba(0,0,0,.35); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#16201C; --grid:#1D2924; --card:#202D27; --ink:#E7EEE9; --ink-soft:#A6B6AD;
+  --line:#33443C; --margin:#E2806D; --ruled:#2C3C35; --accent:#8FB9F3; --accent-ink:#0E1A2B;
+  --ok:#82D3A3; --ok-soft:#1D3729; --warn:#F1A27C; --warn-soft:#3A271E;
+  --core:#2A3933; --core-ink:#C9D6CF; --think:#1F3247; --think-ink:#A9CBF7; --chal:#3B2A20; --chal-ink:#F3B08D;
+  --shadow:rgba(0,0,0,.35); color-scheme:dark }
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; color:var(--ink); font:17px/1.6 var(--body);
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 64px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.eyebrow{font:500 12px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:0}
+
+/* Home */
+.masthead{display:flex;flex-direction:column;gap:8px}
+.masthead h1{font-size:clamp(34px,7vw,52px);font-weight:800;line-height:1.02}
+.masthead h1 span{color:var(--accent)}
+.masthead p.lede{margin:0;color:var(--ink-soft);max-width:60ch}
+.units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.unit{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;
+  box-shadow:0 2px 0 var(--shadow);padding:22px 20px 18px 30px;display:flex;flex-direction:column;gap:10px;min-width:0;
+  text-align:left;
+}
+.unit::before{content:"";position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.75}
+.unit h2{font-size:23px;font-weight:800}
+.unit p{margin:0;color:var(--ink-soft);font-size:15.5px}
+.unit .tally{display:flex;flex-wrap:wrap;gap:6px}
+.unit .meter{height:8px;border-radius:4px;background:var(--core);overflow:hidden}
+.unit .meter i{display:block;height:100%;background:var(--ok);border-radius:4px;transition:width .4s}
+.unit .meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.unit .meta small{font:500 13px var(--mono);color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.unit.mixed{grid-column:1/-1;background:var(--card)}
+.unit.mixed h2::after{content:" ∑";color:var(--accent)}
+.btn{
+  border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:8px 16px;min-height:42px;
+  font-weight:700;font-size:15.5px;display:inline-flex;align-items:center;gap:8px;justify-content:center
+}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.btn.warn{border-color:var(--warn);color:var(--warn)}
+.btn.ghost{border-color:var(--line)}
+.btn:hover{filter:brightness(1.06)}
+.chip{font:500 11.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:4px;white-space:nowrap}
+.chip.core{background:var(--core);color:var(--core-ink)}
+.chip.think{background:var(--think);color:var(--think-ink)}
+.chip.challenge{background:var(--chal);color:var(--chal-ink)}
+.howto{background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:16px 20px}
+.howto h3{font-size:17px;margin-bottom:6px}
+.howto ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;color:var(--ink-soft);font-size:15.5px}
+.foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;color:var(--ink-soft);font-size:14px}
+.foot .reset{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* Deck */
+.deckbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.back{background:none;border:0;padding:6px 0;color:var(--accent);font-weight:700}
+.deckbar h1{font-size:clamp(24px,5vw,32px);font-weight:800}
+.count{font:500 14px var(--mono);color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.progress{height:6px;background:var(--core);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filters button{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:14.5px;min-height:36px}
+.filters button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--card)}
+.filters .sep{width:1px;height:22px;background:var(--line)}
+
+.flash{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 3px 0 var(--shadow),0 18px 40px -24px var(--shadow);
+  padding:22px 22px 24px 46px;min-height:300px;
+  background-image:linear-gradient(var(--card),var(--card)),repeating-linear-gradient(transparent 0 31px,var(--ruled) 31px 32px);
+  background-clip:padding-box;
+  transform-origin:center;transition:transform .22s ease-in;
+}
+.flash.ruled{background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--ruled) 31px 32px);background-position:0 56px}
+.flash::before{content:"";position:absolute;left:28px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.8}
+.flash.turning{transform:rotateY(90deg)}
+.flash .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.flash .side{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--margin)}
+.flash .q{font-size:19px;line-height:1.65}
+.flash .q p{margin:0 0 10px}
+.flash .hintbox{margin-top:16px;padding:12px 14px;border-radius:8px;background:var(--think);color:var(--think-ink);font-size:16px}
+.flash .ans{margin:0 0 16px;padding:12px 16px;border:2px solid var(--ok);border-radius:8px;background:var(--ok-soft);font-size:18px}
+.flash .ans b:first-child{display:block;font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:2px}
+.flash .askq{font-size:15px;color:var(--ink-soft);border-left:3px solid var(--line);padding-left:12px;margin:0 0 14px}
+.flash h4{font:800 15px var(--display);margin:16px 0 6px;letter-spacing:.01em}
+.flash ol.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.flash ol.steps li::marker{font-family:var(--mono);color:var(--ink-soft)}
+.flash .why,.flash .trap{margin:12px 0 0;padding:10px 14px;border-radius:8px;font-size:16px}
+.flash .why{background:var(--core)}
+.flash .trap{background:var(--warn-soft)}
+.flash .why b,.flash .trap b{font-family:var(--display)}
+.flash .trap b{color:var(--warn)}
+.math-x{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:2px 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.actions .grp{display:flex;flex-wrap:wrap;gap:10px}
+.keys{font-size:13px;color:var(--ink-soft)}
+.keys kbd{font:500 12px var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 5px;background:var(--card)}
+.summary{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.summary h2{font-size:28px;font-weight:800}
+.summary .nums{display:flex;gap:24px;flex-wrap:wrap}
+.summary .nums div{display:flex;flex-direction:column}
+.summary .nums strong{font:800 40px/1 var(--display);font-variant-numeric:tabular-nums}
+.summary .nums .g strong{color:var(--ok)}
+.summary .nums .l strong{color:var(--warn)}
+.summary .nums span{font-size:14px;color:var(--ink-soft)}
+.empty{padding:28px;text-align:left;color:var(--ink-soft)}
+
+@media (max-width:640px){
+  .units{grid-template-columns:minmax(0,1fr)}
+  .flash{padding:18px 16px 20px 34px}
+  .flash::before{left:20px}
+  .flash .q{font-size:18px}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.flash,.unit .meter i,.progress i{transition:none}}
+</style>
+
+<div class="wrap">
+  <section id="home">
+    <div class="wrap" style="padding:0">
+      <header class="masthead">
+        <p class="eyebrow">Grade 11 Functions · MCR3U</p>
+        <h1>Functions <span>Flashcards</span></h1>
+        <p class="lede">Question on the front. Full worked solution, the reason it works and the usual trap on the back. Pick a unit, or mix them all for test review.</p>
+      </header>
+      <div class="units" id="unitGrid"></div>
+      <div class="howto">
+        <h3>How to get the most out of it</h3>
+        <ol>
+          <li>Work each card on paper before you flip it. Reading a solution is not the same as doing one.</li>
+          <li>Be honest: tap <b>Still learning</b> if you needed the hint or made any slip. Those cards come back later in the round.</li>
+          <li><b>Thinking</b> and <b>Challenge</b> cards go past the basics. They are the ones that move a mark from a B to an A.</li>
+        </ol>
+      </div>
+      <div class="foot">
+        <span id="overall"></span>
+        <span class="reset"><button class="btn ghost" id="resetBtn" type="button">Reset my progress</button><span id="resetConfirm" hidden>Clear every card mark? <button class="btn warn" id="resetYes" type="button">Yes, clear</button> <button class="btn ghost" id="resetNo" type="button">Keep</button></span></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="deck" hidden>
+    <div class="wrap" style="padding:0">
+      <div class="deckbar">
+        <button class="back" id="backBtn" type="button">← All units</button>
+        <span class="count" id="count"></span>
+      </div>
+      <h1 id="deckTitle"></h1>
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <div class="filters" id="filters" role="group" aria-label="Card filters">
+        <button type="button" data-level="all" aria-pressed="true">All</button>
+        <button type="button" data-level="core" aria-pressed="false">Core</button>
+        <button type="button" data-level="think" aria-pressed="false">Thinking</button>
+        <button type="button" data-level="challenge" aria-pressed="false">Challenge</button>
+        <span class="sep" aria-hidden="true"></span>
+        <button type="button" id="onlyLearning" aria-pressed="false">Only “still learning”</button>
+        <button type="button" id="shuffleBtn" aria-pressed="false">Shuffle</button>
+      </div>
+      <div id="stage"></div>
+      <p class="keys">Keys: <kbd>Space</kbd> flip · <kbd>H</kbd> hint · <kbd>1</kbd> still learning · <kbd>2</kbd> got it · <kbd>←</kbd> <kbd>→</kbd> move</p>
+    </div>
+  </section>
+</div>
+
+<!-- Card bank. data-unit: quadratics | radicals | rationals | mixed. data-level: core | think | challenge -->
+<div id="cards" hidden>
+
+<!-- ============ QUADRATICS ============ -->
+<article data-id="q1" data-unit="quadratics" data-level="core">
+  <div class="q"><p>Complete the square to write \(f(x) = 2x^2 - 12x + 7\) in vertex form. State the vertex and whether it is a maximum or a minimum.</p></div>
+  <div class="hint">Factor the 2 out of the first two terms only, then add and subtract \(\left(\tfrac{b}{2}\right)^2\) inside the bracket.</div>
+  <div class="ans">\(f(x) = 2(x-3)^2 - 11\). Vertex \((3, -11)\), a minimum.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Factor 2 from the \(x\) terms: \(f(x) = 2(x^2 - 6x) + 7\).</li>
+      <li>Half of \(-6\) is \(-3\); squared is \(9\). Add and subtract it inside: \(f(x) = 2(x^2 - 6x + 9 - 9) + 7\).</li>
+      <li>Move the \(-9\) out. It gets multiplied by the 2 in front: \(f(x) = 2(x^2 - 6x + 9) - 18 + 7\).</li>
+      <li>Write the perfect square and combine: \(f(x) = 2(x-3)^2 - 11\).</li>
+      <li>\(a = 2 > 0\), so it opens up and the vertex \((3, -11)\) is a minimum.</li>
+    </ol>
+    <p class="why"><b>Check it.</b> The axis is \(x = -\tfrac{b}{2a} = \tfrac{12}{4} = 3\), and \(f(3) = 18 - 36 + 7 = -11\). Same vertex.</p>
+    <p class="trap"><b>Watch out.</b> The most common slip is pulling out \(-9\) instead of \(-18\). Whatever leaves the bracket gets multiplied by the factor in front.</p>
+  </div>
+</article>
+
+<article data-id="q2" data-unit="quadratics" data-level="core">
+  <div class="q"><p>Solve by factoring: \(3x^2 - 5x - 2 = 0\).</p></div>
+  <div class="hint">Find two numbers that multiply to \(a \times c = -6\) and add to \(-5\). Then split the middle term.</div>
+  <div class="ans">\(x = -\tfrac{1}{3}\) or \(x = 2\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(ac = 3(-2) = -6\). Two numbers with product \(-6\) and sum \(-5\): \(-6\) and \(1\).</li>
+      <li>Split the middle term: \(3x^2 - 6x + x - 2 = 0\).</li>
+      <li>Group: \(3x(x - 2) + 1(x - 2) = 0\), so \((3x + 1)(x - 2) = 0\).</li>
+      <li>Set each factor to zero: \(3x + 1 = 0 \Rightarrow x = -\tfrac13\), and \(x - 2 = 0 \Rightarrow x = 2\).</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> If a product is zero, at least one factor must be zero. That only works when one side of the equation is 0.</p>
+    <p class="trap"><b>Watch out.</b> Expand your factors to check: \((3x+1)(x-2) = 3x^2 - 6x + x - 2 = 3x^2 - 5x - 2\). Sign errors in the split are the usual problem.</p>
+  </div>
+</article>
+
+<article data-id="q3" data-unit="quadratics" data-level="core">
+  <div class="q"><p>Use the quadratic formula to solve \(x^2 + 4x - 1 = 0\). Give exact answers in simplest radical form.</p></div>
+  <div class="hint">\(a = 1,\ b = 4,\ c = -1\). Simplify the root, then divide every term by the denominator.</div>
+  <div class="ans">\(x = -2 \pm \sqrt{5}\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} = \dfrac{-4 \pm \sqrt{16 - 4(1)(-1)}}{2}\).</li>
+      <li>Discriminant: \(16 + 4 = 20\), so \(x = \dfrac{-4 \pm \sqrt{20}}{2}\).</li>
+      <li>Simplify the radical: \(\sqrt{20} = \sqrt{4}\sqrt{5} = 2\sqrt5\), so \(x = \dfrac{-4 \pm 2\sqrt5}{2}\).</li>
+      <li>Divide both terms by 2: \(x = -2 \pm \sqrt5\).</li>
+    </ol>
+    <p class="why"><b>Sense check.</b> \(\sqrt5 \approx 2.24\), so the roots are about \(0.24\) and \(-4.24\). Their average is \(-2\), which is the axis of symmetry \(x = -\tfrac{b}{2a}\).</p>
+    <p class="trap"><b>Watch out.</b> You must divide <i>both</i> terms by 2. Writing \(-2 \pm 2\sqrt5\) is a very common error.</p>
+  </div>
+</article>
+
+<article data-id="q4" data-unit="quadratics" data-level="core">
+  <div class="q"><p>Without solving, how many zeros does \(f(x) = 4x^2 - 12x + 9\) have? What does that tell you about its graph?</p></div>
+  <div class="hint">Calculate the discriminant \(b^2 - 4ac\).</div>
+  <div class="ans">Exactly one zero. The vertex sits on the \(x\)-axis.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(D = b^2 - 4ac = (-12)^2 - 4(4)(9) = 144 - 144 = 0\).</li>
+      <li>\(D = 0\) means one real (double) root.</li>
+      <li>In fact \(4x^2 - 12x + 9 = (2x - 3)^2\), so the zero is \(x = \tfrac32\) and the vertex is \(\left(\tfrac32, 0\right)\).</li>
+    </ol>
+    <p class="why"><b>The rule.</b> \(D \gt 0\): two zeros. \(D = 0\): one zero (vertex on the axis). \(D \lt 0\): no real zeros.</p>
+    <p class="trap"><b>Watch out.</b> \(b = -12\), and \((-12)^2 = +144\). Squaring a negative is always positive.</p>
+  </div>
+</article>
+
+<article data-id="q5" data-unit="quadratics" data-level="think">
+  <div class="q"><p>For what values of \(k\) does \(kx^2 + 6x + k = 0\) have <b>two distinct real roots</b>?</p></div>
+  <div class="hint">Two distinct real roots means \(D \gt 0\). Then ask yourself: what happens when \(k = 0\)?</div>
+  <div class="ans">\(-3 \lt k \lt 3\) and \(k \ne 0\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(D = 6^2 - 4(k)(k) = 36 - 4k^2\).</li>
+      <li>Two distinct roots: \(36 - 4k^2 \gt 0 \Rightarrow k^2 \lt 9 \Rightarrow -3 \lt k \lt 3\).</li>
+      <li>If \(k = 0\) the equation becomes \(6x = 0\). That is linear with one root, so \(k = 0\) must be excluded.</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> The discriminant only describes a quadratic. Before you trust it, make sure \(a \ne 0\).</p>
+    <p class="trap"><b>Watch out.</b> \(k^2 \lt 9\) is <i>not</i> \(k \lt 3\). It is \(-3 \lt k \lt 3\). Test \(k = -5\): \(36 - 100 \lt 0\), so no roots.</p>
+  </div>
+</article>
+
+<article data-id="q6" data-unit="quadratics" data-level="think">
+  <div class="q"><p>A parabola has zeros at \(x = -1\) and \(x = 5\) and passes through \((2, -18)\). Find its equation in standard form. What is special about the point \((2, -18)\)?</p></div>
+  <div class="hint">Start from factored form \(y = a(x - r)(x - s)\) and use the point to find \(a\).</div>
+  <div class="ans">\(y = 2x^2 - 8x - 10\). The point \((2, -18)\) is the vertex.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Factored form with the zeros: \(y = a(x + 1)(x - 5)\).</li>
+      <li>Substitute \((2, -18)\): \(-18 = a(3)(-3) = -9a\), so \(a = 2\).</li>
+      <li>Expand: \(y = 2(x^2 - 4x - 5) = 2x^2 - 8x - 10\).</li>
+      <li>The axis of symmetry is halfway between the zeros: \(x = \tfrac{-1 + 5}{2} = 2\). The given point has \(x = 2\), so it is the vertex.</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> Zeros fix the shape's position. One more point fixes the stretch \(a\).</p>
+    <p class="trap"><b>Watch out.</b> A zero at \(x = -1\) gives the factor \((x + 1)\), not \((x - 1)\).</p>
+  </div>
+</article>
+
+<article data-id="q7" data-unit="quadratics" data-level="think">
+  <div class="q"><p>Does the line \(y = 2x - 3\) intersect the parabola \(y = x^2 - 4x + 6\)? If so, where?</p></div>
+  <div class="hint">Set the two right sides equal, move everything to one side, then look at the discriminant.</div>
+  <div class="ans">Yes, at exactly one point: \((3, 3)\). The line is tangent to the parabola.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x^2 - 4x + 6 = 2x - 3\).</li>
+      <li>\(x^2 - 6x + 9 = 0\).</li>
+      <li>\(D = 36 - 36 = 0\): one point of intersection. Factor: \((x - 3)^2 = 0\), so \(x = 3\).</li>
+      <li>\(y = 2(3) - 3 = 3\). Check in the parabola: \(9 - 12 + 6 = 3\). ✓</li>
+    </ol>
+    <p class="why"><b>The idea.</b> Solving the system gives a quadratic. Its discriminant counts the intersections: 2, 1 (tangent) or 0.</p>
+    <p class="trap"><b>Watch out.</b> Find \(y\) too. The question asks <i>where</i>, which is a point, not just an \(x\) value.</p>
+  </div>
+</article>
+
+<article data-id="q8" data-unit="quadratics" data-level="challenge">
+  <div class="q"><p>Find every value of \(k\) for which the line \(y = kx - 1\) is tangent to the parabola \(y = x^2 + 3\). Find the points of tangency.</p></div>
+  <div class="hint">Tangent means exactly one intersection, so set \(D = 0\).</div>
+  <div class="ans">\(k = 4\), touching at \((2, 7)\); and \(k = -4\), touching at \((-2, 7)\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x^2 + 3 = kx - 1 \Rightarrow x^2 - kx + 4 = 0\).</li>
+      <li>One intersection: \(D = k^2 - 4(1)(4) = 0 \Rightarrow k^2 = 16 \Rightarrow k = \pm 4\).</li>
+      <li>\(k = 4\): \(x^2 - 4x + 4 = (x-2)^2 = 0\), so \(x = 2\), \(y = 2^2 + 3 = 7\).</li>
+      <li>\(k = -4\): \(x^2 + 4x + 4 = (x+2)^2 = 0\), so \(x = -2\), \(y = 7\).</li>
+    </ol>
+    <p class="why"><b>Picture it.</b> Every line \(y = kx - 1\) passes through \((0, -1)\), below the parabola. Two of them just touch it, one on each side. The parabola is symmetric, so the slopes are opposites.</p>
+    <p class="trap"><b>Watch out.</b> \(k^2 = 16\) has two answers. Dropping \(k = -4\) loses half the marks.</p>
+  </div>
+</article>
+
+<article data-id="q9" data-unit="quadratics" data-level="core">
+  <div class="q"><p>A ball is thrown so that its height in metres after \(t\) seconds is \(h(t) = -4.9t^2 + 19.6t + 2\).</p><p>(a) What is the maximum height, and when does it happen? (b) When does the ball hit the ground?</p></div>
+  <div class="hint">(a) The vertex. (b) Solve \(h(t) = 0\) with the quadratic formula and reject any answer that does not make sense.</div>
+  <div class="ans">(a) 21.6 m at \(t = 2\) s. (b) About 4.10 s.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>(a) \(t = -\dfrac{b}{2a} = -\dfrac{19.6}{2(-4.9)} = 2\). Then \(h(2) = -4.9(4) + 19.6(2) + 2 = -19.6 + 39.2 + 2 = 21.6\) m.</li>
+      <li>(b) \(D = 19.6^2 - 4(-4.9)(2) = 384.16 + 39.2 = 423.36\), and \(\sqrt{423.36} \approx 20.576\).</li>
+      <li>\(t = \dfrac{-19.6 \pm 20.576}{-9.8}\), giving \(t \approx -0.10\) or \(t \approx 4.10\).</li>
+      <li>Time can't be negative here, so the ball lands at about \(4.10\) s.</li>
+    </ol>
+    <p class="why"><b>Context matters.</b> The math gives two answers. The situation decides which one counts.</p>
+    <p class="trap"><b>Watch out.</b> \(a = -4.9\) is negative, so the denominator \(2a = -9.8\) is negative too. Keep the sign.</p>
+  </div>
+</article>
+
+<article data-id="q10" data-unit="quadratics" data-level="challenge">
+  <div class="q"><p>A theatre sells 400 tickets at \$12 each. For every \$1 increase in price, 20 fewer tickets sell. What price gives the maximum revenue, and what is that revenue?</p></div>
+  <div class="hint">Let \(x\) be the number of \$1 increases. Revenue = (price)(tickets sold).</div>
+  <div class="ans">\$16 per ticket, 320 tickets, revenue \$5120.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Price \(= 12 + x\). Tickets \(= 400 - 20x\).</li>
+      <li>\(R(x) = (12 + x)(400 - 20x)\).</li>
+      <li>Zeros of \(R\): \(x = -12\) and \(x = 20\). The vertex is halfway: \(x = \tfrac{-12 + 20}{2} = 4\).</li>
+      <li>Price \(= 12 + 4 = \$16\). Tickets \(= 400 - 80 = 320\). Revenue \(= 16 \times 320 = \$5120\).</li>
+    </ol>
+    <p class="why"><b>Shortcut.</b> Leave \(R\) in factored form. The zeros are easy to read, and the max is at their midpoint, so you never have to expand.</p>
+    <p class="trap"><b>Watch out.</b> \(x = 4\) is the number of increases, not the price. Answer the question that was asked.</p>
+  </div>
+</article>
+
+<article data-id="q11" data-unit="quadratics" data-level="think">
+  <div class="q"><p>Two numbers differ by 10. What are they if their product is as small as possible?</p></div>
+  <div class="hint">Call them \(x\) and \(x + 10\). The product is a quadratic in \(x\).</div>
+  <div class="ans">\(-5\) and \(5\). Minimum product \(-25\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(P(x) = x(x + 10) = x^2 + 10x\). It opens up, so it has a minimum.</li>
+      <li>Zeros at \(x = 0\) and \(x = -10\), so the vertex is at \(x = -5\).</li>
+      <li>The numbers are \(-5\) and \(5\), and \(P(-5) = -25\).</li>
+    </ol>
+    <p class="why"><b>Intuition.</b> A negative times a positive is negative. The product is most negative when the two numbers are balanced around 0.</p>
+    <p class="trap"><b>Watch out.</b> Many students assume the answer must be positive numbers. Nothing in the question says so.</p>
+  </div>
+</article>
+
+<article data-id="q12" data-unit="quadratics" data-level="think">
+  <div class="q"><p>Explain why \(f(x) = a(x - h)^2 + k\) has <b>no</b> \(x\)-intercepts when \(a \lt 0\) and \(k \lt 0\). Give a graphical reason and an algebraic one.</p></div>
+  <div class="hint">Which way does it open, and where is its highest point?</div>
+  <div class="ans">It opens down and its highest point is \(k \lt 0\), so the whole graph is below the \(x\)-axis.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li><b>Graphically:</b> \(a \lt 0\) means it opens down, so the vertex \((h, k)\) is the maximum. If the maximum is below the axis (\(k \lt 0\)), every point is.</li>
+      <li><b>Algebraically:</b> set \(f(x) = 0\): \((x - h)^2 = -\dfrac{k}{a}\).</li>
+      <li>\(-k \gt 0\) and \(a \lt 0\), so \(-\dfrac{k}{a} \lt 0\). A square can't be negative, so there's no real solution.</li>
+    </ol>
+    <p class="why"><b>Reuse this.</b> Sign of \(a\) plus sign of \(k\) tells you the number of zeros in seconds. Same signs: none. Opposite signs: two. \(k = 0\): one.</p>
+    <p class="trap"><b>Watch out.</b> “Explain” questions are Communication marks. Use both words and math, as shown.</p>
+  </div>
+</article>
+
+<article data-id="q13" data-unit="quadratics" data-level="challenge">
+  <div class="q"><p><b>Find the mistake.</b> A student completed the square like this:</p><p>\(f(x) = -x^2 + 6x - 5\)<br>\(= -(x^2 + 6x) - 5\)<br>\(= -(x + 3)^2 + 9 - 5\)<br>\(= -(x + 3)^2 + 4\)</p><p>Find the error, fix it, and explain why the final \(k\) still happens to be right.</p></div>
+  <div class="hint">Check the sign inside the bracket after factoring out \(-1\).</div>
+  <div class="ans">Line 2 should be \(-(x^2 - 6x) - 5\). Correct answer: \(f(x) = -(x - 3)^2 + 4\), vertex \((3, 4)\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Factoring \(-1\) out of \(-x^2 + 6x\) gives \(-(x^2 - 6x)\). Every sign inside flips.</li>
+      <li>\(-(x^2 - 6x + 9 - 9) - 5 = -(x - 3)^2 + 9 - 5 = -(x - 3)^2 + 4\).</li>
+      <li>Check: \(x = -\tfrac{b}{2a} = -\tfrac{6}{-2} = 3\) and \(f(3) = -9 + 18 - 5 = 4\). ✓</li>
+      <li>The \(k\) value matched by luck. Both versions moved \(+9\) out of the bracket, but the student's vertex \((-3, 4)\) is on the wrong side of the axis.</li>
+    </ol>
+    <p class="why"><b>Habit to build.</b> After completing the square, check \(h\) with \(-\tfrac{b}{2a}\). It takes five seconds.</p>
+    <p class="trap"><b>Watch out.</b> “Find the error” questions often hide a mistake that leads to a partly right answer. Check every line.</p>
+  </div>
+</article>
+
+<!-- ============ RADICALS ============ -->
+<article data-id="r1" data-unit="radicals" data-level="core">
+  <div class="q"><p>Simplify \(\sqrt{72}\).</p></div>
+  <div class="hint">Find the largest perfect square that divides 72.</div>
+  <div class="ans">\(6\sqrt2\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Perfect squares that divide 72: 4, 9, 36. The largest is 36.</li>
+      <li>\(\sqrt{72} = \sqrt{36 \times 2} = \sqrt{36}\,\sqrt{2} = 6\sqrt2\).</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> \(\sqrt{ab} = \sqrt a\,\sqrt b\) for \(a, b \ge 0\).</p>
+    <p class="trap"><b>Watch out.</b> Using 4 first gives \(2\sqrt{18}\), which is not simplest form. Keep going: \(2\sqrt{18} = 2 \cdot 3\sqrt2 = 6\sqrt2\).</p>
+  </div>
+</article>
+
+<article data-id="r2" data-unit="radicals" data-level="core">
+  <div class="q"><p>Simplify \(3\sqrt{20} - \sqrt{45} + \sqrt5\).</p></div>
+  <div class="hint">Simplify each radical first. You can only combine like radicals.</div>
+  <div class="ans">\(4\sqrt5\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(3\sqrt{20} = 3\sqrt{4}\sqrt5 = 6\sqrt5\).</li>
+      <li>\(\sqrt{45} = \sqrt9\sqrt5 = 3\sqrt5\).</li>
+      <li>\(6\sqrt5 - 3\sqrt5 + \sqrt5 = 4\sqrt5\).</li>
+    </ol>
+    <p class="why"><b>Think of it like algebra.</b> \(\sqrt5\) behaves like a variable: \(6y - 3y + y = 4y\).</p>
+    <p class="trap"><b>Watch out.</b> \(\sqrt{20} - \sqrt{45} \ne \sqrt{-25}\). You can't add or subtract the numbers under the root.</p>
+  </div>
+</article>
+
+<article data-id="r3" data-unit="radicals" data-level="core">
+  <div class="q"><p>Expand and simplify \((2\sqrt3 - \sqrt2)(\sqrt3 + 4\sqrt2)\).</p></div>
+  <div class="hint">FOIL, then multiply coefficients with coefficients and radicals with radicals.</div>
+  <div class="ans">\(-2 + 7\sqrt6\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(2\sqrt3 \cdot \sqrt3 = 2 \cdot 3 = 6\).</li>
+      <li>\(2\sqrt3 \cdot 4\sqrt2 = 8\sqrt6\).</li>
+      <li>\(-\sqrt2 \cdot \sqrt3 = -\sqrt6\).</li>
+      <li>\(-\sqrt2 \cdot 4\sqrt2 = -4 \cdot 2 = -8\).</li>
+      <li>Combine: \(6 - 8 + 8\sqrt6 - \sqrt6 = -2 + 7\sqrt6\).</li>
+    </ol>
+    <p class="why"><b>Key fact.</b> \(\sqrt a \cdot \sqrt a = a\). That's how the radicals disappear in steps 1 and 4.</p>
+    <p class="trap"><b>Watch out.</b> \(-\sqrt2 \cdot 4\sqrt2\) is \(-8\), not \(-4\sqrt4\) left unsimplified, and not \(+8\).</p>
+  </div>
+</article>
+
+<article data-id="r4" data-unit="radicals" data-level="think">
+  <div class="q"><p>Which is larger, \(3\sqrt5\) or \(2\sqrt{11}\)? Decide <b>without</b> a calculator.</p></div>
+  <div class="hint">Move each coefficient inside its root.</div>
+  <div class="ans">\(3\sqrt5\) is larger.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(3\sqrt5 = \sqrt{9}\sqrt5 = \sqrt{45}\).</li>
+      <li>\(2\sqrt{11} = \sqrt4\sqrt{11} = \sqrt{44}\).</li>
+      <li>\(45 \gt 44\), so \(\sqrt{45} \gt \sqrt{44}\).</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> Square roots keep order: if \(a \gt b \ge 0\), then \(\sqrt a \gt \sqrt b\).</p>
+    <p class="trap"><b>Watch out.</b> “3 is bigger than 2” or “11 is bigger than 5” doesn't settle it. You have to combine them.</p>
+  </div>
+</article>
+
+<article data-id="r5" data-unit="radicals" data-level="core">
+  <div class="q"><p>Describe the transformations that map \(y = \sqrt x\) onto \(y = -2\sqrt{x + 3} + 1\). Sketch using key points, and state the domain and range.</p></div>
+  <div class="hint">Compare with \(y = a\sqrt{k(x - d)} + c\). Map the points \((0,0), (1,1), (4,2)\).</div>
+  <div class="ans">Vertical stretch by 2, reflection in the \(x\)-axis, left 3, up 1. Domain \(x \ge -3\), range \(y \le 1\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(a = -2\): vertical stretch by a factor of 2 and a reflection in the \(x\)-axis.</li>
+      <li>\(d = -3\): shift left 3. \(c = 1\): shift up 1.</li>
+      <li>Mapping rule: \((x, y) \to (x - 3,\ -2y + 1)\).</li>
+      <li>\((0,0) \to (-3, 1)\), \((1,1) \to (-2, -1)\), \((4,2) \to (1, -3)\).</li>
+      <li>It starts at \((-3, 1)\) and goes down to the right. Domain \(\{x \in \mathbb{R} \mid x \ge -3\}\), range \(\{y \in \mathbb{R} \mid y \le 1\}\).</li>
+    </ol>
+    <p class="why"><b>Order matters.</b> Apply stretches and reflections first, then translations. The mapping rule does this automatically.</p>
+    <p class="trap"><b>Watch out.</b> The reflection flips the range. Without it the range would be \(y \ge 1\).</p>
+  </div>
+</article>
+
+<article data-id="r6" data-unit="radicals" data-level="think">
+  <div class="q"><p>Describe the transformations of \(y = \sqrt x\) that give \(y = \sqrt{-x + 4}\). State the domain and range.</p></div>
+  <div class="hint">Factor \(-1\) out of the inside first.</div>
+  <div class="ans">\(y = \sqrt{-(x - 4)}\): reflection in the \(y\)-axis, then shift right 4. Domain \(x \le 4\), range \(y \ge 0\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Rewrite: \(-x + 4 = -(x - 4)\), so \(y = \sqrt{-(x - 4)}\).</li>
+      <li>\(k = -1\): reflection in the \(y\)-axis. \(d = 4\): shift right 4.</li>
+      <li>Mapping: \((x, y) \to (-x + 4,\ y)\). \((0,0) \to (4,0)\), \((1,1) \to (3,1)\), \((4,2) \to (0,2)\).</li>
+      <li>The graph starts at \((4, 0)\) and goes up to the left. Domain \(x \le 4\), range \(y \ge 0\).</li>
+    </ol>
+    <p class="why"><b>Check the domain directly.</b> The inside must be \(\ge 0\): \(-x + 4 \ge 0 \Rightarrow x \le 4\). Same answer.</p>
+    <p class="trap"><b>Watch out.</b> Reading \(\sqrt{-x + 4}\) as “left 4” is the classic mistake. Always factor out \(k\) before you read \(d\).</p>
+  </div>
+</article>
+
+<article data-id="r7" data-unit="radicals" data-level="think">
+  <div class="q"><p>Show that \(y = \sqrt{4x}\) and \(y = 2\sqrt x\) have the same graph. What does that tell you about horizontal compressions of root functions?</p></div>
+  <div class="hint">Use \(\sqrt{ab} = \sqrt a\sqrt b\).</div>
+  <div class="ans">\(\sqrt{4x} = \sqrt4\,\sqrt x = 2\sqrt x\) for \(x \ge 0\). A horizontal compression by \(\tfrac14\) gives the same graph as a vertical stretch by 2.</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>For \(x \ge 0\): \(\sqrt{4x} = \sqrt4\sqrt x = 2\sqrt x\).</li>
+      <li>Check a point: at \(x = 1\), \(\sqrt{4} = 2\) and \(2\sqrt1 = 2\). ✓</li>
+      <li>So the horizontal compression by a factor of \(\tfrac14\) in \(\sqrt{4x}\) produces the same graph as the vertical stretch by 2 in \(2\sqrt x\).</li>
+    </ol>
+    <p class="why"><b>Bigger idea.</b> One graph can be described by different transformations. This only works this neatly because \(4\) is a perfect square. Try \(\sqrt{9x} = 3\sqrt x\).</p>
+    <p class="trap"><b>Watch out.</b> This does not work for every function. \((4x)^2 = 16x^2\), not \(4x^2\).</p>
+  </div>
+</article>
+
+<article data-id="r8" data-unit="radicals" data-level="core">
+  <div class="q"><p>Find the inverse of \(f(x) = (x - 2)^2 + 1\), \(x \ge 2\). State the domain and range of \(f^{-1}\).</p></div>
+  <div class="hint">Swap \(x\) and \(y\), solve for \(y\). Which sign of the square root keeps the range correct?</div>
+  <div class="ans">\(f^{-1}(x) = 2 + \sqrt{x - 1}\). Domain \(x \ge 1\), range \(y \ge 2\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Write \(y = (x - 2)^2 + 1\) and swap: \(x = (y - 2)^2 + 1\).</li>
+      <li>\((y - 2)^2 = x - 1\), so \(y - 2 = \pm\sqrt{x - 1}\).</li>
+      <li>The original domain \(x \ge 2\) becomes the inverse's range \(y \ge 2\), so take the \(+\) root: \(y = 2 + \sqrt{x - 1}\).</li>
+      <li>The domain of \(f^{-1}\) is the range of \(f\): \(x \ge 1\).</li>
+    </ol>
+    <p class="why"><b>Why it works.</b> An inverse swaps inputs and outputs, so domain and range trade places. Its graph is the reflection in \(y = x\).</p>
+    <p class="trap"><b>Watch out.</b> Without the restriction \(x \ge 2\), the inverse would not be a function.</p>
+  </div>
+</article>
+
+<article data-id="r9" data-unit="radicals" data-level="think">
+  <div class="q"><p>Why must the domain of \(f(x) = x^2\) be restricted before its inverse is a function? Give a restriction that works and the inverse it produces.</p></div>
+  <div class="hint">Think about the horizontal line test, and try \(f(2)\) and \(f(-2)\).</div>
+  <div class="ans">\(f\) fails the horizontal line test (\(f(2) = f(-2) = 4\)). Restrict to \(x \ge 0\), and then \(f^{-1}(x) = \sqrt x\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(f(2) = 4\) and \(f(-2) = 4\). The inverse would have to send 4 to both 2 and \(-2\), so it would not be a function.</li>
+      <li>Keep only one side of the parabola, \(x \ge 0\). Now each output comes from exactly one input.</li>
+      <li>Inverse: \(x = y^2,\ y \ge 0 \Rightarrow y = \sqrt x\).</li>
+      <li>Restricting to \(x \le 0\) also works, and gives \(f^{-1}(x) = -\sqrt x\).</li>
+    </ol>
+    <p class="why"><b>Connection.</b> This is exactly why \(y = \sqrt x\) is only “half” a sideways parabola.</p>
+    <p class="trap"><b>Watch out.</b> The vertical line test checks whether \(f\) is a function. The horizontal line test checks whether its inverse is.</p>
+  </div>
+</article>
+
+<article data-id="r10" data-unit="radicals" data-level="challenge">
+  <div class="q"><p>Solve \(\sqrt{x + 7} = x - 5\). Check your answers.</p></div>
+  <div class="hint">Square both sides, solve the quadratic, then put each answer back into the <i>original</i> equation.</div>
+  <div class="ans">\(x = 9\). (\(x = 2\) is extraneous.)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Square both sides: \(x + 7 = (x - 5)^2 = x^2 - 10x + 25\).</li>
+      <li>\(x^2 - 11x + 18 = 0 \Rightarrow (x - 2)(x - 9) = 0\), so \(x = 2\) or \(x = 9\).</li>
+      <li>Check \(x = 2\): left side \(\sqrt9 = 3\), right side \(2 - 5 = -3\). Not equal, so reject.</li>
+      <li>Check \(x = 9\): \(\sqrt{16} = 4\) and \(9 - 5 = 4\). ✓</li>
+    </ol>
+    <p class="why"><b>Why one answer is fake.</b> Squaring also solves \(-\sqrt{x+7} = x - 5\). The answer \(x = 2\) belongs to that equation. On a graph, the line meets the root curve only once.</p>
+    <p class="trap"><b>Watch out.</b> A square root is never negative. Any answer that makes the right side negative must be rejected.</p>
+  </div>
+</article>
+
+<article data-id="r11" data-unit="radicals" data-level="challenge">
+  <div class="q"><p>A radical function \(y = a\sqrt{x - h} + k\) starts at \((2, -3)\) and passes through \((6, 1)\). Find its equation.</p></div>
+  <div class="hint">The starting point gives \(h\) and \(k\). Use the other point to find \(a\).</div>
+  <div class="ans">\(y = 2\sqrt{x - 2} - 3\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>The endpoint is \((h, k) = (2, -3)\): \(y = a\sqrt{x - 2} - 3\).</li>
+      <li>Substitute \((6, 1)\): \(1 = a\sqrt{4} - 3 = 2a - 3\).</li>
+      <li>\(2a = 4 \Rightarrow a = 2\).</li>
+    </ol>
+    <p class="why"><b>Check.</b> \(x = 6\): \(2\sqrt4 - 3 = 4 - 3 = 1\). ✓</p>
+    <p class="trap"><b>Watch out.</b> \(h = 2\) appears as \(x - 2\) inside the root, the opposite sign from the point's coordinate.</p>
+  </div>
+</article>
+
+<article data-id="r12" data-unit="radicals" data-level="challenge">
+  <div class="q"><p>Simplify by rationalizing the denominator: (a) \(\dfrac{6}{\sqrt3}\) &nbsp; (b) \(\dfrac{\sqrt5 + 1}{\sqrt5 - 1}\)</p><p class="askq">Part (b) goes a step past the usual test questions.</p></div>
+  <div class="hint">(a) Multiply top and bottom by \(\sqrt3\). (b) Multiply by the conjugate \(\sqrt5 + 1\).</div>
+  <div class="ans">(a) \(2\sqrt3\) &nbsp; (b) \(\dfrac{3 + \sqrt5}{2}\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>(a) \(\dfrac{6}{\sqrt3}\cdot\dfrac{\sqrt3}{\sqrt3} = \dfrac{6\sqrt3}{3} = 2\sqrt3\).</li>
+      <li>(b) Multiply by \(\dfrac{\sqrt5 + 1}{\sqrt5 + 1}\). Denominator: \((\sqrt5 - 1)(\sqrt5 + 1) = 5 - 1 = 4\).</li>
+      <li>Numerator: \((\sqrt5 + 1)^2 = 5 + 2\sqrt5 + 1 = 6 + 2\sqrt5\).</li>
+      <li>\(\dfrac{6 + 2\sqrt5}{4} = \dfrac{3 + \sqrt5}{2}\).</li>
+    </ol>
+    <p class="why"><b>Why conjugates work.</b> \((a - b)(a + b) = a^2 - b^2\). Squaring removes the root, so the middle terms cancel.</p>
+    <p class="trap"><b>Watch out.</b> \((\sqrt5 + 1)^2 \ne 5 + 1\). Don't forget the middle term \(2\sqrt5\).</p>
+  </div>
+</article>
+
+<!-- ============ RATIONAL EXPRESSIONS ============ -->
+<article data-id="x1" data-unit="rationals" data-level="core">
+  <div class="q"><p>Simplify \(\dfrac{x^2 - 9}{x^2 + 5x + 6}\) and state the restrictions.</p></div>
+  <div class="hint">Factor top and bottom. Find restrictions from the denominator <i>before</i> you cancel.</div>
+  <div class="ans">\(\dfrac{x - 3}{x + 2}\), \(x \ne -2, -3\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Top: \(x^2 - 9 = (x - 3)(x + 3)\), a difference of squares.</li>
+      <li>Bottom: \(x^2 + 5x + 6 = (x + 2)(x + 3)\).</li>
+      <li>Restrictions from the original denominator: \(x \ne -2\), \(x \ne -3\).</li>
+      <li>Cancel the common factor \((x + 3)\): \(\dfrac{x - 3}{x + 2}\).</li>
+    </ol>
+    <p class="why"><b>Why keep \(x \ne -3\)?</b> The original expression is undefined at \(-3\). Simplifying doesn't change that. The graph has a hole there.</p>
+    <p class="trap"><b>Watch out.</b> If you state restrictions after cancelling, you'll miss \(x \ne -3\).</p>
+  </div>
+</article>
+
+<article data-id="x2" data-unit="rationals" data-level="core">
+  <div class="q"><p>Simplify \(\dfrac{6x^2 y}{9xy^3}\) and state the restrictions.</p></div>
+  <div class="hint">Simplify the numbers, then subtract exponents for each variable.</div>
+  <div class="ans">\(\dfrac{2x}{3y^2}\), \(x \ne 0,\ y \ne 0\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Numbers: \(\tfrac{6}{9} = \tfrac{2}{3}\).</li>
+      <li>\(\tfrac{x^2}{x} = x\) and \(\tfrac{y}{y^3} = \tfrac{1}{y^2}\).</li>
+      <li>Result: \(\dfrac{2x}{3y^2}\). The original denominator \(9xy^3\) is zero when \(x = 0\) or \(y = 0\).</li>
+    </ol>
+    <p class="trap"><b>Watch out.</b> \(x \ne 0\) stays, even though no \(x\) is left in the simplified denominator.</p>
+  </div>
+</article>
+
+<article data-id="x3" data-unit="rationals" data-level="core">
+  <div class="q"><p>Simplify \(\dfrac{x^2 - 4}{x^2 + x - 6} \times \dfrac{x + 3}{x + 2}\) and state the restrictions.</p></div>
+  <div class="hint">Factor everything first, then cancel factors across the multiplication.</div>
+  <div class="ans">\(1\), with \(x \ne -3, -2, 2\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x^2 - 4 = (x - 2)(x + 2)\) and \(x^2 + x - 6 = (x + 3)(x - 2)\).</li>
+      <li>\(\dfrac{(x - 2)(x + 2)}{(x + 3)(x - 2)} \times \dfrac{x + 3}{x + 2}\).</li>
+      <li>Restrictions (both denominators): \(x \ne -3,\ 2,\ -2\).</li>
+      <li>Every factor cancels, leaving \(1\).</li>
+    </ol>
+    <p class="why"><b>Meaning.</b> The expression equals 1 everywhere except at three \(x\) values, where it is undefined. Its graph is the line \(y = 1\) with three holes.</p>
+    <p class="trap"><b>Watch out.</b> When everything cancels, the answer is 1, not 0.</p>
+  </div>
+</article>
+
+<article data-id="x4" data-unit="rationals" data-level="think">
+  <div class="q"><p>Simplify \(\dfrac{x^2 - 25}{x^2 - 4x} \div \dfrac{x + 5}{x^2}\) and state <b>all</b> restrictions.</p></div>
+  <div class="hint">Multiply by the reciprocal. The second fraction's numerator becomes a denominator, so it adds a restriction.</div>
+  <div class="ans">\(\dfrac{x(x - 5)}{x - 4}\), \(x \ne -5, 0, 4\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Factor: \(\dfrac{(x - 5)(x + 5)}{x(x - 4)} \div \dfrac{x + 5}{x^2}\).</li>
+      <li>Restrictions: \(x \ne 0, 4\) (first denominator), \(x \ne 0\) (second denominator) and \(x \ne -5\), because the divisor \(\tfrac{x+5}{x^2}\) can't be zero.</li>
+      <li>Multiply by the reciprocal: \(\dfrac{(x - 5)(x + 5)}{x(x - 4)} \times \dfrac{x^2}{x + 5}\).</li>
+      <li>Cancel \((x + 5)\) and one \(x\): \(\dfrac{x(x - 5)}{x - 4}\).</li>
+    </ol>
+    <p class="why"><b>Why \(x \ne -5\)?</b> At \(x = -5\) you'd be dividing by \(0\). It's easy to miss because \(x + 5\) started on top.</p>
+    <p class="trap"><b>Watch out.</b> This extra restriction is the most-missed mark on division questions.</p>
+  </div>
+</article>
+
+<article data-id="x5" data-unit="rationals" data-level="core">
+  <div class="q"><p>Simplify \(\dfrac{3}{x} + \dfrac{2}{x + 1}\) and state the restrictions.</p></div>
+  <div class="hint">The lowest common denominator is \(x(x + 1)\).</div>
+  <div class="ans">\(\dfrac{5x + 3}{x(x + 1)}\), \(x \ne 0, -1\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>LCD \(= x(x + 1)\).</li>
+      <li>\(\dfrac{3(x + 1)}{x(x + 1)} + \dfrac{2x}{x(x + 1)}\).</li>
+      <li>\(\dfrac{3x + 3 + 2x}{x(x + 1)} = \dfrac{5x + 3}{x(x + 1)}\).</li>
+    </ol>
+    <p class="trap"><b>Watch out.</b> \(\dfrac{3}{x} + \dfrac{2}{x+1} \ne \dfrac{5}{2x + 1}\). You never add denominators.</p>
+  </div>
+</article>
+
+<article data-id="x6" data-unit="rationals" data-level="think">
+  <div class="q"><p>Simplify \(\dfrac{x}{x^2 - 1} - \dfrac{1}{x - 1}\) and state the restrictions.</p></div>
+  <div class="hint">Factor \(x^2 - 1\). Put the subtracted numerator in brackets.</div>
+  <div class="ans">\(\dfrac{-1}{(x - 1)(x + 1)}\), \(x \ne \pm 1\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x^2 - 1 = (x - 1)(x + 1)\), so the LCD is \((x - 1)(x + 1)\).</li>
+      <li>\(\dfrac{x}{(x - 1)(x + 1)} - \dfrac{(x + 1)}{(x - 1)(x + 1)}\).</li>
+      <li>\(\dfrac{x - (x + 1)}{(x - 1)(x + 1)} = \dfrac{x - x - 1}{(x - 1)(x + 1)} = \dfrac{-1}{(x - 1)(x + 1)}\).</li>
+    </ol>
+    <p class="why"><b>Check with a number.</b> \(x = 2\): \(\tfrac{2}{3} - 1 = -\tfrac13\), and \(\tfrac{-1}{(1)(3)} = -\tfrac13\). ✓</p>
+    <p class="trap"><b>Watch out.</b> The minus applies to the whole numerator \((x + 1)\). Writing \(x - x + 1\) is the classic error.</p>
+  </div>
+</article>
+
+<article data-id="x7" data-unit="rationals" data-level="think">
+  <div class="q"><p>Simplify \(\dfrac{1}{x - 2} + \dfrac{1}{2 - x}\).</p></div>
+  <div class="hint">Look closely at \(2 - x\). How is it related to \(x - 2\)?</div>
+  <div class="ans">\(0\), with \(x \ne 2\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(2 - x = -(x - 2)\).</li>
+      <li>So \(\dfrac{1}{2 - x} = -\dfrac{1}{x - 2}\).</li>
+      <li>\(\dfrac{1}{x - 2} - \dfrac{1}{x - 2} = 0\), for \(x \ne 2\).</li>
+    </ol>
+    <p class="why"><b>Spot it fast.</b> \(a - b\) and \(b - a\) are opposites. Look for them in every rational question.</p>
+    <p class="trap"><b>Watch out.</b> Using \((x - 2)(2 - x)\) as the LCD still works, but it's longer and easy to mess up.</p>
+  </div>
+</article>
+
+<article data-id="x8" data-unit="rationals" data-level="think">
+  <div class="q"><p>Simplify \(\dfrac{2}{x^2 - x - 6} + \dfrac{3}{x^2 - 9}\) and state the restrictions.</p></div>
+  <div class="hint">Factor both denominators. They share one factor. The LCD uses each different factor once.</div>
+  <div class="ans">\(\dfrac{5x + 12}{(x - 3)(x + 2)(x + 3)}\), \(x \ne 3, -2, -3\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x^2 - x - 6 = (x - 3)(x + 2)\) and \(x^2 - 9 = (x - 3)(x + 3)\).</li>
+      <li>LCD \(= (x - 3)(x + 2)(x + 3)\).</li>
+      <li>\(\dfrac{2(x + 3) + 3(x + 2)}{(x - 3)(x + 2)(x + 3)}\).</li>
+      <li>Numerator: \(2x + 6 + 3x + 6 = 5x + 12\).</li>
+    </ol>
+    <p class="why"><b>Check.</b> \(5x + 12\) doesn't share a factor with the denominator, so it's fully simplified.</p>
+    <p class="trap"><b>Watch out.</b> Multiplying the two denominators together gives \((x - 3)^2\). That works but makes the algebra harder. Use the LCD.</p>
+  </div>
+</article>
+
+<article data-id="x9" data-unit="rationals" data-level="core">
+  <div class="q"><p>Simplify \(\dfrac{2x^2 + 7x + 3}{4x^2 - 1}\) and state the restrictions.</p></div>
+  <div class="hint">Top: decompose with \(ac = 6\). Bottom: difference of squares.</div>
+  <div class="ans">\(\dfrac{x + 3}{2x - 1}\), \(x \ne \pm\tfrac12\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(2x^2 + 7x + 3\): \(ac = 6\), and 6 and 1 add to 7. So \(2x^2 + 6x + x + 3 = 2x(x + 3) + 1(x + 3) = (2x + 1)(x + 3)\).</li>
+      <li>\(4x^2 - 1 = (2x - 1)(2x + 1)\).</li>
+      <li>Restrictions: \(2x - 1 \ne 0\) and \(2x + 1 \ne 0\), so \(x \ne \tfrac12, -\tfrac12\).</li>
+      <li>Cancel \((2x + 1)\): \(\dfrac{x + 3}{2x - 1}\).</li>
+    </ol>
+    <p class="trap"><b>Watch out.</b> Restrictions are values of \(x\). From \(2x - 1 \ne 0\) you get \(x \ne \tfrac12\), not \(x \ne 1\).</p>
+  </div>
+</article>
+
+<article data-id="x10" data-unit="rationals" data-level="think">
+  <div class="q"><p>Simplify \(\dfrac{4 - x}{x^2 - 16}\) and state the restrictions.</p></div>
+  <div class="hint">\(4 - x = -(x - 4)\).</div>
+  <div class="ans">\(-\dfrac{1}{x + 4}\), \(x \ne \pm 4\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x^2 - 16 = (x - 4)(x + 4)\). Restrictions: \(x \ne 4, -4\).</li>
+      <li>\(4 - x = -(x - 4)\).</li>
+      <li>\(\dfrac{-(x - 4)}{(x - 4)(x + 4)} = -\dfrac{1}{x + 4}\).</li>
+    </ol>
+    <p class="why"><b>Check.</b> \(x = 0\): \(\tfrac{4}{-16} = -\tfrac14\), and \(-\tfrac{1}{4}\). ✓</p>
+    <p class="trap"><b>Watch out.</b> Cancelling \(4 - x\) with \(x - 4\) as if they were equal gives \(+\tfrac{1}{x + 4}\), which has the wrong sign.</p>
+  </div>
+</article>
+
+<article data-id="x11" data-unit="rationals" data-level="challenge">
+  <div class="q"><p>Write a rational expression that simplifies to \(\dfrac{x + 1}{x - 4}\) and has restrictions \(x \ne 4\) <b>and</b> \(x \ne -2\). Give it in expanded form.</p></div>
+  <div class="hint">Multiply top and bottom by the same factor. Which factor creates the restriction \(x \ne -2\)?</div>
+  <div class="ans">\(\dfrac{x^2 + 3x + 2}{x^2 - 2x - 8}\) (other answers are possible)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>To get \(x \ne -2\), the denominator needs a factor \((x + 2)\). Multiply top and bottom by it: \(\dfrac{(x + 1)(x + 2)}{(x - 4)(x + 2)}\).</li>
+      <li>Expand the top: \(x^2 + 3x + 2\). Expand the bottom: \(x^2 - 2x - 8\).</li>
+      <li>Check: factoring gives back \(\dfrac{(x + 1)(x + 2)}{(x - 4)(x + 2)}\), which simplifies to \(\dfrac{x + 1}{x - 4}\), \(x \ne 4, -2\). ✓</li>
+    </ol>
+    <p class="why"><b>Why this is a great question.</b> It runs simplifying backwards. If you can build one, you understand where restrictions come from.</p>
+    <p class="trap"><b>Watch out.</b> Multiplying only the denominator changes the value of the expression. Always multiply top and bottom.</p>
+  </div>
+</article>
+
+<article data-id="x12" data-unit="rationals" data-level="challenge">
+  <div class="q"><p>Is \(f(x) = \dfrac{x^2 - 4}{x - 2}\) the same function as \(g(x) = x + 2\)? Explain, and describe how their graphs differ.</p></div>
+  <div class="hint">Try \(x = 2\) in both.</div>
+  <div class="ans">No. They're equal for every \(x \ne 2\), but \(f(2)\) is undefined. The graph of \(f\) is the line \(y = x + 2\) with a hole at \((2, 4)\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(f(x) = \dfrac{(x - 2)(x + 2)}{x - 2} = x + 2\), for \(x \ne 2\).</li>
+      <li>\(g(2) = 4\), but \(f(2) = \tfrac{0}{0}\), which is undefined.</li>
+      <li>So \(f\) and \(g\) have different domains, which makes them different functions.</li>
+      <li>The hole is where \(g\) would be: \((2, 4)\).</li>
+    </ol>
+    <p class="why"><b>Big idea.</b> Two functions are equal only if they have the same domain <i>and</i> the same outputs. This is why restrictions matter.</p>
+    <p class="trap"><b>Watch out.</b> Graphing calculators often don't show the hole. Don't trust the picture alone.</p>
+  </div>
+</article>
+
+<article data-id="x13" data-unit="rationals" data-level="challenge">
+  <div class="q"><p>Simplify \(\dfrac{1 - \frac{1}{x}}{1 - \frac{1}{x^2}}\) and state the restrictions.</p><p class="askq">A step past the usual test questions, but it uses only what you know.</p></div>
+  <div class="hint">Write the top and the bottom as single fractions first, then divide.</div>
+  <div class="ans">\(\dfrac{x}{x + 1}\), \(x \ne 0, 1, -1\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>Top: \(1 - \tfrac1x = \tfrac{x - 1}{x}\).</li>
+      <li>Bottom: \(1 - \tfrac{1}{x^2} = \tfrac{x^2 - 1}{x^2} = \tfrac{(x - 1)(x + 1)}{x^2}\).</li>
+      <li>Divide by multiplying by the reciprocal: \(\dfrac{x - 1}{x} \times \dfrac{x^2}{(x - 1)(x + 1)} = \dfrac{x}{x + 1}\).</li>
+      <li>Restrictions: \(x \ne 0\) (inside fractions), and the bottom can't be 0, so \(x \ne \pm 1\).</li>
+    </ol>
+    <p class="trap"><b>Watch out.</b> \(x \ne 1\) disappears from the final form. That's exactly why you list restrictions from the start.</p>
+  </div>
+</article>
+
+<article data-id="x14" data-unit="rationals" data-level="think">
+  <div class="q"><p><b>Find the mistake.</b> A student wrote \(\dfrac{x + 3}{x + 6} = \dfrac{3}{6} = \dfrac12\) by “cancelling the \(x\)'s.” Explain what's wrong, and prove it with a number.</p></div>
+  <div class="hint">Can you cancel terms that are being added? Try \(x = 3\).</div>
+  <div class="ans">You can only cancel common <b>factors</b>, never terms joined by \(+\) or \(-\). At \(x = 3\), the expression is \(\tfrac{6}{9} = \tfrac23\), not \(\tfrac12\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x + 3\) and \(x + 6\) have no common factor, so \(\dfrac{x + 3}{x + 6}\) is already in simplest form (\(x \ne -6\)).</li>
+      <li>Test \(x = 3\): \(\tfrac{3 + 3}{3 + 6} = \tfrac69 = \tfrac23 \ne \tfrac12\).</li>
+      <li>Cancelling works only on multiplication: \(\dfrac{x \cdot 3}{x \cdot 6} = \dfrac12\) (for \(x \ne 0\)).</li>
+    </ol>
+    <p class="why"><b>Rule of thumb.</b> Factor first. If it isn't a factor of the entire top and the entire bottom, it can't cancel.</p>
+    <p class="trap"><b>Watch out.</b> Plugging in a number is the fastest way to test any simplification you're unsure of.</p>
+  </div>
+</article>
+
+<!-- ============ MIXED ONLY ============ -->
+<article data-id="m1" data-unit="mixed" data-level="think">
+  <div class="q"><p>Find the exact \(x\)-intercepts and the equation of the axis of symmetry of \(y = x^2 - 2x - 1\).</p></div>
+  <div class="hint">It doesn't factor. Use the quadratic formula and simplify the radical.</div>
+  <div class="ans">\(x = 1 \pm \sqrt2\). Axis of symmetry \(x = 1\).</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(x = \dfrac{2 \pm \sqrt{4 + 4}}{2} = \dfrac{2 \pm \sqrt8}{2}\).</li>
+      <li>\(\sqrt8 = 2\sqrt2\), so \(x = \dfrac{2 \pm 2\sqrt2}{2} = 1 \pm \sqrt2\).</li>
+      <li>The axis is the average of the zeros: \(\tfrac{(1 + \sqrt2) + (1 - \sqrt2)}{2} = 1\).</li>
+    </ol>
+    <p class="why"><b>Links two units.</b> Quadratics produce radicals, and simplifying radicals is what makes the answer exact.</p>
+    <p class="trap"><b>Watch out.</b> “Exact” means leave \(\sqrt2\). Writing \(2.41\) and \(-0.41\) loses marks.</p>
+  </div>
+</article>
+
+<article data-id="m2" data-unit="mixed" data-level="challenge">
+  <div class="q"><p>A rectangle has area \(\dfrac{x^2 + 7x + 12}{x - 2}\) and width \(\dfrac{x + 3}{x^2 - 4}\). Find its length in simplest form and state the restrictions.</p></div>
+  <div class="hint">Length = area ÷ width. Factor everything.</div>
+  <div class="ans">\((x + 4)(x + 2) = x^2 + 6x + 8\), with \(x \ne 2, -2, -3\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(\text{Length} = \dfrac{(x + 3)(x + 4)}{x - 2} \div \dfrac{x + 3}{(x - 2)(x + 2)}\).</li>
+      <li>Multiply by the reciprocal: \(\dfrac{(x + 3)(x + 4)}{x - 2} \times \dfrac{(x - 2)(x + 2)}{x + 3}\).</li>
+      <li>Cancel \((x + 3)\) and \((x - 2)\): \((x + 4)(x + 2) = x^2 + 6x + 8\).</li>
+      <li>Restrictions: \(x \ne 2\) and \(x \ne -2\) from the denominators, and \(x \ne -3\) because the width can't be 0.</li>
+    </ol>
+    <p class="why"><b>Check by multiplying.</b> Length × width should give back the area: \((x+4)(x+2) \cdot \tfrac{x+3}{(x-2)(x+2)} = \tfrac{(x+3)(x+4)}{x-2}\). ✓</p>
+    <p class="trap"><b>Watch out.</b> \(x \ne -3\) comes from the divisor's numerator. That's the same trap as in division questions.</p>
+  </div>
+</article>
+
+<article data-id="m3" data-unit="mixed" data-level="core">
+  <div class="q"><p>Find the exact zeros of \(f(x) = 2(x - 3)^2 - 10\).</p></div>
+  <div class="hint">In vertex form, isolate the square and take the square root of both sides.</div>
+  <div class="ans">\(x = 3 \pm \sqrt5\)</div>
+  <div class="sol">
+    <ol class="steps">
+      <li>\(2(x - 3)^2 - 10 = 0 \Rightarrow (x - 3)^2 = 5\).</li>
+      <li>\(x - 3 = \pm\sqrt5\), so \(x = 3 \pm \sqrt5\).</li>
+    </ol>
+    <p class="why"><b>Fast route.</b> From vertex form you never need the quadratic formula. Undo the operations in reverse order.</p>
+    <p class="trap"><b>Watch out.</b> Taking a square root needs \(\pm\). Without it you lose a zero.</p>
+  </div>
+</article>
+
+</div>
+
+<script>
+(function(){
+  const UNITS = {
+    quadratics:{name:'Quadratic Functions', blurb:'Completing the square, factoring, the formula, the discriminant, line–parabola systems and max/min problems.'},
+    radicals:{name:'Radicals & Radical Functions', blurb:'Simplifying and multiplying radicals, transformations of y = √x, domain and range, inverses.'},
+    rationals:{name:'Rational Expressions', blurb:'Simplifying, multiplying, dividing, adding and subtracting, and getting every restriction right.'},
+    mixed:{name:'Mixed Review', blurb:'Every card from every unit, shuffled, plus questions that join units together. Use this before a test.'}
+  };
+  const LEVEL_NAME = {core:'Core', think:'Thinking', challenge:'Challenge'};
+  const ORDER = {core:0, think:1, challenge:2};
+
+  const CARDS = [...document.querySelectorAll('#cards article')].map(a => ({
+    id:a.dataset.id, unit:a.dataset.unit, level:a.dataset.level,
+    q:a.querySelector('.q').innerHTML,
+    hint:(a.querySelector('.hint')||{}).innerHTML || '',
+    ans:a.querySelector('.ans').innerHTML,
+    sol:a.querySelector('.sol').innerHTML
+  }));
+
+  const KEY = 'mcr3u-flashcards-v1';
+  let marks = {};
+  try { marks = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { marks = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch(e) {} }
+
+  const $ = s => document.querySelector(s);
+  const home = $('#home'), deck = $('#deck'), stage = $('#stage');
+
+  function cardsFor(unit){ return unit === 'mixed' ? CARDS.slice() : CARDS.filter(c => c.unit === unit); }
+
+  function typeset(el){
+    if (window.MathJax && MathJax.typesetPromise) {
+      const run = () => MathJax.typesetPromise([el]).catch(()=>{});
+      (MathJax.startup && MathJax.startup.promise) ? MathJax.startup.promise.then(run) : run();
+    }
+  }
+
+  /* ---------- Home ---------- */
+  function renderHome(){
+    const grid = $('#unitGrid');
+    grid.innerHTML = '';
+    ['quadratics','radicals','rationals','mixed'].forEach(u => {
+      const list = cardsFor(u);
+      const got = list.filter(c => marks[c.id] === 'got').length;
+      const counts = {core:0, think:0, challenge:0};
+      list.forEach(c => counts[c.level]++);
+      const el = document.createElement('div');
+      el.className = 'unit' + (u === 'mixed' ? ' mixed' : '');
+      el.innerHTML =
+        '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : 'Unit') + ' · ' + list.length + ' cards</p>' +
+        '<h2>' + UNITS[u].name + '</h2>' +
+        '<p>' + UNITS[u].blurb + '</p>' +
+        '<div class="tally">' +
+          '<span class="chip core">' + counts.core + ' core</span>' +
+          '<span class="chip think">' + counts.think + ' thinking</span>' +
+          '<span class="chip challenge">' + counts.challenge + ' challenge</span>' +
+        '</div>' +
+        '<div class="meter" role="img" aria-label="' + got + ' of ' + list.length + ' marked got it"><i style="width:' + (list.length ? got / list.length * 100 : 0) + '%"></i></div>' +
+        '<div class="meta"><small>' + got + ' / ' + list.length + ' got it</small>' +
+        '<button class="btn primary" type="button">' + (u === 'mixed' ? 'Start mixed review' : 'Study this unit') + ' →</button></div>';
+      el.querySelector('button').addEventListener('click', () => { location.hash = u; });
+      grid.appendChild(el);
+    });
+    const total = CARDS.length, got = CARDS.filter(c => marks[c.id] === 'got').length;
+    const learning = CARDS.filter(c => marks[c.id] === 'learning').length;
+    $('#overall').textContent = got + ' of ' + total + ' cards marked “got it” · ' + learning + ' still learning';
+    typeset(grid);
+  }
+
+  $('#resetBtn').addEventListener('click', () => { $('#resetConfirm').hidden = false; $('#resetBtn').hidden = true; });
+  $('#resetNo').addEventListener('click', () => { $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; });
+  $('#resetYes').addEventListener('click', () => {
+    marks = {}; save(); $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; renderHome();
+  });
+
+  /* ---------- Deck ---------- */
+  const S = { unit:null, level:'all', onlyLearning:false, shuffle:false, queue:[], pos:0, flipped:false, hint:false, round:{got:0, learning:0}, requeued:{} };
+
+  function shuffled(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+  function buildQueue(){
+    let list = cardsFor(S.unit);
+    if (S.level !== 'all') list = list.filter(c => c.level === S.level);
+    if (S.onlyLearning) list = list.filter(c => marks[c.id] === 'learning');
+    if (S.shuffle || S.unit === 'mixed') list = shuffled(list);
+    else list.sort((a, b) => ORDER[a.level] - ORDER[b.level]);
+    S.queue = list; S.pos = 0; S.flipped = false; S.hint = false; S.round = {got:0, learning:0}; S.requeued = {};
+  }
+
+  function openDeck(unit){
+    S.unit = unit; S.level = 'all'; S.onlyLearning = false; S.shuffle = (unit === 'mixed');
+    syncFilters();
+    $('#deckTitle').textContent = UNITS[unit].name;
+    buildQueue();
+    home.hidden = true; deck.hidden = false;
+    renderCard();
+    window.scrollTo(0, 0);
+  }
+
+  function syncFilters(){
+    document.querySelectorAll('#filters [data-level]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.level === S.level)));
+    $('#onlyLearning').setAttribute('aria-pressed', String(S.onlyLearning));
+    $('#shuffleBtn').setAttribute('aria-pressed', String(S.shuffle));
+  }
+
+  document.querySelectorAll('#filters [data-level]').forEach(b => b.addEventListener('click', () => {
+    S.level = b.dataset.level; syncFilters(); buildQueue(); renderCard();
+  }));
+  $('#onlyLearning').addEventListener('click', () => { S.onlyLearning = !S.onlyLearning; syncFilters(); buildQueue(); renderCard(); });
+  $('#shuffleBtn').addEventListener('click', () => { S.shuffle = !S.shuffle; syncFilters(); buildQueue(); renderCard(); });
+  $('#backBtn').addEventListener('click', () => { location.hash = ''; });
+
+  function chip(level){ return '<span class="chip ' + level + '">' + LEVEL_NAME[level] + '</span>'; }
+
+  function updateBar(){
+    const n = S.queue.length;
+    $('#count').textContent = n ? ('Card ' + Math.min(S.pos + 1, n) + ' of ' + n) : '';
+    $('#bar').style.width = (n ? Math.min(S.pos, n) / n * 100 : 0) + '%';
+  }
+
+  function renderCard(animate){
+    updateBar();
+    const n = S.queue.length;
+    if (!n) {
+      stage.innerHTML = '<div class="summary empty"><h2>No cards here yet</h2><p>' +
+        (S.onlyLearning ? 'Nothing is marked “still learning” in this set. Nice work. Switch the filter off to see every card.' : 'No cards match this filter.') + '</p></div>';
+      return;
+    }
+    if (S.pos >= n) return renderSummary();
+    const c = S.queue[S.pos];
+    const unitLabel = S.unit === 'mixed' ? '<span class="eyebrow">' + (c.unit === 'mixed' ? 'Mixed' : UNITS[c.unit].name) + '</span>' : '';
+    let html;
+    if (!S.flipped) {
+      html = '<article class="flash ruled" id="card" aria-live="polite">' +
+        '<div class="top"><span class="side">Front · question</span><span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + unitLabel + chip(c.level) + '</span></div>' +
+        '<div class="q">' + c.q + '</div>' +
+        (S.hint && c.hint ? '<div class="hintbox"><b>Hint.</b> ' + c.hint + '</div>' : '') +
+        '</article>' +
+        '<div class="actions"><div class="grp">' +
+          (S.pos > 0 ? '<button class="btn ghost" type="button" id="prevBtn">← Back</button>' : '') +
+          (c.hint && !S.hint ? '<button class="btn" type="button" id="hintBtn">Show a hint</button>' : '') +
+        '</div><div class="grp"><button class="btn primary" type="button" id="flipBtn">Flip for the solution</button></div></div>';
+    } else {
+      html = '<article class="flash" id="card" aria-live="polite">' +
+        '<div class="top"><span class="side">Back · solution</span><span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + unitLabel + chip(c.level) + '</span></div>' +
+        '<div class="askq">' + c.q + '</div>' +
+        '<div class="ans"><b>Answer</b>' + c.ans + '</div>' +
+        '<h4>Step by step</h4>' + c.sol +
+        '</article>' +
+        '<div class="actions"><div class="grp"><button class="btn ghost" type="button" id="unflipBtn">Back to the question</button></div>' +
+        '<div class="grp"><button class="btn warn" type="button" id="learnBtn">Still learning</button>' +
+        '<button class="btn ok" type="button" id="gotBtn">Got it</button></div></div>';
+    }
+    stage.innerHTML = html;
+    const card = $('#card');
+    if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      card.style.transition = 'none'; card.style.transform = 'rotateY(90deg)';
+      requestAnimationFrame(() => requestAnimationFrame(() => { card.style.transition = 'transform .22s ease-out'; card.style.transform = 'rotateY(0deg)'; }));
+    }
+    typeset(stage);
+    const on = (id, fn) => { const b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
+    on('flipBtn', flip); on('unflipBtn', flip); on('hintBtn', showHint);
+    on('prevBtn', () => go(-1)); on('gotBtn', () => mark('got')); on('learnBtn', () => mark('learning'));
+  }
+
+  function flip(){
+    const card = $('#card');
+    if (!card) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { S.flipped = !S.flipped; renderCard(); return; }
+    card.classList.add('turning');
+    setTimeout(() => { S.flipped = !S.flipped; renderCard(true); }, 200);
+  }
+  function showHint(){ S.hint = true; renderCard(); }
+  function go(d){
+    S.pos = Math.max(0, Math.min(S.queue.length, S.pos + d)); S.flipped = false; S.hint = false; renderCard();
+  }
+  function mark(kind){
+    const c = S.queue[S.pos];
+    marks[c.id] = kind; save();
+    if (kind === 'got') S.round.got++; else S.round.learning++;
+    /* Still-learning cards come back about four cards later, up to twice per round. */
+    if (kind === 'learning' && (S.requeued[c.id] || 0) < 2) {
+      S.requeued[c.id] = (S.requeued[c.id] || 0) + 1;
+      const at = Math.min(S.queue.length, S.pos + 4);
+      S.queue.splice(at, 0, c);
+    }
+    S.pos++; S.flipped = false; S.hint = false;
+    renderCard();
+    window.scrollTo({top: deck.offsetTop, behavior: 'auto'});
+  }
+
+  function renderSummary(){
+    updateBar();
+    const stillIds = [...new Set(S.queue.map(c => c.id))].filter(id => marks[id] === 'learning');
+    stage.innerHTML = '<div class="summary">' +
+      '<p class="eyebrow">Round complete</p><h2>' + (stillIds.length ? 'Good round. A few to go back to.' : 'Every card in this round is marked got it.') + '</h2>' +
+      '<div class="nums"><div class="g"><strong>' + S.round.got + '</strong><span>marked got it</span></div>' +
+      '<div class="l"><strong>' + stillIds.length + '</strong><span>still learning</span></div></div>' +
+      '<div class="grp" style="display:flex;gap:10px;flex-wrap:wrap">' +
+        (stillIds.length ? '<button class="btn primary" type="button" id="againLearning">Review the ' + stillIds.length + ' still learning</button>' : '') +
+        '<button class="btn" type="button" id="againAll">Go through again</button>' +
+        '<button class="btn ghost" type="button" id="toHome">All units</button></div></div>';
+    const on = (id, fn) => { const b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
+    on('againLearning', () => { S.onlyLearning = true; syncFilters(); buildQueue(); renderCard(); });
+    on('againAll', () => { S.onlyLearning = false; syncFilters(); buildQueue(); renderCard(); });
+    on('toHome', () => { location.hash = ''; });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (deck.hidden || e.target.closest('input, textarea')) return;
+    if (e.key === ' ' || e.key === 'Enter') { if (e.target.tagName === 'BUTTON' && e.key === 'Enter') return; e.preventDefault(); if ($('#card')) flip(); }
+    else if (e.key === 'h' || e.key === 'H') { if (!S.flipped) showHint(); }
+    else if (e.key === '1' && S.flipped) mark('learning');
+    else if (e.key === '2' && S.flipped) mark('got');
+    else if (e.key === 'ArrowRight') go(1);
+    else if (e.key === 'ArrowLeft') go(-1);
+  });
+
+  /* ---------- Routing ---------- */
+  function route(){
+    const h = location.hash.replace('#', '');
+    if (UNITS[h]) openDeck(h);
+    else { deck.hidden = true; home.hidden = false; renderHome(); }
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+
+</body></html>
