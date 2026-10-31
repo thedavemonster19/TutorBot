@@ -38,6 +38,7 @@ A flashcard-style app: question on the front, full worked solution with explanat
 - Keep roughly a third of each unit's cards at Core and the rest at Thinking/Challenge. Label anything beyond the course (e.g. conjugates, complex fractions) with a `<p class="askq">` note.
 - Every card's math must be correct. Check each answer independently (substitute values, expand factors) before committing new cards.
 - Never change an existing `data-id`; saved progress in `localStorage` depends on it.
+- **Study mode** (his request): he wants to click Study and keep going with fresh questions, no "x of 14" counters, and a Progress button showing how he's doing and what to improve. Unit 4 has this now. Give each new unit a set of generators covering its skills, ready before the unit starts. See `README.md` for the generator format. Run `node tests/generators.test.js 5000` before every commit that touches generators; all must pass.
 - The page is also published as a claude.ai artifact: https://claude.ai/artifact/Q86XrVeiY3nm3bPUdT8fGi. After changing `index.html`, republish it to that URL so the shared link stays current.
 
 ## Delivery

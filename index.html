@@ -147,6 +147,26 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 .summary .nums .l strong{color:var(--warn)}
 .summary .nums span{font-size:14px;color:var(--ink-soft)}
 .empty{padding:28px;text-align:left;color:var(--ink-soft)}
+.studynote{margin:0;color:var(--ink-soft);font-size:15.5px;max-width:60ch}
+.unit .studynote{font-size:15px}
+.deckbar .btn{min-height:36px;padding:6px 14px;font-size:14.5px}
+.summary h3{font:800 18px var(--display);margin:6px 0 0}
+.weak{display:flex;flex-direction:column;gap:10px}
+.weak .item{border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:8px;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.weak .item b{font-family:var(--display)}
+.weak .item p{margin:0;color:var(--ink-soft);font-size:15px}
+.weak .item .btn{align-self:flex-start;min-height:36px;padding:6px 14px;font-size:14.5px}
+.skills{display:flex;flex-direction:column;gap:2px}
+.skills .row{display:grid;grid-template-columns:minmax(0,1fr) 68px 110px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.skills .row.head{font:500 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.skills .num{font:500 13px var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.skills .acc{display:flex;flex-direction:column;gap:3px}
+.skills .acc .meter{height:6px;border-radius:3px;background:var(--core);overflow:hidden}
+.skills .acc .meter i{display:block;height:100%;background:var(--ok)}
+.skills .acc.low .meter i{background:var(--warn)}
+.skills .muted{color:var(--ink-soft);font-size:13px}
+.sumtext{width:100%;min-height:120px;font:13px/1.5 var(--mono);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px}
+@media (max-width:640px){.skills .row{grid-template-columns:minmax(0,1fr) 54px 84px}}
 
 @media (max-width:640px){
   .units{grid-template-columns:minmax(0,1fr)}
@@ -187,9 +207,11 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
       <div class="deckbar">
         <button class="back" id="backBtn" type="button">← All units</button>
         <span class="count" id="count"></span>
+        <button class="btn ghost" id="progressBtn" type="button" hidden>Progress</button>
       </div>
       <h1 id="deckTitle"></h1>
-      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <p class="studynote" id="studyNote" hidden>Work each one on paper before you flip. Fresh questions keep coming, and the skills you miss come up more often.</p>
+      <div class="progress" id="barWrap" aria-hidden="true"><i id="bar"></i></div>
       <div class="filters" id="filters" role="group" aria-label="Card filters">
         <button type="button" data-level="all" aria-pressed="true">All</button>
         <button type="button" data-level="core" aria-pressed="false">Core</button>
@@ -198,9 +220,10 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
         <span class="sep" aria-hidden="true"></span>
         <button type="button" id="onlyLearning" aria-pressed="false">Only “still learning”</button>
         <button type="button" id="shuffleBtn" aria-pressed="false">Shuffle</button>
+        <button type="button" id="skillOnly" aria-pressed="true" hidden></button>
       </div>
       <div id="stage"></div>
-      <p class="keys">Keys: <kbd>Space</kbd> flip · <kbd>H</kbd> hint · <kbd>1</kbd> still learning · <kbd>2</kbd> got it · <kbd>←</kbd> <kbd>→</kbd> move</p>
+      <p class="keys" id="keys">Keys: <kbd>Space</kbd> flip · <kbd>H</kbd> hint · <kbd>1</kbd> still learning · <kbd>2</kbd> got it · <kbd>←</kbd> <kbd>→</kbd> move</p>
     </div>
   </section>
 </div>
@@ -818,7 +841,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 </article>
 
 <!-- ============ RATIONAL FUNCTIONS (Unit 4) ============ -->
-<article data-id="f1" data-unit="ratfuncs" data-level="core">
+<article data-id="f1" data-skill="asym" data-unit="ratfuncs" data-level="core">
   <div class="q"><p>For the parent function \(f(x) = \dfrac{1}{x}\), state the equations of the asymptotes, the domain and the range. List six key points you would use to sketch it.</p></div>
   <div class="hint">What value can \(x\) never be? What value can \(\tfrac1x\) never equal?</div>
   <div class="ans">Asymptotes \(x = 0\) and \(y = 0\). Domain \(\{x \in \mathbb{R} \mid x \ne 0\}\), range \(\{y \in \mathbb{R} \mid y \ne 0\}\). Points \((1, 1), (2, \tfrac12), (\tfrac12, 2), (-1, -1), (-2, -\tfrac12), (-\tfrac12, -2)\).</div>
@@ -834,7 +857,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f2" data-unit="ratfuncs" data-level="core">
+<article data-id="f2" data-skill="transform" data-unit="ratfuncs" data-level="core">
   <div class="q"><p>Describe the transformations that map \(y = \dfrac1x\) onto \(y = \dfrac{2}{x - 3} + 1\). State the asymptotes, domain and range, and map four key points.</p></div>
   <div class="hint">Compare with \(y = a\left(\dfrac{1}{k(x - d)}\right) + c\). The asymptotes move with the translations.</div>
   <div class="ans">Vertical stretch by 2, right 3, up 1. Asymptotes \(x = 3\), \(y = 1\). Domain \(x \ne 3\), range \(y \ne 1\).</div>
@@ -851,7 +874,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f3" data-unit="ratfuncs" data-level="core">
+<article data-id="f3" data-skill="asym" data-unit="ratfuncs" data-level="core">
   <div class="q"><p>For \(y = -\dfrac{1}{x + 4} + 2\), state the asymptotes, domain and range. Which two regions around the asymptotes do the branches lie in?</p></div>
   <div class="hint">\(a = -1\) is a reflection in the \(x\)-axis. Test one \(x\) value on each side of the vertical asymptote.</div>
   <div class="ans">Asymptotes \(x = -4\), \(y = 2\). Domain \(x \ne -4\), range \(y \ne 2\). Branches are top-left and bottom-right of where the asymptotes cross.</div>
@@ -866,7 +889,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f4" data-unit="ratfuncs" data-level="core">
+<article data-id="f4" data-skill="intercepts" data-unit="ratfuncs" data-level="core">
   <div class="q"><p>Find the \(x\)- and \(y\)-intercepts of \(f(x) = \dfrac{4}{x + 2} - 1\).</p></div>
   <div class="hint">\(x\)-intercept: set \(y = 0\). \(y\)-intercept: set \(x = 0\).</div>
   <div class="ans">\(x\)-intercept \((2, 0)\), \(y\)-intercept \((0, 1)\).</div>
@@ -880,7 +903,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f5" data-unit="ratfuncs" data-level="core">
+<article data-id="f5" data-skill="factork" data-unit="ratfuncs" data-level="core">
   <div class="q"><p>For \(f(x) = \dfrac{1}{2x - 6}\), find the asymptotes, domain and range, and describe the transformations of \(y = \dfrac1x\).</p></div>
   <div class="hint">Factor the denominator to get the form \(k(x - d)\).</div>
   <div class="ans">\(f(x) = \dfrac{1}{2(x - 3)}\): horizontal compression by \(\tfrac12\), right 3. Asymptotes \(x = 3\), \(y = 0\). Domain \(x \ne 3\), range \(y \ne 0\).</div>
@@ -895,7 +918,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f6" data-unit="ratfuncs" data-level="think">
+<article data-id="f6" data-skill="equation" data-unit="ratfuncs" data-level="think">
   <div class="q"><p>A function of the form \(y = \dfrac{a}{x - d} + c\) has asymptotes \(x = -1\) and \(y = 2\), and passes through \((1, 5)\). Find its equation.</p></div>
   <div class="hint">The asymptotes give \(d\) and \(c\). Substitute the point to find \(a\).</div>
   <div class="ans">\(y = \dfrac{6}{x + 1} + 2\)</div>
@@ -910,7 +933,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f7" data-unit="ratfuncs" data-level="think">
+<article data-id="f7" data-skill="rewrite" data-unit="ratfuncs" data-level="think">
   <div class="q"><p>Write \(y = \dfrac{2x + 5}{x + 1}\) in the form \(y = \dfrac{a}{x - d} + c\), and state the asymptotes.</p><p class="askq">If your class hasn't used this form yet, it still shows where a horizontal asymptote comes from.</p></div>
   <div class="hint">Write the numerator as a multiple of \((x + 1)\) plus whatever is left over.</div>
   <div class="ans">\(y = \dfrac{3}{x + 1} + 2\). Asymptotes \(x = -1\), \(y = 2\).</div>
@@ -926,7 +949,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f8" data-unit="ratfuncs" data-level="think">
+<article data-id="f8" data-skill="hole" data-unit="ratfuncs" data-level="think">
   <div class="q"><p>For \(f(x) = \dfrac{x - 2}{x^2 - 4}\), find the domain, the vertical asymptote and the coordinates of the hole.</p></div>
   <div class="hint">Factor the denominator. A factor that cancels makes a hole; a factor left in the denominator makes an asymptote.</div>
   <div class="ans">Domain \(x \ne \pm 2\). Vertical asymptote \(x = -2\). Hole at \(\left(2, \tfrac14\right)\).</div>
@@ -942,7 +965,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f9" data-unit="ratfuncs" data-level="think">
+<article data-id="f9" data-skill="inverse" data-unit="ratfuncs" data-level="think">
   <div class="q"><p>Find the inverse of \(f(x) = \dfrac{1}{x - 2} + 3\). Compare the asymptotes of \(f\) and \(f^{-1}\).</p></div>
   <div class="hint">Swap \(x\) and \(y\). Isolate the fraction before you flip both sides.</div>
   <div class="ans">\(f^{-1}(x) = \dfrac{1}{x - 3} + 2\). \(f\) has asymptotes \(x = 2,\ y = 3\); \(f^{-1}\) has \(x = 3,\ y = 2\). They swap.</div>
@@ -959,7 +982,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f10" data-unit="ratfuncs" data-level="think">
+<article data-id="f10" data-skill="behaviour" data-unit="ratfuncs" data-level="think">
   <div class="q"><p>For \(y = \dfrac{3}{x - 1} + 2\), describe what happens to \(y\): (a) as \(x\) approaches 1 from the right; (b) from the left; (c) as \(x\) becomes very large positive; (d) very large negative.</p></div>
   <div class="hint">Try \(x = 1.01\), \(0.99\), \(1001\) and \(-999\).</div>
   <div class="ans">(a) \(y\) increases without bound. (b) \(y\) decreases without bound. (c) \(y\) approaches 2 from above. (d) \(y\) approaches 2 from below.</div>
@@ -975,7 +998,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f11" data-unit="ratfuncs" data-level="challenge">
+<article data-id="f11" data-skill="intersect" data-unit="ratfuncs" data-level="challenge">
   <div class="q"><p>Find the points where \(y = \dfrac{2}{x - 1}\) and \(y = x\) intersect.</p></div>
   <div class="hint">Set them equal, state the restriction, and multiply both sides by \((x - 1)\).</div>
   <div class="ans">\((2, 2)\) and \((-1, -1)\)</div>
@@ -991,7 +1014,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f12" data-unit="ratfuncs" data-level="challenge">
+<article data-id="f12" data-skill="apply" data-unit="ratfuncs" data-level="challenge">
   <div class="q"><p>A trip is 240 km. The time in hours is \(t = \dfrac{240}{v}\), where \(v\) is the speed in km/h.</p><p>(a) What is a sensible domain? (b) How long does the trip take at 80 km/h? (c) What speed saves 1 hour? (d) What speed would save a second hour? What does this show about the graph?</p></div>
   <div class="hint">For (c), solve \(\tfrac{240}{v} = 2\). For (d), solve \(\tfrac{240}{v} = 1\).</div>
   <div class="ans">(a) \(v \gt 0\). (b) 3 h. (c) 120 km/h, 40 km/h faster. (d) 240 km/h, another 120 km/h faster. Each hour saved costs more speed: the curve flattens.</div>
@@ -1008,7 +1031,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f13" data-unit="ratfuncs" data-level="challenge">
+<article data-id="f13" data-skill="factork" data-unit="ratfuncs" data-level="challenge">
   <div class="q"><p><b>Find the mistake.</b> A student says the asymptotes of \(y = \dfrac{3}{2x + 8} - 5\) are \(x = -8\) and \(y = -5\). Find the error and correct it.</p></div>
   <div class="hint">What value of \(x\) actually makes \(2x + 8 = 0\)?</div>
   <div class="ans">The vertical asymptote is \(x = -4\), not \(-8\). The horizontal asymptote \(y = -5\) is correct.</div>
@@ -1024,7 +1047,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   </div>
 </article>
 
-<article data-id="f14" data-unit="ratfuncs" data-level="challenge">
+<article data-id="f14" data-skill="equation" data-unit="ratfuncs" data-level="challenge">
   <div class="q"><p>Write the equation of a function \(y = \dfrac{a}{x - d} + c\) with asymptotes \(x = 2\) and \(y = -3\) that passes through the origin. Which regions do its branches lie in?</p></div>
   <div class="hint">Substitute \((0, 0)\) to find \(a\). The sign of \(a\) tells you about the branches.</div>
   <div class="ans">\(y = -\dfrac{6}{x - 2} - 3\). \(a \lt 0\), so the branches are top-left and bottom-right of the asymptotes.</div>
@@ -1088,6 +1111,364 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 
 </div>
 
+<script id="study-gen">
+/* Question generators for endless study mode. Each generator builds a fresh question with random
+   parameters and returns a verify() that re-checks the stated answer numerically from the original
+   function. make() discards and regenerates any question whose verify() fails. */
+window.STUDY_GEN = (function(){
+  const R = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
+  const nz = (lo, hi) => { let v; do { v = R(lo, hi); } while (v === 0); return v; };
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const gcd = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a || 1; };
+  const near = (u, v) => Math.abs(u - v) < 1e-9 * Math.max(1, Math.abs(v));
+  const T = s => '\\(' + s + '\\)';
+  const fr = (n, d) => { if (d === undefined) d = 1; if (d < 0) { n = -n; d = -d; } const g = gcd(n, d); n /= g; d /= g;
+    return d === 1 ? String(n) : (n < 0 ? '-' : '') + '\\tfrac{' + Math.abs(n) + '}{' + d + '}'; };
+  const xm = (d, v) => { v = v || 'x'; return d === 0 ? v : d > 0 ? v + ' - ' + d : v + ' + ' + (-d); };   /* v - d */
+  const pc = c => c === 0 ? '' : c > 0 ? ' + ' + c : ' - ' + (-c);                                          /* + c */
+  const fx = (a, d, v) => (a < 0 ? '-' : '') + '\\dfrac{' + Math.abs(a) + '}{' + xm(d, v) + '}';              /* a/(v - d) */
+  const rf = (a, d, c, v) => fx(a, d, v) + pc(c);                                                           /* a/(v - d) + c */
+  const coef = k => k === 1 ? '' : k === -1 ? '-' : String(k);
+  const lin = (k, m) => coef(k) + 'x' + pc(m);                                                              /* kx + m */
+  const quad = (b, c) => 'x^2' + (b === 0 ? '' : (b > 0 ? ' + ' : ' - ') + (Math.abs(b) === 1 ? '' : Math.abs(b)) + 'x') + pc(c);
+  const pt = (x, y) => '\\left(' + x + ', ' + y + '\\right)';
+  const par = n => n < 0 ? '(' + n + ')' : String(n);
+  const fac = r => r === 0 ? 'x' : '(' + xm(r) + ')';
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const list = a => a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+  const divisors = n => { const out = []; for (let i = 1; i <= Math.abs(n); i++) if (n % i === 0) out.push(i, -i); return out; };
+  function moves(a, k, d, c){
+    const out = [];
+    if (Math.abs(a) !== 1) out.push('a vertical stretch by a factor of ' + Math.abs(a));
+    if (a < 0) out.push('a reflection in the ' + T('x') + '-axis');
+    if (k && k !== 1) out.push('a horizontal compression by a factor of ' + T('\\tfrac{1}{' + k + '}'));
+    if (d) out.push('a shift ' + (d > 0 ? 'right ' : 'left ') + Math.abs(d));
+    if (c) out.push('a shift ' + (c > 0 ? 'up ' : 'down ') + Math.abs(c));
+    return out;
+  }
+  const DOM = (v, n) => T('\\{' + v + ' \\in \\mathbb{R} \\mid ' + v + ' \\ne ' + n + '\\}');
+
+  const ratfuncs = {
+    asym: { name: 'Asymptotes, domain and range', level: 'core',
+      tip: 'In y = a/(x − d) + c the asymptotes are always x = d and y = c. Solve “denominator = 0” for the vertical one.',
+      gen(){
+        const a = nz(-6, 6), d = nz(-6, 6), c = R(-6, 6), f = x => a / (x - d) + c;
+        return {
+          q: '<p>State the equations of the asymptotes, the domain and the range of ' + T('y = ' + rf(a, d, c)) + '.</p>',
+          hint: 'The vertical asymptote is where the denominator is zero. The horizontal asymptote comes from the vertical shift.',
+          ans: 'Asymptotes ' + T('x = ' + d) + ' and ' + T('y = ' + c) + '. Domain ' + DOM('x', d) + ', range ' + DOM('y', c) + '.',
+          steps: [
+            'The denominator is zero when ' + T(xm(d) + ' = 0') + ', that is ' + T('x = ' + d) + '. That value is excluded, so the vertical asymptote is ' + T('x = ' + d) + '.',
+            'The fraction ' + T(fx(a, d)) + ' can never equal 0, so ' + T('y') + ' can never equal ' + c + '. For very large ' + T('x') + ' the fraction is close to 0, so ' + T('y') + ' is close to ' + c + ': horizontal asymptote ' + T('y = ' + c) + '.',
+            'Domain: every real number except ' + d + '. Range: every real number except ' + c + '.'
+          ],
+          whyT: 'Pattern.', why: 'In ' + T('y = \\dfrac{a}{x - d} + c') + ' the asymptotes are always ' + T('x = d') + ' and ' + T('y = c') + '. The value of ' + T('a') + ' never moves them.',
+          trap: d < 0 ? T(xm(d)) + ' gives ' + T('x = ' + d) + ', not ' + T('x = ' + (-d)) + '. Solve “denominator = 0” instead of reading the sign.'
+                      : 'Keep them straight: the vertical asymptote is an ' + T('x =') + ' line and the horizontal one is a ' + T('y =') + ' line.',
+          verify: () => Math.abs(f(d + 1e-9)) > 1e6 && near(f(1e12), c)
+        };
+      } },
+
+    transform: { name: 'Describing transformations', level: 'core',
+      tip: 'Write the mapping rule (x, y) → (x + d, ay + c) first, then push the key points through it.',
+      gen(){
+        const a = pick([1, -1, 2, -2, 3, -3, 4]), d = nz(-5, 5), c = R(-5, 5), f = x => a / (x - d) + c;
+        const P = [[1, 1, 1], [-1, -1, 1], [2, 1, 2], [-2, -1, 2]];
+        const src = ['(1, 1)', '(-1, -1)', '\\left(2, \\tfrac12\\right)', '\\left(-2, -\\tfrac12\\right)'];
+        const img = P.map(([x, yn, yd]) => pt(x + d, fr(a * yn + c * yd, yd)));
+        const rule = '(x, y) \\to \\left(' + xm(-d) + ',\\ ' + coef(a) + 'y' + pc(c) + '\\right)';
+        const mv = moves(a, 1, d, c);
+        const maps = src.map((s, i) => T(s + ' \\to ' + img[i])).join(', ');
+        return {
+          q: '<p>Describe the transformations that map ' + T('y = \\dfrac1x') + ' onto ' + T('y = ' + rf(a, d, c)) + '. Give the mapping rule and the images of ' + src.map(T).join(', ') + '.</p>',
+          hint: 'Compare with ' + T('y = a\\left(\\dfrac{1}{x - d}\\right) + c') + '. The mapping rule is ' + T('(x, y) \\to (x + d,\\ ay + c)') + '.',
+          ans: cap(list(mv)) + '. Mapping rule ' + T(rule) + '. Images: ' + maps + '.',
+          steps: [
+            'Compare with ' + T('y = a\\left(\\dfrac{1}{x - d}\\right) + c') + ': ' + T('a = ' + a) + ', ' + T('d = ' + d) + ', ' + T('c = ' + c) + '.',
+            'So the transformations are ' + list(mv) + '.',
+            'Mapping rule: ' + T(rule) + '.',
+            'Images: ' + maps + '.',
+            'The asymptotes move to ' + T('x = ' + d) + ' and ' + T('y = ' + c) + '. Sketch them first, then place the points.'
+          ],
+          whyT: 'Order matters.', why: 'Multiply each ' + T('y') + '-value by ' + T('a') + ' first, then add ' + T('c') + '. The mapping rule does that for you.',
+          trap: (a < 0 && c !== 0) ? 'Reflect before you shift: ' + T('(1, 1)') + ' goes to ' + T(pt(1 + d, a + c)) + ', not ' + T(pt(1 + d, a * (1 + c))) + '.'
+                                   : T(xm(d)) + ' is a shift ' + (d > 0 ? 'right' : 'left') + ' ' + Math.abs(d) + '. Horizontal shifts go the opposite way to the sign you see.',
+          verify: () => P.every(([x, yn, yd]) => near(f(x + d), a * yn / yd + c))
+        };
+      } },
+
+    intercepts: { name: 'Intercepts', level: 'core',
+      tip: 'x-intercept: set y = 0 and solve. y-intercept: set x = 0. Write both as points.',
+      gen(){
+        const d = nz(-5, 5);
+        if (Math.random() < 0.15) {
+          const a = nz(-6, 6), f = x => a / (x - d);
+          return {
+            q: '<p>Find the ' + T('x') + '- and ' + T('y') + '-intercepts of ' + T('f(x) = ' + fx(a, d)) + '.</p>',
+            hint: 'Can a fraction with a constant, non-zero numerator ever equal 0?',
+            ans: 'No ' + T('x') + '-intercept. ' + T('y') + '-intercept ' + T(pt(0, fr(a, -d))) + '.',
+            steps: [
+              T('x') + '-intercept: ' + T('0 = ' + fx(a, d)) + ' would need the numerator to be 0, but it is ' + a + '. So there is no ' + T('x') + '-intercept.',
+              'That matches the graph: the horizontal asymptote is ' + T('y = 0') + ', the ' + T('x') + '-axis itself, which the graph approaches but never reaches.',
+              T('y') + '-intercept: ' + T('f(0) = ' + fr(a, -d)) + '.'
+            ],
+            whyT: 'Big idea.', why: 'A fraction is zero only when its numerator is zero.',
+            trap: 'Don’t invent an ' + T('x') + '-intercept by setting the denominator to 0. That gives the asymptote, not an intercept.',
+            verify: () => near(f(0), a / -d)
+          };
+        }
+        let c, m, xi; do { c = nz(-4, 4); m = nz(-3, 3); xi = d - m; } while (xi === 0);
+        const a = c * m, f = x => a / (x - d) + c;
+        return {
+          q: '<p>Find the ' + T('x') + '- and ' + T('y') + '-intercepts of ' + T('f(x) = ' + rf(a, d, c)) + '.</p>',
+          hint: T('x') + '-intercept: set ' + T('f(x) = 0') + ' and isolate the fraction. ' + T('y') + '-intercept: find ' + T('f(0)') + '.',
+          ans: T('x') + '-intercept ' + T(pt(xi, 0)) + ', ' + T('y') + '-intercept ' + T(pt(0, fr(c * d - a, d))) + '.',
+          steps: [
+            T('x') + '-intercept: ' + T('0 = ' + rf(a, d, c)) + ', so ' + T(fx(a, d) + ' = ' + (-c)) + '.',
+            'Multiply both sides by ' + T('(' + xm(d) + ')') + ' and divide by ' + par(-c) + ': ' + T(xm(d) + ' = ' + fr(a, -c)) + ', so ' + T('x = ' + xi) + '.',
+            T('y') + '-intercept: ' + T('f(0) = ' + fr(a, -d) + pc(c) + ' = ' + fr(c * d - a, d)) + '.'
+          ],
+          whyT: 'Use them.', why: 'Intercepts are free extra points for a sketch, on top of the asymptotes and mapped key points.',
+          trap: 'Students often swap the two. On the ' + T('x') + '-axis ' + T('y = 0') + '; on the ' + T('y') + '-axis ' + T('x = 0') + '. Write each as a point.',
+          verify: () => Math.abs(f(xi)) < 1e-9 && near(f(0), (c * d - a) / d)
+        };
+      } },
+
+    factork: { name: 'Factoring out k', level: 'core',
+      tip: 'Factor the denominator into k(x − d) before you read the shift or the asymptote.',
+      gen(){
+        const k = pick([2, 3, 4, 5]), d = nz(-5, 5), a = pick([1, -1, 2, -2, 3, 5]), c = R(-4, 4), m = -k * d;
+        const den = k + 'x' + pc(m), expr = (a < 0 ? '-' : '') + '\\dfrac{' + Math.abs(a) + '}{' + den + '}' + pc(c);
+        const mv = moves(a, k, d, c);
+        return {
+          q: '<p>For ' + T('y = ' + expr) + ', find the asymptotes, domain and range, and describe the transformations of ' + T('y = \\dfrac1x') + '.</p>',
+          hint: 'Factor the denominator into the form ' + T('k(x - d)') + '.',
+          ans: 'Asymptotes ' + T('x = ' + d) + ' and ' + T('y = ' + c) + '. Domain ' + DOM('x', d) + ', range ' + DOM('y', c) + '. ' + cap(list(mv)) + '.',
+          steps: [
+            'Factor: ' + T(den + ' = ' + k + '(' + xm(d) + ')') + ', so ' + T('k = ' + k) + ' and ' + T('d = ' + d) + '.',
+            'Vertical asymptote: ' + T(den + ' = 0 \\Rightarrow x = ' + d) + '. Horizontal asymptote: ' + T('y = ' + c) + '.',
+            'Transformations: ' + list(mv) + '.'
+          ],
+          whyT: 'Same rule as radicals.', why: 'Always rewrite the inside as ' + T('k(x - d)') + ' before reading the horizontal shift.',
+          trap: 'Reading ' + T(den) + ' as a shift ' + (m < 0 ? 'right ' : 'left ') + Math.abs(m) + ' is wrong. Factor out ' + k + ' first; the shift is ' + (d > 0 ? 'right ' : 'left ') + Math.abs(d) + '.',
+          verify: () => k * d + m === 0
+        };
+      } },
+
+    solve: { name: 'Solving for x', level: 'core',
+      tip: 'Isolate the fraction, multiply by the denominator, solve. Then check the answer isn’t the restriction.',
+      gen(){
+        const d = nz(-5, 5), c = R(-5, 5), s = nz(-4, 4), m = nz(-3, 3), a = s * m, k = c + s, x = d + m, f = t => a / (t - d) + c;
+        return {
+          q: '<p>Solve ' + T(rf(a, d, c) + ' = ' + k) + '.</p>',
+          hint: 'State the restriction, then get the fraction by itself on one side.',
+          ans: T('x = ' + x),
+          steps: [
+            'Restriction: ' + T('x \\ne ' + d) + '.',
+            c === 0 ? 'The fraction is already alone: ' + T(fx(a, d) + ' = ' + s) + '.' : 'Isolate the fraction: ' + T(fx(a, d) + ' = ' + s) + '.',
+            'Multiply both sides by ' + T('(' + xm(d) + ')') + ': ' + T(a + ' = ' + s + '(' + xm(d) + ')') + ', so ' + T(xm(d) + ' = ' + m) + '.',
+            T('x = ' + x) + '. It isn’t the restriction, so it stands. Check: ' + T(fr(a, m) + pc(c) + ' = ' + k) + ' ✓'
+          ],
+          whyT: 'Method.', why: 'Isolate, clear the denominator, solve, check. The same four steps solve every equation like this.',
+          trap: 'If you multiply by the denominator before isolating the fraction, every term must be multiplied, including the ' + T(String(c)) + ' and the right side.',
+          verify: () => x !== d && near(f(x), k)
+        };
+      } },
+
+    equation: { name: 'Equation from features', level: 'think',
+      tip: 'The asymptotes give d and c. Substitute the point to find a.',
+      gen(){
+        let a; do { a = nz(-12, 12); } while (Math.abs(a) < 2);
+        const t = pick(divisors(a)), d = nz(-5, 5), c = R(-5, 5), x0 = d + t, y0 = a / t + c;
+        return {
+          q: '<p>A function of the form ' + T('y = \\dfrac{a}{x - d} + c') + ' has asymptotes ' + T('x = ' + d) + ' and ' + T('y = ' + c) + ' and passes through ' + T(pt(x0, y0)) + '. Find its equation.</p>',
+          hint: 'The asymptotes give ' + T('d') + ' and ' + T('c') + '. Substitute the point to find ' + T('a') + '.',
+          ans: T('y = ' + rf(a, d, c)),
+          steps: [
+            'The asymptotes give ' + T('d = ' + d) + ' and ' + T('c = ' + c) + ': ' + T('y = \\dfrac{a}{' + xm(d) + '}' + pc(c)) + '.',
+            'Substitute ' + T(pt(x0, y0)) + ': ' + T(y0 + ' = \\dfrac{a}{' + t + '}' + pc(c)) + ', so ' + T('\\dfrac{a}{' + t + '} = ' + (y0 - c)) + '.',
+            T('a = ' + par(t) + ' \\times ' + par(y0 - c) + ' = ' + a) + '.',
+            'Check: at ' + T('x = ' + x0) + ', ' + T(fr(a, t) + pc(c) + ' = ' + y0) + ' ✓'
+          ],
+          whyT: 'Same method as before.', why: 'Fixed features first, then one point for the stretch. It’s how you found quadratic and radical equations too.',
+          trap: d < 0 ? 'The asymptote ' + T('x = ' + d) + ' becomes ' + T('(' + xm(d) + ')') + ' in the equation.' : 'Subtract ' + T('c') + ' before solving for ' + T('a') + '; leaving it in is the usual slip.',
+          verify: () => near(a / (x0 - d) + c, y0)
+        };
+      } },
+
+    hole: { name: 'Holes vs asymptotes', level: 'think',
+      tip: 'Factor fully. A factor that cancels is a hole; a factor left in the denominator is an asymptote.',
+      gen(){
+        let p, q; do { p = nz(-5, 5); q = nz(-5, 5); } while (p === q);
+        const k = pick([1, 1, 2, 3, -1, -2]), hy = fr(k, p - q);
+        const num = lin(k, -k * p), den = quad(-(p + q), p * q);
+        const f = x => (k * x - k * p) / (x * x - (p + q) * x + p * q);
+        return {
+          q: '<p>For ' + T('f(x) = \\dfrac{' + num + '}{' + den + '}') + ', find the domain, the vertical asymptote and the coordinates of the hole.</p>',
+          hint: 'Factor the numerator and denominator. Which factor cancels?',
+          ans: 'Domain ' + T('x \\ne ' + Math.min(p, q) + ',\\ ' + Math.max(p, q)) + '. Vertical asymptote ' + T('x = ' + q) + '. Hole at ' + T(pt(p, hy)) + '.',
+          steps: [
+            'Factor: ' + T('f(x) = \\dfrac{' + coef(k) + '(' + xm(p) + ')}{(' + xm(p) + ')(' + xm(q) + ')}') + '. Restrictions: ' + T('x \\ne ' + p + ',\\ ' + q) + '.',
+            'Cancel ' + T('(' + xm(p) + ')') + ': ' + T('f(x) = ' + fx(k, q)) + ', ' + T('x \\ne ' + p) + '.',
+            T('(' + xm(q) + ')') + ' is still in the denominator, so the vertical asymptote is ' + T('x = ' + q) + '.',
+            T('(' + xm(p) + ')') + ' cancelled, so there is a hole at ' + T('x = ' + p) + '. Its ' + T('y') + '-value comes from the simplified form: ' + T('\\dfrac{' + k + '}{' + p + ' - ' + par(q) + '} = ' + hy) + '.'
+          ],
+          whyT: 'Links to Unit 1.', why: 'This is why you state restrictions before cancelling. The cancelled restriction becomes a hole on the graph.',
+          trap: 'Both ' + p + ' and ' + q + ' are restrictions, but only ' + q + ' is an asymptote. Find the hole’s ' + T('y') + ' from the simplified form; the original gives ' + T('\\tfrac00') + '.',
+          verify: () => Math.abs(f(p + 1e-7) - k / (p - q)) < 1e-5 && Math.abs(f(q + 1e-9)) > 1e5
+        };
+      } },
+
+    inverse: { name: 'Inverses', level: 'think',
+      tip: 'Swap x and y, isolate the fraction, then solve for y. The inverse’s asymptotes are the original’s, swapped.',
+      gen(){
+        const a = pick([1, -1, 2, -2, 3, -3, 4]); let d, c; do { d = nz(-5, 5); c = nz(-5, 5); } while (d === c);
+        const f = x => a / (x - d) + c, g = x => a / (x - c) + d;
+        return {
+          q: '<p>Find the inverse of ' + T('f(x) = ' + rf(a, d, c)) + '. Compare the asymptotes of ' + T('f') + ' and ' + T('f^{-1}') + '.</p>',
+          hint: 'Swap ' + T('x') + ' and ' + T('y') + '. Get the fraction alone before you do anything else.',
+          ans: T('f^{-1}(x) = ' + rf(a, c, d)) + '. ' + T('f') + ' has asymptotes ' + T('x = ' + d + ',\\ y = ' + c) + '; ' + T('f^{-1}') + ' has ' + T('x = ' + c + ',\\ y = ' + d) + '. They swap.',
+          steps: [
+            'Write ' + T('y = ' + rf(a, d, c)) + ' and swap: ' + T('x = ' + rf(a, d, c, 'y')) + '.',
+            'Isolate the fraction: ' + T(xm(c) + ' = ' + fx(a, d, 'y')) + '.',
+            'Multiply both sides by ' + T('(' + xm(d, 'y') + ')') + ' and divide by ' + T('(' + xm(c) + ')') + ': ' + T(xm(d, 'y') + ' = ' + fx(a, c)) + '.',
+            'So ' + T('f^{-1}(x) = ' + rf(a, c, d)) + '.',
+            'Check: ' + T('f(' + (d + 1) + ') = ' + (a + c)) + ' and ' + T('f^{-1}(' + (a + c) + ') = ' + (d + 1)) + ' ✓'
+          ],
+          whyT: 'Why they swap.', why: 'The inverse is the reflection in ' + T('y = x') + ', which turns vertical lines into horizontal ones. Domain and range trade places too.',
+          trap: 'Only rearrange the fraction once it is alone. Flipping ' + T(rf(a, d, c, 'y')) + ' as a whole is wrong.',
+          verify: () => [d + 1, d + 2, d - 3].every(x => near(g(f(x)), x))
+        };
+      } },
+
+    rewrite: { name: 'Rewriting in transformed form', level: 'think',
+      tip: 'Write the numerator as m(x − d) + remainder, then split into two fractions.',
+      gen(){
+        const m = pick([1, 2, 3, 4, -1, -2]), d = nz(-5, 5), a = nz(-6, 6), n = a - m * d, x1 = d + 1;
+        const top = m * x1 + n;
+        return {
+          q: '<p>Write ' + T('y = \\dfrac{' + lin(m, n) + '}{' + xm(d) + '}') + ' in the form ' + T('y = \\dfrac{a}{x - d} + c') + ' and state the asymptotes.</p>',
+          hint: 'Write the numerator as a multiple of ' + T('(' + xm(d) + ')') + ' plus whatever is left over.',
+          ans: T('y = ' + rf(a, d, m)) + '. Asymptotes ' + T('x = ' + d) + ' and ' + T('y = ' + m) + '.',
+          steps: [
+            'Rewrite the numerator: ' + T(lin(m, n) + ' = ' + coef(m) + '(' + xm(d) + ')' + pc(a)) + '.',
+            'Split: ' + T('y = \\dfrac{' + coef(m) + '(' + xm(d) + ')}{' + xm(d) + '}' + (a < 0 ? ' - ' : ' + ') + '\\dfrac{' + Math.abs(a) + '}{' + xm(d) + '} = ' + rf(a, d, m)) + '.',
+            'Asymptotes: ' + T('x = ' + d) + ' and ' + T('y = ' + m) + '.',
+            'Check with ' + T('x = ' + x1) + ': original ' + T('\\dfrac{' + top + '}{' + x1 + ' - ' + par(d) + '} = ' + top) + '; new form ' + T(fr(a, 1) + pc(m) + ' = ' + (a + m)) + ' ✓'
+          ],
+          whyT: 'Shortcut.', why: 'When top and bottom are both linear, the horizontal asymptote is the ratio of the ' + T('x') + ' coefficients: ' + T('\\tfrac{' + m + '}{1} = ' + m) + '.',
+          trap: 'The horizontal asymptote here is ' + T('y = ' + m) + ', not ' + T('y = 0') + '.',
+          verify: () => [d + 1, d + 2, d - 1].every(x => near((m * x + n) / (x - d), a / (x - d) + m))
+        };
+      } },
+
+    behaviour: { name: 'Behaviour near asymptotes', level: 'think',
+      tip: 'Test an x-value just left and just right of the vertical asymptote, and a very large positive and negative x.',
+      gen(){
+        const a = nz(-6, 6), d = nz(-5, 5), c = R(-5, 5), f = x => a / (x - d) + c, up = a > 0;
+        const xr = (d + 0.01).toFixed(2), xl = (d - 0.01).toFixed(2), yr = c + 100 * a, yl = c - 100 * a;
+        const yf = String((c * 1000 + a) / 1000), yn = String((c * 1000 - a) / 1000);
+        const big = s => (s ? 'increases' : 'decreases') + ' without bound';
+        return {
+          q: '<p>For ' + T('y = ' + rf(a, d, c)) + ', describe what happens to ' + T('y') + ': (a) as ' + T('x') + ' approaches ' + d + ' from the right; (b) from the left; (c) as ' + T('x') + ' becomes very large and positive; (d) very large and negative.</p>',
+          hint: 'Try ' + T('x = ' + xr) + ', ' + T('x = ' + xl) + ', ' + T('x = ' + (d + 1000)) + ' and ' + T('x = ' + (d - 1000)) + '.',
+          ans: '(a) ' + T('y') + ' ' + big(up) + '. (b) ' + T('y') + ' ' + big(!up) + '. (c) ' + T('y') + ' approaches ' + c + ' from ' + (up ? 'above' : 'below') + '. (d) ' + T('y') + ' approaches ' + c + ' from ' + (up ? 'below' : 'above') + '.',
+          steps: [
+            T('x = ' + xr) + ': the denominator is ' + T('0.01') + ', a tiny positive number, so ' + T('y = ' + yr) + '.',
+            T('x = ' + xl) + ': the denominator is ' + T('-0.01') + ', so ' + T('y = ' + yl) + '.',
+            T('x = ' + (d + 1000)) + ': ' + T('y = ' + fr(a, 1000) + pc(c) + ' = ' + yf) + ', just ' + (up ? 'above' : 'below') + ' ' + c + '.',
+            T('x = ' + (d - 1000)) + ': ' + T('y = ' + fr(-a, 1000) + pc(c) + ' = ' + yn) + ', just ' + (up ? 'below' : 'above') + ' ' + c + '.'
+          ],
+          whyT: 'This is what “asymptote” means.', why: 'Near ' + T('x = ' + d) + ' the graph shoots up or down; far away it settles toward ' + T('y = ' + c) + '.',
+          trap: 'The two sides of a vertical asymptote go in opposite directions here. Check both sides; don’t assume.',
+          verify: () => near(f(d + 0.01), yr) && near(f(d - 0.01), yl) && near(f(d + 1000), +yf) && near(f(d - 1000), +yn)
+        };
+      } },
+
+    intersect: { name: 'Intersections', level: 'challenge',
+      tip: 'Set the two equal, state the restriction, multiply out, solve the quadratic, then check each answer.',
+      gen(){
+        let d, b, r1, r2, a;
+        do { d = nz(-4, 4); b = R(-4, 4); r1 = R(-5, 5); r2 = d - b - r1; a = -b * d - r1 * r2; } while (a === 0 || r1 === r2 || Math.abs(a) > 12);
+        if (r1 > r2) [r1, r2] = [r2, r1];
+        const L = b === 0 ? 'x' : '(' + lin(1, b) + ')';
+        return {
+          q: '<p>Find the points where ' + T('y = ' + fx(a, d)) + ' and ' + T('y = ' + lin(1, b)) + ' intersect.</p>',
+          hint: 'Set them equal, state the restriction, and multiply both sides by ' + T('(' + xm(d) + ')') + '.',
+          ans: T(pt(r1, r1 + b)) + ' and ' + T(pt(r2, r2 + b)),
+          steps: [
+            'Set them equal: ' + T(fx(a, d) + ' = ' + lin(1, b)) + ', with ' + T('x \\ne ' + d) + '.',
+            'Multiply both sides by ' + T('(' + xm(d) + ')') + ': ' + T(a + ' = ' + L + '(' + xm(d) + ') = ' + quad(b - d, -b * d)) + '.',
+            'Move everything to one side: ' + T(quad(b - d, -b * d - a) + ' = 0') + '.',
+            'Factor: ' + T(fac(r1) + fac(r2) + ' = 0') + ', so ' + T('x = ' + r1) + ' or ' + T('x = ' + r2) + '.',
+            'Neither is the restriction. ' + T('y') + '-values from the line: ' + T(pt(r1, r1 + b)) + ' and ' + T(pt(r2, r2 + b)) + '. Check in the curve: ' + T(fr(a, r1 - d) + ' = ' + (r1 + b)) + ' ✓ and ' + T(fr(a, r2 - d) + ' = ' + (r2 + b)) + ' ✓'
+          ],
+          whyT: 'Three units in one.', why: 'A rational function, a restriction from Unit 1 and a quadratic from Unit 2. Tests love this combination.',
+          trap: 'If a solution equals the restriction, reject it. State the restriction first so you remember to check.',
+          verify: () => [r1, r2].every(r => r !== d && near(a / (r - d), r + b))
+        };
+      } },
+
+    apply: { name: 'Word problems', level: 'challenge',
+      tip: 'Define the variables, decide what domain makes sense in context, and answer in a full sentence.',
+      gen(){
+        if (Math.random() < 0.5) {
+          const [D, v1] = pick([[240, 80], [360, 90], [180, 60], [480, 120], [300, 60], [360, 60]]);
+          const t1 = D / v1, v2 = D / (t1 - 1), v3 = D / (t1 - 2);
+          return {
+            q: '<p>A trip is ' + D + ' km. The time in hours is ' + T('t = \\dfrac{' + D + '}{v}') + ', where ' + T('v') + ' is the speed in km/h.</p><p>(a) What is a sensible domain? (b) How long does the trip take at ' + v1 + ' km/h? (c) What speed saves 1 hour? (d) What speed would save a second hour? What does this show about the graph?</p>',
+            hint: 'For (c) solve ' + T('\\tfrac{' + D + '}{v} = ' + (t1 - 1)) + '; for (d) solve ' + T('\\tfrac{' + D + '}{v} = ' + (t1 - 2)) + '.',
+            ans: '(a) ' + T('v \\gt 0') + '. (b) ' + t1 + ' h. (c) ' + v2 + ' km/h, ' + (v2 - v1) + ' km/h faster. (d) ' + v3 + ' km/h, another ' + (v3 - v2) + ' km/h faster. Each hour saved costs more speed: the curve flattens out.',
+            steps: [
+              '(a) Speed must be positive, and ' + T('v = 0') + ' is undefined: ' + T('v \\gt 0') + '.',
+              '(b) ' + T('t = \\tfrac{' + D + '}{' + v1 + '} = ' + t1) + ' h.',
+              '(c) ' + T((t1 - 1) + ' = \\tfrac{' + D + '}{v} \\Rightarrow v = ' + v2) + ' km/h.',
+              '(d) ' + T((t1 - 2) + ' = \\tfrac{' + D + '}{v} \\Rightarrow v = ' + v3) + ' km/h.',
+              'The first hour saved needs +' + (v2 - v1) + ' km/h; the second needs +' + (v3 - v2) + ' km/h. As ' + T('v') + ' grows, ' + T('t') + ' drops more and more slowly toward the asymptote ' + T('t = 0') + '.'
+            ],
+            whyT: 'Context.', why: 'This is inverse variation: double the speed, halve the time. Only the first-quadrant branch makes sense.',
+            trap: '“What does this show” is a Communication mark. Use your numbers in a full sentence.',
+            verify: () => Number.isInteger(t1) && v2 * (t1 - 1) === D && v3 * (t1 - 2) === D
+          };
+        }
+        const [C, n1, p2, p3] = pick([[1200, 4, 200, 150], [900, 3, 150, 100], [1800, 6, 200, 150], [600, 4, 100, 75]]);
+        const n2 = C / p2, n3 = C / p3;
+        return {
+          q: '<p>A group rents a cabin for $' + C + ', split equally among ' + T('n') + ' people.</p><p>(a) Write the cost per person ' + T('P') + ' in terms of ' + T('n') + '. (b) What is the domain, and what does that mean for the graph? (c) What does each person pay if ' + n1 + ' go? (d) How many people are needed for each to pay $' + p2 + '? (e) $' + p3 + '?</p>',
+          hint: 'Cost per person = total ÷ number of people. Can ' + T('n') + ' be 2.5?',
+          ans: '(a) ' + T('P = \\dfrac{' + C + '}{n}') + '. (b) Whole numbers ' + T('n \\ge 1') + '; the graph is separate points, not a curve. (c) $' + (C / n1) + '. (d) ' + n2 + ' people. (e) ' + n3 + ' people.',
+          steps: [
+            '(a) ' + T('P = \\dfrac{' + C + '}{n}') + '.',
+            '(b) ' + T('n') + ' counts people, so ' + T('n = 1, 2, 3, \\dots') + '. The graph is a set of points that follow the shape of ' + T('y = \\tfrac1x') + ', not a joined curve.',
+            '(c) ' + T('P = \\tfrac{' + C + '}{' + n1 + '} = ' + (C / n1)) + '.',
+            '(d) ' + T(p2 + ' = \\tfrac{' + C + '}{n} \\Rightarrow n = ' + n2) + '.',
+            '(e) ' + T(p3 + ' = \\tfrac{' + C + '}{n} \\Rightarrow n = ' + n3) + '.'
+          ],
+          whyT: 'Thinking mark.', why: 'Noticing that the domain is whole numbers, and saying what that does to the graph, is exactly the kind of reasoning Thinking questions reward.',
+          trap: 'Don’t write the domain as ' + T('n \\gt 0') + ' here. Half a person can’t go.',
+          verify: () => Number.isInteger(n2) && Number.isInteger(n3) && Number.isInteger(C / n1)
+        };
+      } }
+  };
+
+  const REG = { ratfuncs: ratfuncs };
+  function solHtml(o){
+    return '<ol class="steps">' + o.steps.map(s => '<li>' + s + '</li>').join('') + '</ol>' +
+      (o.why ? '<p class="why"><b>' + o.whyT + '</b> ' + o.why + '</p>' : '') +
+      (o.trap ? '<p class="trap"><b>Watch out.</b> ' + o.trap + '</p>' : '');
+  }
+  function make(unit, skill){
+    const s = REG[unit][skill];
+    for (let i = 0; i < 25; i++) {
+      const o = s.gen();
+      if (o.verify()) return { skill: skill, level: s.level, q: o.q, hint: o.hint, ans: o.ans, sol: solHtml(o) };
+    }
+    return null;
+  }
+  return { units: REG, make: make };
+})();
+</script>
+
 <script>
 (function(){
   const UNITS = {
@@ -1103,7 +1484,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   const ORDER = {core:0, think:1, challenge:2};
 
   const CARDS = [...document.querySelectorAll('#cards article')].map(a => ({
-    id:a.dataset.id, unit:a.dataset.unit, level:a.dataset.level,
+    id:a.dataset.id, unit:a.dataset.unit, level:a.dataset.level, skill:a.dataset.skill || null,
     q:a.querySelector('.q').innerHTML,
     hint:(a.querySelector('.hint')||{}).innerHTML || '',
     ans:a.querySelector('.ans').innerHTML,
@@ -1138,6 +1519,17 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
       list.forEach(c => counts[c.level]++);
       const el = document.createElement('div');
       el.className = 'unit' + (u === 'mixed' ? ' mixed' : '');
+      if (isStudy(u)) {
+        el.innerHTML =
+          '<p class="eyebrow">Unit ' + UNIT_NO[u] + (u === CURRENT ? ' · current unit' : '') + ' · endless practice</p>' +
+          '<h2>' + UNITS[u].name + '</h2>' +
+          '<p>' + UNITS[u].blurb + '</p>' +
+          '<p class="studynote">Fresh questions every time, weighted toward the skills you miss. Check your progress whenever you want.</p>' +
+          '<div class="meta"><span></span><button class="btn primary" type="button">Study →</button></div>';
+        el.querySelector('button').addEventListener('click', () => { location.hash = u; });
+        grid.appendChild(el);
+        return;
+      }
       el.innerHTML =
         '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : 'Unit ' + UNIT_NO[u]) + (u === CURRENT ? ' · current unit' : '') + ' · ' + list.length + ' cards</p>' +
         '<h2>' + UNITS[u].name + '</h2>' +
@@ -1162,8 +1554,182 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   $('#resetBtn').addEventListener('click', () => { $('#resetConfirm').hidden = false; $('#resetBtn').hidden = true; });
   $('#resetNo').addEventListener('click', () => { $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; });
   $('#resetYes').addEventListener('click', () => {
-    marks = {}; save(); $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; renderHome();
+    marks = {}; save(); shist = {}; ssave(); $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; renderHome();
   });
+
+  /* ---------- Study mode (endless, generated questions) ---------- */
+  const GEN = window.STUDY_GEN || null;
+  function isStudy(u){ return !!(GEN && GEN.units[u]); }
+  const SKEY = 'mcr3u-study-v1';
+  let shist = {};
+  try { shist = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch(e) { shist = {}; }
+  function ssave(){ try { localStorage.setItem(SKEY, JSON.stringify(shist)); } catch(e) {} }
+  const ST = { on:false, item:null, flipped:false, hint:false, n:0, recent:[], requeue:[], session:{}, showProgress:false, skillOnly:null };
+  const pickOne = a => a[Math.floor(Math.random() * a.length)];
+  function hist(skill){ return ((shist[S.unit] || {})[skill]) || []; }
+  function skillName(skill){ return GEN.units[S.unit][skill].name; }
+
+  function startStudy(){
+    ST.on = true; ST.item = null; ST.flipped = false; ST.hint = false; ST.n = 0; ST.recent = []; ST.requeue = [];
+    ST.session = {}; ST.showProgress = false; ST.skillOnly = null;
+    ST.item = nextStudy(); renderStudy();
+  }
+  function restartStream(){ ST.requeue = []; ST.flipped = false; ST.hint = false; ST.showProgress = false; ST.item = nextStudy(); renderStudy(); }
+
+  function nextStudy(){
+    ST.n++;
+    const due = ST.requeue.findIndex(r => r.due <= ST.n);
+    if (due >= 0) return ST.requeue.splice(due, 1)[0].item;
+    const reg = GEN.units[S.unit];
+    const okSkill = k => !ST.skillOnly || k === ST.skillOnly;
+    const genSkills = Object.keys(reg).filter(k => okSkill(k) && (S.level === 'all' || reg[k].level === S.level));
+    const hand = CARDS.filter(c => c.unit === S.unit && c.skill && okSkill(c.skill) && (S.level === 'all' || c.level === S.level));
+    let skills = [...new Set(genSkills.concat(hand.map(c => c.skill)))];
+    if (!skills.length) return null;
+    if (skills.length > 1 && ST.item) { const others = skills.filter(k => k !== ST.item.skill); if (others.length) skills = others; }
+    /* Skills missed recently come up more often; untried skills get a nudge. */
+    const w = skills.map(k => { const h = hist(k).slice(-6); return 1 + (h.length ? 3 * h.filter(v => !v).length / h.length : 1.5); });
+    let r = Math.random() * w.reduce((s, x) => s + x, 0), sk = skills[0];
+    for (let i = 0; i < skills.length; i++) { r -= w[i]; if (r <= 0) { sk = skills[i]; break; } }
+    const canGen = genSkills.includes(sk);
+    const fresh = hand.filter(c => c.skill === sk && !ST.recent.includes(c.id));
+    let c = null;
+    if (fresh.length && (!canGen || Math.random() < 0.3)) c = pickOne(fresh);
+    else if (!canGen) c = pickOne(hand.filter(h => h.skill === sk));
+    if (c) {
+      ST.recent.push(c.id); if (ST.recent.length > 8) ST.recent.shift();
+      return { skill:sk, level:c.level, q:c.q, hint:c.hint, ans:c.ans, sol:c.sol, id:c.id };
+    }
+    return GEN.make(S.unit, sk);
+  }
+
+  function renderStudy(animate){
+    $('#skillOnly').hidden = !ST.skillOnly;
+    if (ST.skillOnly) $('#skillOnly').textContent = 'Only: ' + skillName(ST.skillOnly) + ' ✕';
+    $('#progressBtn').textContent = ST.showProgress ? 'Back to studying' : 'Progress';
+    if (ST.showProgress) return renderProgress();
+    const c = ST.item;
+    if (!c) { stage.innerHTML = '<div class="summary empty"><h2>No questions match</h2><p>Switch the level filter back to All.</p></div>'; return; }
+    const label = '<span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="eyebrow">' + skillName(c.skill) + '</span>' + chip(c.level) + '</span>';
+    let html;
+    if (!ST.flipped) {
+      html = '<article class="flash ruled" id="card" aria-live="polite">' +
+        '<div class="top"><span class="side">Front · question</span>' + label + '</div>' +
+        '<div class="q">' + c.q + '</div>' +
+        (ST.hint && c.hint ? '<div class="hintbox"><b>Hint.</b> ' + c.hint + '</div>' : '') +
+        '</article>' +
+        '<div class="actions"><div class="grp">' +
+          (c.hint && !ST.hint ? '<button class="btn" type="button" id="hintBtn">Show a hint</button>' : '') +
+          '<button class="btn ghost" type="button" id="skipBtn">Skip</button>' +
+        '</div><div class="grp"><button class="btn primary" type="button" id="flipBtn">Flip for the solution</button></div></div>';
+    } else {
+      html = '<article class="flash" id="card" aria-live="polite">' +
+        '<div class="top"><span class="side">Back · solution</span>' + label + '</div>' +
+        '<div class="askq">' + c.q + '</div>' +
+        '<div class="ans"><b>Answer</b>' + c.ans + '</div>' +
+        '<h4>Step by step</h4>' + c.sol +
+        '</article>' +
+        '<div class="actions"><div class="grp"><button class="btn ghost" type="button" id="unflipBtn">Back to the question</button></div>' +
+        '<div class="grp"><button class="btn warn" type="button" id="learnBtn">Still learning</button>' +
+        '<button class="btn ok" type="button" id="gotBtn">Got it</button></div></div>';
+    }
+    stage.innerHTML = html;
+    const card = $('#card');
+    if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      card.style.transition = 'none'; card.style.transform = 'rotateY(90deg)';
+      requestAnimationFrame(() => requestAnimationFrame(() => { card.style.transition = 'transform .22s ease-out'; card.style.transform = 'rotateY(0deg)'; }));
+    }
+    typeset(stage);
+    const on = (id, fn) => { const b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
+    on('flipBtn', flip); on('unflipBtn', flip); on('hintBtn', showHint); on('skipBtn', skipStudy);
+    on('gotBtn', () => markStudy(true)); on('learnBtn', () => markStudy(false));
+  }
+
+  function skipStudy(){ ST.item = nextStudy(); ST.flipped = false; ST.hint = false; renderStudy(); }
+
+  function markStudy(got){
+    const c = ST.item; if (!c) return;
+    const s = ST.session[c.skill] || (ST.session[c.skill] = {got:0, total:0});
+    s.total++; if (got) s.got++;
+    shist[S.unit] = shist[S.unit] || {};
+    const h = shist[S.unit][c.skill] = (shist[S.unit][c.skill] || []);
+    h.push(got ? 1 : 0); if (h.length > 20) h.splice(0, h.length - 20);
+    ssave();
+    if (c.id) { marks[c.id] = got ? 'got' : 'learning'; save(); }
+    /* A missed question comes back about four questions later, once. */
+    if (!got && !c.requeued) ST.requeue.push({ item: Object.assign({}, c, {requeued:true}), due: ST.n + 4 });
+    ST.item = nextStudy(); ST.flipped = false; ST.hint = false;
+    renderStudy();
+    window.scrollTo({top: deck.offsetTop, behavior: 'auto'});
+  }
+
+  function accuracy(skill, n){ const h = hist(skill).slice(-(n || 10)); return h.length ? h.reduce((a, b) => a + b, 0) / h.length : null; }
+
+  function weakSkills(){
+    const reg = GEN.units[S.unit];
+    return Object.keys(reg).map(k => ({k, acc:accuracy(k), n:hist(k).slice(-10).length}))
+      .filter(x => x.n >= 2 && x.acc < 0.8).sort((a, b) => a.acc - b.acc).slice(0, 3);
+  }
+
+  function renderProgress(){
+    const reg = GEN.units[S.unit];
+    const keys = Object.keys(reg);
+    let done = 0, got = 0;
+    keys.forEach(k => { const s = ST.session[k]; if (s) { done += s.total; got += s.got; } });
+    const weak = weakSkills();
+    const untried = keys.filter(k => !hist(k).length);
+    let weakHtml;
+    if (weak.length) {
+      weakHtml = '<div class="weak">' + weak.map(x =>
+        '<div class="item"><b>' + reg[x.k].name + '</b><p>' + Math.round(x.acc * 100) + '% on your last ' + x.n + '. ' + reg[x.k].tip + '</p>' +
+        '<button class="btn" type="button" data-practice="' + x.k + '">Practise just this →</button></div>').join('') + '</div>';
+    } else {
+      weakHtml = '<p class="studynote">' + (done || keys.some(k => hist(k).length) ? 'No weak spots right now. Try the Thinking and Challenge filters to push further.' : 'Mark a few questions and your weak spots will show up here.') + '</p>';
+    }
+    const rows = keys.map(k => {
+      const s = ST.session[k], acc = accuracy(k), n = hist(k).slice(-10).length;
+      const accHtml = acc === null ? '<span class="muted">not tried yet</span>' :
+        '<span class="acc' + (acc < 0.8 ? ' low' : '') + '"><span class="num">' + Math.round(acc * 100) + '% of ' + n + '</span><span class="meter"><i style="width:' + Math.round(acc * 100) + '%"></i></span></span>';
+      return '<div class="row"><span>' + reg[k].name + ' ' + chip(reg[k].level) + '</span><span class="num">' + (s ? s.got + ' / ' + s.total : '–') + '</span>' + accHtml + '</div>';
+    }).join('');
+    stage.innerHTML = '<div class="summary">' +
+      '<p class="eyebrow">This session</p>' +
+      '<h2>' + (done ? done + (done === 1 ? ' question' : ' questions') + ' so far' : 'Nothing marked yet this session') + '</h2>' +
+      '<div class="nums"><div class="g"><strong>' + got + '</strong><span>got it</span></div><div class="l"><strong>' + (done - got) + '</strong><span>still learning</span></div></div>' +
+      '<h3>Work on next</h3>' + weakHtml +
+      (untried.length ? '<p class="studynote">Not tried yet: ' + untried.map(k => reg[k].name).join(', ') + '. They’ll come up as you go.</p>' : '') +
+      '<h3>By skill</h3>' +
+      '<div class="skills"><div class="row head"><span>Skill</span><span>Session</span><span>Recent</span></div>' + rows + '</div>' +
+      '<p class="studynote">“Recent” is your last 10 tries at each skill, across every session on this device.</p>' +
+      '<div class="actions"><button class="btn" type="button" id="copySum">Copy a summary to send</button>' +
+      '<button class="btn primary" type="button" id="backStudy">Back to studying</button></div>' +
+      '<textarea class="sumtext" id="sumText" readonly hidden></textarea></div>';
+    typeset(stage);
+    stage.querySelectorAll('[data-practice]').forEach(b => b.addEventListener('click', () => {
+      ST.skillOnly = b.dataset.practice; S.level = 'all'; syncFilters(); restartStream();
+    }));
+    $('#backStudy').addEventListener('click', () => { ST.showProgress = false; renderStudy(); });
+    $('#copySum').addEventListener('click', () => {
+      const text = summaryText(done, got);
+      const box = $('#sumText');
+      const showBox = () => { box.hidden = false; box.value = text; box.focus(); box.select(); $('#copySum').textContent = 'Select and copy the text below'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $('#copySum').textContent = 'Copied'; }, showBox);
+      else showBox();
+    });
+  }
+
+  function summaryText(done, got){
+    const reg = GEN.units[S.unit];
+    const lines = ['Unit ' + UNIT_NO[S.unit] + ' ' + UNITS[S.unit].name + ' study, ' + new Date().toLocaleDateString(),
+      'This session: ' + done + ' questions, ' + got + ' got it, ' + (done - got) + ' still learning.', 'Recent accuracy by skill (last 10 tries):'];
+    Object.keys(reg).forEach(k => { const a = accuracy(k), n = hist(k).slice(-10).length; lines.push('- ' + reg[k].name + ': ' + (a === null ? 'not tried' : Math.round(a * 100) + '% of ' + n)); });
+    const weak = weakSkills();
+    if (weak.length) lines.push('Work on next: ' + weak.map(x => reg[x.k].name).join(', ') + '.');
+    return lines.join('\n');
+  }
+
+  $('#progressBtn').addEventListener('click', () => { ST.showProgress = !ST.showProgress; renderStudy(); window.scrollTo(0, 0); });
+  $('#skillOnly').addEventListener('click', () => { ST.skillOnly = null; restartStream(); });
 
   /* ---------- Deck ---------- */
   const S = { unit:null, level:'all', onlyLearning:false, shuffle:false, queue:[], pos:0, flipped:false, hint:false, round:{got:0, learning:0}, requeued:{} };
@@ -1181,11 +1747,18 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 
   function openDeck(unit){
     S.unit = unit; S.level = 'all'; S.onlyLearning = false; S.shuffle = (unit === 'mixed');
+    const study = isStudy(unit);
+    ST.on = study; ST.skillOnly = null;
     syncFilters();
     $('#deckTitle').textContent = UNITS[unit].name;
-    buildQueue();
+    ['#count', '#barWrap', '#onlyLearning', '#shuffleBtn'].forEach(s => { $(s).hidden = study; });
+    $('#filters .sep').hidden = study;
+    $('#progressBtn').hidden = !study; $('#studyNote').hidden = !study; $('#skillOnly').hidden = true;
+    $('#keys').innerHTML = study
+      ? 'Keys: <kbd>Space</kbd> flip · <kbd>H</kbd> hint · <kbd>1</kbd> still learning · <kbd>2</kbd> got it · <kbd>→</kbd> skip'
+      : 'Keys: <kbd>Space</kbd> flip · <kbd>H</kbd> hint · <kbd>1</kbd> still learning · <kbd>2</kbd> got it · <kbd>←</kbd> <kbd>→</kbd> move';
     home.hidden = true; deck.hidden = false;
-    renderCard();
+    if (study) startStudy(); else { buildQueue(); renderCard(); }
     window.scrollTo(0, 0);
   }
 
@@ -1196,7 +1769,8 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   }
 
   document.querySelectorAll('#filters [data-level]').forEach(b => b.addEventListener('click', () => {
-    S.level = b.dataset.level; syncFilters(); buildQueue(); renderCard();
+    S.level = b.dataset.level; syncFilters();
+    if (ST.on) restartStream(); else { buildQueue(); renderCard(); }
   }));
   $('#onlyLearning').addEventListener('click', () => { S.onlyLearning = !S.onlyLearning; syncFilters(); buildQueue(); renderCard(); });
   $('#shuffleBtn').addEventListener('click', () => { S.shuffle = !S.shuffle; syncFilters(); buildQueue(); renderCard(); });
@@ -1258,11 +1832,12 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
   function flip(){
     const card = $('#card');
     if (!card) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { S.flipped = !S.flipped; renderCard(); return; }
+    const turn = anim => { if (ST.on) { ST.flipped = !ST.flipped; renderStudy(anim); } else { S.flipped = !S.flipped; renderCard(anim); } };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { turn(false); return; }
     card.classList.add('turning');
-    setTimeout(() => { S.flipped = !S.flipped; renderCard(true); }, 200);
+    setTimeout(() => turn(true), 200);
   }
-  function showHint(){ S.hint = true; renderCard(); }
+  function showHint(){ if (ST.on) { ST.hint = true; renderStudy(); } else { S.hint = true; renderCard(); } }
   function go(d){
     S.pos = Math.max(0, Math.min(S.queue.length, S.pos + d)); S.flipped = false; S.hint = false; renderCard();
   }
@@ -1300,6 +1875,15 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 
   document.addEventListener('keydown', e => {
     if (deck.hidden || e.target.closest('input, textarea')) return;
+    if (ST.on) {
+      if (ST.showProgress) return;
+      if (e.key === ' ' || e.key === 'Enter') { if (e.target.tagName === 'BUTTON' && e.key === 'Enter') return; e.preventDefault(); if ($('#card')) flip(); }
+      else if (e.key === 'h' || e.key === 'H') { if (!ST.flipped) showHint(); }
+      else if (e.key === '1' && ST.flipped) markStudy(false);
+      else if (e.key === '2' && ST.flipped) markStudy(true);
+      else if (e.key === 'ArrowRight') skipStudy();
+      return;
+    }
     if (e.key === ' ' || e.key === 'Enter') { if (e.target.tagName === 'BUTTON' && e.key === 'Enter') return; e.preventDefault(); if ($('#card')) flip(); }
     else if (e.key === 'h' || e.key === 'H') { if (!S.flipped) showHint(); }
     else if (e.key === '1' && S.flipped) mark('learning');

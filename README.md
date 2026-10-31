@@ -25,6 +25,23 @@ Study tools for Grade 11 Functions (Ontario, MCR3U).
 
 The current unit is set by `CURRENT` in the script and is shown first on the home page.
 
+### Study mode (endless practice)
+
+Units with question generators open in **study mode** instead of a fixed deck. Unit 4 is the first.
+
+- There are no "card 3 of 14" counters. Each question is freshly generated with random numbers, and the unit's hand-written cards are mixed in about 30% of the time.
+- Skills he has missed recently come up more often. A question marked "Still learning" comes back about four questions later.
+- **Progress** opens a panel with this session's tally, accuracy over the last 10 tries per skill, the weakest skills (each with a tip and a "Practise just this" button) and skills not tried yet. **Copy a summary to send** produces a text summary to paste to a parent or to Claude.
+- Study history is saved in `localStorage` under `mcr3u-study-v1`.
+
+Generators live in the `<script id="study-gen">` block, grouped by unit and keyed by skill. Each has a `name`, `level`, `tip` and a `gen()` that returns `q`, `hint`, `ans`, `steps`, `whyT`/`why`, `trap` and a `verify()`. `verify()` must re-check the stated answer numerically from the original function, not from the formula used to build it. Hand-written cards join a skill's pool through `data-skill="<skill>"`.
+
+After changing any generator, run:
+
+```bash
+node tests/generators.test.js 5000
+```
+
 ### Adding cards
 
 Cards live in the hidden `<div id="cards">` block as `<article>` elements:
