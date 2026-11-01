@@ -167,6 +167,46 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 .skills .muted{color:var(--ink-soft);font-size:13px}
 .skills .row.grp{display:block;border-bottom:0;padding:14px 0 2px;font:800 15px var(--display);color:var(--ink)}
 .sumtext{width:100%;min-height:120px;font:13px/1.5 var(--mono);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px}
+.unit.testcard{border-left:5px solid var(--accent)}
+.unit.testcard::before{display:none}
+h2.part{font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
+.tq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.tqhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tqhead b{font:800 18px var(--display)}
+.tq .q{font-size:17.5px;line-height:1.65}
+.tq .q p{margin:0 0 8px}
+.tq .ans{padding:12px 16px;border:2px solid var(--ok);border-radius:8px;background:var(--ok-soft);font-size:16.5px}
+.tq .ans p{margin:0 0 8px}
+.tq .ans b:first-child{display:block;font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:4px}
+.scheme{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+.scheme .eyebrow{margin-bottom:2px}
+.scheme label{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;cursor:pointer}
+.scheme input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--ok)}
+.mk{font:500 13px var(--mono);color:var(--ok);flex:none;padding-top:2px}
+.tq details summary{cursor:pointer;font-weight:700;color:var(--accent);padding:4px 0}
+.tq ol.steps{margin:8px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.tq ol.steps li::marker{font-family:var(--mono);color:var(--ink-soft)}
+.tq .why,.tq .trap{margin:10px 0 0;padding:10px 14px;border-radius:8px;font-size:16px}
+.tq .why{background:var(--core)}
+.tq .trap{background:var(--warn-soft)}
+.tq .why b,.tq .trap b{font-family:var(--display)}
+.tq .trap b{color:var(--warn)}
+.plot{max-width:340px;margin:12px 0 4px}
+.plot svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+.plot .g{stroke:var(--grid);stroke-width:1}
+.plot .ax{stroke:var(--ink-soft);stroke-width:1.4}
+.plot .as{stroke:var(--warn);stroke-width:1.6;stroke-dasharray:6 4}
+.plot .cv{stroke:var(--accent);stroke-width:2.6;fill:none}
+.plot .pt{fill:var(--accent)}
+.plot text{font:10.5px var(--mono);fill:var(--ink-soft)}
+.plot .al{fill:var(--warn);font-weight:500}
+.plot .pl{fill:var(--ink);font-size:11px}
+.plot .pl,.plot .al{paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+@media print{
+  body{background:#fff;color:#000}
+  .deckbar,.actions,#revealConfirm,.howto .studynote,.foot{display:none!important}
+  .tq{break-inside:avoid;border-color:#999}
+}
 @media (max-width:640px){.skills .row{grid-template-columns:minmax(0,1fr) 54px 84px}}
 
 @media (max-width:640px){
@@ -225,6 +265,13 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
       </div>
       <div id="stage"></div>
       <p class="keys" id="keys">Keys: <kbd>Space</kbd> flip · <kbd>H</kbd> hint · <kbd>1</kbd> still learning · <kbd>2</kbd> got it · <kbd>←</kbd> <kbd>→</kbd> move</p>
+    </div>
+  </section>
+<section id="test" hidden>
+    <div class="wrap" style="padding:0">
+      <div class="deckbar"><button class="back" id="testBack" type="button">← All units</button></div>
+      <h1 id="testTitle"></h1>
+      <div id="testBody" class="wrap" style="padding:0"></div>
     </div>
   </section>
 </div>
@@ -2081,7 +2128,98 @@ window.STUDY_GEN = (function(){
     }
     return null;
   }
-  return { units: REG, make: make };
+  /* ================= Practice tests ================= */
+  const plain = (n, d) => { if (d < 0) { n = -n; d = -d; } const g = gcd(n, d); n /= g; d /= g; return d === 1 ? String(n) : n + '/' + d; };
+  function plot(f, d, c, pts){
+    /* SVG graph of a reciprocal-type function on a 16 x 16 window centred on the asymptotes. */
+    const W = 320, x0 = d - 8, y0 = c - 8, s = W / 16;
+    const X = x => +((x - x0) * s).toFixed(1), Y = y => +(W - (y - y0) * s).toFixed(1);
+    let g = '';
+    for (let i = Math.ceil(x0); i <= x0 + 16; i++) g += '<line class="g" x1="' + X(i) + '" y1="0" x2="' + X(i) + '" y2="' + W + '"/>';
+    for (let j = Math.ceil(y0); j <= y0 + 16; j++) g += '<line class="g" x1="0" y1="' + Y(j) + '" x2="' + W + '" y2="' + Y(j) + '"/>';
+    g += '<line class="ax" x1="0" y1="' + Y(0) + '" x2="' + W + '" y2="' + Y(0) + '"/><line class="ax" x1="' + X(0) + '" y1="0" x2="' + X(0) + '" y2="' + W + '"/>';
+    for (let i = Math.ceil(x0); i <= x0 + 16; i++) if (i !== 0 && i % 2 === 0) g += '<text class="tk" x="' + X(i) + '" y="' + (Y(0) + 12) + '" text-anchor="middle">' + i + '</text>';
+    for (let j = Math.ceil(y0); j <= y0 + 16; j++) if (j !== 0 && j % 2 === 0) g += '<text class="tk" x="' + (X(0) - 4) + '" y="' + (Y(j) + 4) + '" text-anchor="end">' + j + '</text>';
+    g += '<line class="as" x1="' + X(d) + '" y1="0" x2="' + X(d) + '" y2="' + W + '"/><line class="as" x1="0" y1="' + Y(c) + '" x2="' + W + '" y2="' + Y(c) + '"/>';
+    const above = f(x0 + 15.5) < c;   /* put the y = c label on the side of the line the curve isn't on, at the right edge */
+    g += '<text class="al" x="' + (X(d) + 4) + '" y="' + (f(d + 0.5) > c ? W - 6 : 14) + '">x = ' + d + '</text><text class="al" x="' + (W - 4) + '" y="' + (above ? Y(c) - 5 : Y(c) + 13) + '" text-anchor="end">y = ' + c + '</text>';
+    let path = '';
+    [[x0, d - 0.01], [d + 0.01, x0 + 16]].forEach(([lo, hi]) => {
+      let pen = false;
+      for (let x = lo; x <= hi; x += 0.01) {
+        const y = f(x);
+        if (y >= y0 - 1 && y <= y0 + 17) { path += (pen ? 'L' : 'M') + X(x) + ' ' + Y(y) + ' '; pen = true; } else pen = false;
+      }
+    });
+    g += '<path class="cv" d="' + path + '"/>';
+    pts.forEach(([x, yn, yd]) => {
+      /* label on the outside of the branch: away from the vertical asymptote, and away from the horizontal one */
+      const y = yn / yd, left = x < d, up = y > c;
+      g += '<circle class="pt" cx="' + X(x) + '" cy="' + Y(y) + '" r="3.5"/><text class="pl" x="' + (X(x) + (left ? -7 : 7)) + '" y="' + (Y(y) + (up ? -7 : 15)) + '" text-anchor="' + (left ? 'end' : 'start') + '">(' + x + ', ' + plain(yn, yd) + ')</text>';
+    });
+    return '<div class="plot"><svg viewBox="0 0 320 320" role="img" aria-label="Correct graph with dashed asymptotes and labelled points">' + g + '</svg></div>';
+  }
+
+  function testRatfuncs(){
+    const G = ratfuncs, items = [];
+    const add = (cat, skill, o, scheme) => items.push({ cat: cat, skill: skill, q: o.q, ans: o.ans, sol: solHtml(o), scheme: scheme, verify: o.verify });
+    const fresh = skill => { let o; do { o = G[skill].gen(); } while (!o.verify()); return o; };
+
+    /* Part A: Knowledge and Understanding */
+    add('K', 'asym', fresh('asym'), [[1, 'Vertical asymptote'], [1, 'Horizontal asymptote'], [1, 'Domain and range, in set notation']]);
+    add('K', 'intercepts', fresh('intercepts'), [[1, T('x') + '-intercept as a point (or a correct reason there is none)'], [1, T('y') + '-intercept as a point']]);
+    add('K', 'factork', fresh('factork'), [[1, 'Factors the denominator and finds the vertical asymptote'], [1, 'Horizontal asymptote, domain and range'], [1, 'Every transformation listed correctly']]);
+    add('K', 'solve', fresh('solve'), [[1, 'States the restriction and isolates the fraction'], [1, 'Correct solution, checked against the restriction']]);
+    add('K', 'hole', fresh('hole'), [[1, 'Domain'], [1, 'Vertical asymptote'], [1, 'Hole, as a point with both coordinates']]);
+
+    /* Part B: Application */
+    {
+      const a = pick([1, -1, 2, -2, 3, -3, 4]), d = nz(-4, 4), c = nz(-4, 4), f = x => a / (x - d) + c;
+      const P = [[1, 1, 1], [-1, -1, 1], [2, 1, 2], [-2, -1, 2]].map(([x, yn, yd]) => [x + d, a * yn + c * yd, yd]);
+      const ptsTex = P.map(([x, n, dd]) => T(pt(x, fr(n, dd)))).join(', ');
+      const rule = '(x, y) \\to \\left(' + xm(-d) + ',\\ ' + coef(a) + 'y' + pc(c) + '\\right)';
+      items.push({ cat: 'A', skill: 'transform',
+        q: '<p>Sketch the graph of ' + T('y = ' + rf(a, d, c)) + '. Draw and label both asymptotes, plot and label at least four points, and state the domain and range.</p>',
+        ans: 'Asymptotes ' + T('x = ' + d) + ' and ' + T('y = ' + c) + '. Points ' + ptsTex + '. Domain ' + DOM('x', d) + ', range ' + DOM('y', c) + '.',
+        sol: '<ol class="steps"><li>Mapping rule from ' + T('y = \\tfrac1x') + ': ' + T(rule) + '.</li><li>' + T('(1, 1),\\ (-1, -1),\\ (2, \\tfrac12),\\ (-2, -\\tfrac12)') + ' map to ' + ptsTex + '.</li><li>Draw the asymptotes as dashed lines first, then the points, then two smooth branches that approach the asymptotes without touching them.</li></ol>' + plot(f, d, c, P),
+        scheme: [[1, 'Both asymptotes drawn dashed and labelled'], [1, 'At least two correct points'], [1, 'Four correct points'], [1, 'Both branches in the correct regions, approaching the asymptotes'], [1, 'Domain and range']],
+        verify: () => P.every(([x, n, dd]) => near(f(x), n / dd)) });
+    }
+    add('A', 'equation', fresh('equation'), [[1, 'Uses the asymptotes to get ' + T('d') + ' and ' + T('c')], [1, 'Substitutes the point correctly'], [1, 'Correct ' + T('a') + ' and final equation']]);
+    add('A', 'intersect', fresh('intersect'), [[1, 'Sets them equal and states the restriction'], [1, 'Correct quadratic in standard form'], [1, 'Solves it correctly'], [1, 'Both points as coordinates, checked']]);
+    { const o = fresh('apply'), parts = o.q.includes('(e)') ? 'abcde' : 'abcd';
+      add('A', 'apply', o, parts.split('').map(p => [1, 'Part (' + p + ') correct' + (p === parts.slice(-1) ? ', answered in a sentence where asked' : '')])); }
+
+    /* Part C: Thinking */
+    add('T', 'rewrite', fresh('rewrite'), [[1, 'Rewrites the numerator as a multiple of the denominator plus a remainder'], [1, 'Correct transformed form'], [1, 'Both asymptotes']]);
+    add('T', 'inverse', fresh('inverse'), [[1, 'Swaps ' + T('x') + ' and ' + T('y') + ' and isolates the fraction'], [1, 'Correct inverse'], [1, 'Compares the asymptotes: they swap']]);
+    add('T', 'behaviour', fresh('behaviour'), 'abcd'.split('').map(p => [1, 'Part (' + p + ') correct, with a test value or reason']));
+
+    /* Part D: Communication */
+    {
+      let p, q; do { p = nz(-5, 5); q = nz(-5, 5); } while (p === q);
+      const num = xm(p), den = quad(-(p + q), p * q), hy = fr(1, p - q), f = x => (x - p) / (x * x - (p + q) * x + p * q);
+      items.push({ cat: 'C', skill: 'hole',
+        q: '<p>The function ' + T('f(x) = \\dfrac{' + num + '}{' + den + '}') + ' is undefined at ' + T('x = ' + p) + ' and at ' + T('x = ' + q) + ', but its graph has only one vertical asymptote. Explain why, and describe what the graph does at each of these ' + T('x') + '-values. Use full sentences and correct terms.</p>',
+        ans: '<p>Model answer: Factoring gives ' + T('f(x) = \\dfrac{' + xm(p) + '}{(' + xm(p) + ')(' + xm(q) + ')}') + '. The factor ' + T('(' + xm(p) + ')') + ' cancels, so ' + T('f(x) = ' + fx(1, q)) + ' with the restriction ' + T('x \\ne ' + p) + '.</p><p>At ' + T('x = ' + q) + ' the factor stays in the denominator, so the graph has a <b>vertical asymptote</b> ' + T('x = ' + q) + ': the ' + T('y') + '-values grow without bound as ' + T('x') + ' gets close to ' + q + '.</p><p>At ' + T('x = ' + p) + ' the factor cancelled, so there is no asymptote. Instead the graph has a <b>hole</b> at ' + T(pt(p, hy)) + ': it follows ' + T('y = ' + fx(1, q)) + ' but that single point is missing.</p>',
+        sol: '', scheme: [[1, 'Factors and identifies which factor cancels'], [1, 'Hole at ' + T('x = ' + p) + ' with its coordinates, and asymptote at ' + T('x = ' + q)], [1, 'Full sentences, using “hole”, “vertical asymptote” and “restriction” correctly']],
+        verify: () => Math.abs(f(p + 1e-7) - 1 / (p - q)) < 1e-5 && Math.abs(f(q + 1e-9)) > 1e5 });
+    }
+    {
+      const k = pick([2, 3, 4]), d = nz(-5, 5), a = pick([1, 2, 3, -1, 5]), c = R(-4, 4), m = -k * d;
+      const den = k + 'x' + pc(m), expr = (a < 0 ? '-' : '') + '\\dfrac{' + Math.abs(a) + '}{' + den + '}' + pc(c);
+      items.push({ cat: 'C', skill: 'factork',
+        q: '<p>A student says the vertical asymptote of ' + T('y = ' + expr) + ' is ' + T('x = ' + (-m)) + ', “because that’s the number in the denominator with its sign flipped.” Explain the student’s error, give the correct vertical asymptote, and state a rule that always works.</p>',
+        ans: '<p>Model answer: The student treated ' + T(den) + ' as if it were ' + T('x' + pc(m)) + ' and ignored the coefficient ' + k + '. Factoring first gives ' + T(den + ' = ' + k + '(' + xm(d) + ')') + ', so the vertical asymptote is ' + T('x = ' + d) + '. Check: at ' + T('x = ' + d) + ' the denominator is ' + T(k + '(' + d + ')' + pc(m) + ' = 0') + '.</p><p>A rule that always works: the vertical asymptote is where the denominator equals zero, so solve ' + T(den + ' = 0') + ' instead of reading a number off the equation.</p>',
+        sol: '', scheme: [[1, 'Identifies the error: the coefficient ' + k + ' was ignored (didn’t factor)'], [1, 'Correct asymptote ' + T('x = ' + d) + ' with working or a check'], [1, 'States the general rule clearly in a full sentence']],
+        verify: () => k * d + m === 0 && -m !== d });
+    }
+    return items;
+  }
+  const TESTS = { ratfuncs: testRatfuncs };
+  const TEST_META = { ratfuncs: { title: 'Unit 4 Practice Test: Rational Functions', minutes: 60, forTest: 'Mon Nov 9' } };
+
+  return { units: REG, make: make, tests: TESTS, testMeta: TEST_META };
 })();
 </script>
 
@@ -2130,6 +2268,18 @@ window.STUDY_GEN = (function(){
   function renderHome(){
     const grid = $('#unitGrid');
     grid.innerHTML = '';
+    if (hasTests()) Object.keys(GEN.tests).forEach(u => {
+      const meta = GEN.testMeta[u], t = tstore[u];
+      let status = 'A full test in your teacher’s categories, with a marking scheme to mark yourself. New numbers every version.';
+      if (t && t.items && !t.revealed) status = 'You have a version in progress.';
+      if (t && t.revealed) { const sc = testScore(u); status = 'Last result: ' + sc.pct + '% (' + level(sc.pct) + '). Try a new version once you’ve practised the weak spots.'; }
+      const el = document.createElement('div');
+      el.className = 'unit mixed testcard';
+      el.innerHTML = '<p class="eyebrow">Practice test · for the ' + meta.forTest + ' test · ' + meta.minutes + ' min</p><h2>' + meta.title + '</h2><p>' + status + '</p>' +
+        '<div class="meta"><span></span><button class="btn primary" type="button">' + (t && t.items ? (t.revealed ? 'See results' : 'Continue') : 'Start the test') + ' →</button></div>';
+      el.querySelector('button').addEventListener('click', () => { location.hash = 'test-' + u; });
+      grid.appendChild(el);
+    });
     ['ratfuncs','rationals','quadratics','radicals','mixed'].forEach(u => {
       const list = cardsFor(u);
       const got = list.filter(c => marks[c.id] === 'got').length;
@@ -2531,11 +2681,119 @@ window.STUDY_GEN = (function(){
     else if (e.key === 'ArrowLeft') go(-1);
   });
 
+  /* ---------- Practice tests ---------- */
+  const TKEY = 'mcr3u-tests-v1';
+  let tstore = {};
+  try { tstore = JSON.parse(localStorage.getItem(TKEY) || '{}') || {}; } catch(e) { tstore = {}; }
+  function tsave(){ try { localStorage.setItem(TKEY, JSON.stringify(tstore)); } catch(e) {} }
+  const CATS = [['K', 'Knowledge and Understanding'], ['A', 'Application'], ['T', 'Thinking'], ['C', 'Communication']];
+  const testSec = $('#test');
+  let TU = null, pendingSkill = null;
+  const markTotal = it => it.scheme.reduce((s, x) => s + x[0], 0);
+  function hasTests(){ return !!(GEN && GEN.tests); }
+
+  function newTest(u){
+    const items = GEN.tests[u]().map(it => ({ cat: it.cat, skill: it.skill, q: it.q, ans: it.ans, sol: it.sol, scheme: it.scheme }));
+    tstore[u] = { created: new Date().toLocaleDateString(), items: items, revealed: false, got: items.map(it => it.scheme.map(() => false)) };
+    tsave();
+  }
+  function openTest(u){
+    TU = u;
+    if (!tstore[u] || !tstore[u].items) newTest(u);
+    home.hidden = true; deck.hidden = true; testSec.hidden = false; ST.on = false;
+    renderTest(); window.scrollTo(0, 0);
+  }
+  function testScore(u){
+    const t = tstore[u], by = {}; let got = 0, tot = 0;
+    CATS.forEach(([c]) => { by[c] = {got: 0, tot: 0}; });
+    t.items.forEach((it, i) => it.scheme.forEach(([m], j) => { by[it.cat].tot += m; tot += m; if (t.got[i][j]) { by[it.cat].got += m; got += m; } }));
+    return {by, got, tot, pct: tot ? Math.round(got / tot * 100) : 0};
+  }
+  const level = p => p >= 80 ? 'Level 4' : p >= 70 ? 'Level 3' : p >= 60 ? 'Level 2' : p >= 50 ? 'Level 1' : 'below Level 1';
+  function lostBySkill(u){
+    const t = tstore[u], lost = {};
+    t.items.forEach((it, i) => it.scheme.forEach(([m], j) => { if (!t.got[i][j]) lost[it.skill] = (lost[it.skill] || 0) + m; }));
+    return Object.entries(lost).sort((a, b) => b[1] - a[1]);
+  }
+
+  function resultsInner(){
+    const sc = testScore(TU), lost = lostBySkill(TU), reg = GEN.units[TU];
+    const cats = CATS.map(([c, name]) => { const b = sc.by[c], p = b.tot ? Math.round(b.got / b.tot * 100) : 0;
+      return '<div class="row"><span>' + name + '</span><span class="num">' + b.got + ' / ' + b.tot + '</span><span class="acc' + (p < 70 ? ' low' : '') + '"><span class="num">' + p + '%</span><span class="meter"><i style="width:' + p + '%"></i></span></span></div>'; }).join('');
+    const weak = lost.slice(0, 3);
+    return '<p class="eyebrow">Your result</p><h2>' + sc.got + ' / ' + sc.tot + ' · ' + sc.pct + '% (' + level(sc.pct) + ')</h2>' +
+      '<div class="skills"><div class="row head"><span>Category</span><span>Marks</span><span>Percent</span></div>' + cats + '</div>' +
+      (weak.length ? '<h3>Where the marks went</h3><div class="weak">' + weak.map(([k, m]) =>
+        '<div class="item"><b>' + reg[k].name + '</b><p>Lost ' + m + (m === 1 ? ' mark' : ' marks') + '. ' + reg[k].tip + '</p><button class="btn" type="button" data-drill="' + k + '">Practise this in study mode →</button></div>').join('') + '</div>'
+        : '<p class="studynote">Full marks. Try a new version, or push yourself with Challenge questions in study mode.</p>') +
+      '<p class="studynote">Tick boxes as you mark each question below; this updates as you go.</p>';
+  }
+
+  function renderTest(){
+    const t = tstore[TU], meta = GEN.testMeta[TU];
+    $('#testTitle').textContent = meta.title;
+    let n = 0, html = '<div class="howto"><h3>Before you start</h3><ol>' +
+      '<li>' + meta.minutes + ' minutes, pencil and paper, calculator allowed, no notes.</li>' +
+      '<li>Do the whole test before you look at any answers. Show your work: that’s where Thinking and Communication marks come from.</li>' +
+      '<li>Then open the marking scheme and mark yourself honestly. A mark you give yourself now is one you might lose on ' + meta.forTest + '.</li></ol>' +
+      '<p class="studynote">This version was made ' + t.created + '. The layout follows the usual Ontario test categories and will be matched to your teacher’s format once we see one of their tests.</p></div>';
+    if (t.revealed) html += '<div class="summary" id="tres">' + resultsInner() + '</div>';
+    CATS.forEach(([c, name], ci) => {
+      const list = t.items.map((it, i) => [it, i]).filter(([it]) => it.cat === c);
+      if (!list.length) return;
+      const tot = list.reduce((s, [it]) => s + markTotal(it), 0);
+      html += '<h2 class="part"><span>Part ' + 'ABCD'[ci] + ' · ' + name + '</span><span class="count">' + tot + ' marks</span></h2>';
+      list.forEach(([it, i]) => {
+        n++;
+        const mt = markTotal(it);
+        html += '<article class="tq"><div class="tqhead"><b>' + n + '.</b><span class="count">[' + mt + (mt === 1 ? ' mark' : ' marks') + ']</span></div><div class="q">' + it.q + '</div>';
+        if (t.revealed) {
+          html += '<div class="ans"><b>' + (it.cat === 'C' ? 'What a full-marks answer includes' : 'Answer') + '</b>' + it.ans + '</div>' +
+            '<div class="scheme"><p class="eyebrow">Marking scheme · tick each mark you earned</p>' +
+            it.scheme.map(([m, txt], j) => '<label><input type="checkbox" data-q="' + i + '" data-j="' + j + '"' + (t.got[i][j] ? ' checked' : '') + '><span class="mk">+' + m + '</span><span>' + txt + '</span></label>').join('') + '</div>' +
+            (it.sol ? '<details><summary>Full solution</summary>' + it.sol + '</details>' : '');
+        }
+        html += '</article>';
+      });
+    });
+    if (!t.revealed) html += '<div class="actions" id="revealRow"><button class="btn primary" type="button" id="revealBtn">I’m finished: show the marking scheme</button><button class="btn ghost" type="button" id="printBtn">Print</button></div>' +
+      '<p class="studynote" id="revealConfirm" hidden>Sure? Once you see the answers this version is used up. <button class="btn warn" type="button" id="revealYes">Yes, show them</button> <button class="btn ghost" type="button" id="revealNo">Not yet</button></p>';
+    else html += '<div class="actions"><button class="btn" type="button" id="copyRes">Copy results to send</button><button class="btn ghost" type="button" id="newTestBtn">Start a new version</button></div>' +
+      '<p class="studynote" id="newConfirm" hidden>Start a fresh version? This one’s marks will be replaced. <button class="btn warn" type="button" id="newYes">Yes, new version</button> <button class="btn ghost" type="button" id="newNo">Keep this one</button></p>' +
+      '<textarea class="sumtext" id="resText" readonly hidden></textarea>';
+    $('#testBody').innerHTML = html;
+    typeset($('#testBody'));
+    const on = (id, fn) => { const b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
+    on('revealBtn', () => { $('#revealConfirm').hidden = false; $('#revealRow').hidden = true; });
+    on('revealNo', () => { $('#revealConfirm').hidden = true; $('#revealRow').hidden = false; });
+    on('revealYes', () => { t.revealed = true; tsave(); renderTest(); window.scrollTo(0, 0); });
+    on('printBtn', () => { try { window.print(); } catch(e) {} });
+    on('newTestBtn', () => { $('#newConfirm').hidden = false; });
+    on('newNo', () => { $('#newConfirm').hidden = true; });
+    on('newYes', () => { newTest(TU); renderTest(); window.scrollTo(0, 0); });
+    on('copyRes', () => {
+      const sc = testScore(TU), reg = GEN.units[TU], lost = lostBySkill(TU);
+      const text = [GEN.testMeta[TU].title + ', ' + new Date().toLocaleDateString(), 'Total: ' + sc.got + '/' + sc.tot + ' (' + sc.pct + '%, ' + level(sc.pct) + ')']
+        .concat(CATS.map(([c, name]) => name + ': ' + sc.by[c].got + '/' + sc.by[c].tot))
+        .concat(lost.length ? ['Marks lost by skill: ' + lost.map(([k, m]) => reg[k].name + ' ' + m).join(', ')] : []).join('\n');
+      const box = $('#resText'), showBox = () => { box.hidden = false; box.value = text; box.focus(); box.select(); $('#copyRes').textContent = 'Select and copy the text below'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $('#copyRes').textContent = 'Copied'; }, showBox); else showBox();
+    });
+    const wireDrill = () => document.querySelectorAll('[data-drill]').forEach(b => b.addEventListener('click', () => { pendingSkill = sid(TU, b.dataset.drill); location.hash = TU; }));
+    wireDrill();
+    document.querySelectorAll('.scheme input').forEach(cb => cb.addEventListener('change', () => {
+      t.got[+cb.dataset.q][+cb.dataset.j] = cb.checked; tsave();
+      const r = $('#tres'); if (r) { r.innerHTML = resultsInner(); wireDrill(); }
+    }));
+  }
+  $('#testBack').addEventListener('click', () => { location.hash = ''; });
+
   /* ---------- Routing ---------- */
   function route(){
     const h = location.hash.replace('#', '');
-    if (UNITS[h]) openDeck(h);
-    else { deck.hidden = true; home.hidden = false; renderHome(); }
+    if (h.indexOf('test-') === 0 && hasTests() && GEN.tests[h.slice(5)]) openTest(h.slice(5));
+    else if (UNITS[h]) { testSec.hidden = true; openDeck(h); if (pendingSkill && ST.on) { ST.skillOnly = pendingSkill; restartStream(); } pendingSkill = null; }
+    else { deck.hidden = true; testSec.hidden = true; home.hidden = false; ST.on = false; renderHome(); }
   }
   window.addEventListener('hashchange', route);
   route();

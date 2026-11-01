@@ -50,8 +50,11 @@ A flashcard-style app: question on the front, full worked solution with explanat
 ## Planned (agreed, not built yet)
 
 - Diagnostic: Units 1–3 plus the earlier-grade skills Units 5–7 depend on (exponent laws, SOH CAH TOA), then a short readiness check at the start of each later unit. Testing untaught units would only show they haven't been taught.
-- Unit 4 practice test in the teacher's format, ready by about Nov 5 (test Nov 9).
 - Unit 5 (Exponential) deck ready by Nov 10, practice test by Nov 20.
+
+## Built
+
+- **Unit 4 practice test** (home page, `#test-ratfuncs`): 14 questions, 46 marks or so, in Parts A–D (Knowledge, Application, Thinking, Communication). Fresh numbers each version; he self-marks with a per-mark scheme and gets category percentages, an Ontario level and the skills that lost marks. The format is generic Ontario; **match it to the teacher's real format once a past test arrives.** Builders live in `TESTS` in the `study-gen` script; each item needs `cat`, `skill` (an existing generator key), `scheme` and `verify()`.
 
 ## Ideas discussed but not built yet
 - "Daily 5": 3 questions on the current unit, 2 from earlier units, with missed ones coming back sooner.

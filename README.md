@@ -42,6 +42,10 @@ After changing any generator, run:
 node tests/generators.test.js 5000
 ```
 
+### Practice tests
+
+The home page has a practice test card for the current unit (Unit 4, for the Nov 9 test). It shows a full 60-minute test on one page, grouped into Knowledge and Understanding, Application, Thinking and Communication with marks per question. After "I'm finished", each question shows the answer, a marking scheme with one tickbox per mark, and the full solution (the sketch question draws the correct graph). Results show marks per category, the Ontario level and the skills that lost marks, each with a button into study mode for that skill. A version in progress is saved in `localStorage` (`mcr3u-tests-v1`); "Start a new version" makes a fresh one.
+
 ### Adding cards
 
 Cards live in the hidden `<div id="cards">` block as `<article>` elements:

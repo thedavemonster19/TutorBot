@@ -27,4 +27,18 @@ for (const [unit, skills] of Object.entries(G.units)) {
     console.log((ok ? 'ok  ' : 'FAIL') + ' ' + unit + '/' + skill + (rawFail ? ' verify-fail=' + rawFail : '') + (bad.length ? ' text: ' + bad.join(' || ') : ''));
   }
 }
+for (const [unit, build] of Object.entries(G.tests || {})) {
+  let bad = 0, sample = '';
+  const M = Math.max(200, Math.floor(N / 10));
+  for (let i = 0; i < M; i++) {
+    const items = build();
+    for (const it of items) {
+      const marks = it.scheme.reduce((s, [m]) => s + m, 0);
+      const txt = [it.q, it.ans, it.sol, ...it.scheme.map(x => x[1])].join(' ').replace(/is undefined/g, '');
+      if (!it.verify() || !marks || !['K', 'A', 'T', 'C'].includes(it.cat) || !G.units[unit][it.skill] || BAD.test(txt)) { bad++; if (!sample) sample = it.cat + '/' + it.skill; }
+    }
+  }
+  if (bad) failed++;
+  console.log((bad ? 'FAIL' : 'ok  ') + ' test/' + unit + ' (' + M + ' versions)' + (bad ? ' bad=' + bad + ' first=' + sample : ''));
+}
 process.exit(failed ? 1 : 0);
