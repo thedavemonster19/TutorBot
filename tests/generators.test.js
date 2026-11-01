@@ -41,4 +41,13 @@ for (const [unit, build] of Object.entries(G.tests || {})) {
   if (bad) failed++;
   console.log((bad ? 'FAIL' : 'ok  ') + ' test/' + unit + ' (' + M + ' versions)' + (bad ? ' bad=' + bad + ' first=' + sample : ''));
 }
+if (G.diagnostic) {
+  let bad = 0; const areas = new Set(G.diagAreas.map(a => a[0]));
+  for (let i = 0; i < 300; i++) for (const it of G.diagnostic()) {
+    const txt = [it.q, it.ans, it.sol].join(' ').replace(/is undefined/g, '');
+    if (!it.verify() || !areas.has(it.area) || !G.units[it.unit][it.skill] || BAD.test(txt)) bad++;
+  }
+  if (bad) failed++;
+  console.log((bad ? 'FAIL' : 'ok  ') + ' diagnostic (300 versions)' + (bad ? ' bad=' + bad : ''));
+}
 process.exit(failed ? 1 : 0);

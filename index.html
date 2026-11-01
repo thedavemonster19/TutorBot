@@ -169,6 +169,14 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 .sumtext{width:100%;min-height:120px;font:13px/1.5 var(--mono);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px}
 .unit.testcard{border-left:5px solid var(--accent)}
 .unit.testcard::before{display:none}
+.unit.diagcard{border-left-color:var(--ok)}
+.dmark{display:flex;flex-wrap:wrap;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+.dmark button{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;min-height:40px;font-size:15px;font-weight:700}
+.dmark button.right[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.dmark button.partly[aria-pressed="true"]{background:var(--think);border-color:var(--think-ink);color:var(--think-ink)}
+.dmark button.missed[aria-pressed="true"]{background:var(--warn);border-color:var(--warn);color:var(--card)}
+.status{font:700 14px var(--body);color:var(--ink-soft)}
+.status.ok{color:var(--ok)} .status.shaky{color:var(--think-ink)} .status.gap{color:var(--warn)}
 h2.part{font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
 .tq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .tqhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -2114,7 +2122,156 @@ window.STUDY_GEN = (function(){
       } }
   };
 
-  const REG = { rationals: rationals, quadratics: quadratics, radicals: radicals, ratfuncs: ratfuncs };
+  /* ================= Foundations (Grade 9–10 skills the course builds on) ================= */
+  const toFix = (v, n) => (Math.round(v * Math.pow(10, n)) / Math.pow(10, n)).toFixed(n);
+  const DEG = Math.PI / 180;
+  const prereq = {
+    expand: { name: 'Expanding and simplifying', level: 'core',
+      tip: 'Multiply every term in one bracket by every term in the other, keep track of signs, then collect like terms.',
+      gen(){
+        const a = pick([1, 2, 3]), b = nz(-6, 6), c = pick([1, 2, -1]), d = nz(-6, 6), e = nz(-4, 4), f = nz(-5, 5);
+        const P1 = pmul([b, a], [d, c]), P2 = [-e * f, -e], res = [P1[0] + P2[0], P1[1] + P2[1], P1[2]];
+        const sec = coef(-e) + '(' + fmtP([f, 1]) + ')', first = '(' + fmtP([b, a]) + ')(' + fmtP([d, c]) + ')';
+        return {
+          q: '<p>Expand and simplify ' + T(first + (e > 0 ? ' - ' : ' + ') + (Math.abs(e) === 1 ? '' : Math.abs(e)) + '(' + fmtP([f, 1]) + ')') + '.</p>',
+          hint: 'Expand each part separately, then collect like terms. The sign in front of the second bracket belongs to it.',
+          ans: T(fmtP(res)),
+          steps: ['First product: ' + T(first + ' = ' + sumT([[a * c, 'x^2'], [a * d, 'x'], [b * c, 'x'], [b * d, '']]) + ' = ' + fmtP(P1)) + '.',
+            'Second part, with its sign: ' + T(sec + ' = ' + fmtP(P2)) + '.',
+            'Collect like terms: ' + T(sumT([[P1[2], 'x^2'], [P1[1], 'x'], [P1[0], ''], [P2[1], 'x'], [P2[0], '']]) + ' = ' + fmtP(res)) + '.'],
+          whyT: 'Check it.', why: 'Substitute ' + T('x = 1') + ' into the question and into your answer: both give ' + pev(res, 1) + '.',
+          trap: 'The sign in front of a bracket multiplies <i>every</i> term inside it.',
+          verify: () => same(x => (a * x + b) * (c * x + d) - e * (x + f), x => pev(res, x))
+        };
+      } },
+
+    linear: { name: 'Solving linear equations', level: 'core',
+      tip: 'Expand brackets, get the x terms on one side and numbers on the other, then divide.',
+      gen(){
+        let a, b, c, d, x0; do { a = pick([2, 3, 4, 5, -2, -3]); b = nz(-6, 6); c = R(-9, 9); d = nz(-4, 5); x0 = nz(-8, 8); } while (a === d);
+        const e = a * (x0 + b) - c - d * x0, L = a + '(' + fmtP([b, 1]) + ')' + pc(-c), Rt = sumT([[d, 'x'], [e, '']]);
+        return {
+          q: '<p>Solve ' + T(L + ' = ' + Rt) + '.</p>', hint: 'Expand the bracket first, then collect the ' + T('x') + ' terms on one side.',
+          ans: T('x = ' + x0),
+          steps: ['Expand: ' + T(sumT([[a, 'x'], [a * b - c, '']]) + ' = ' + Rt) + '.', 'Collect: ' + T(sumT([[a - d, 'x']]) + ' = ' + (e - a * b + c)) + '.', 'Divide by ' + (a - d) + ': ' + T('x = ' + x0) + '.'],
+          whyT: 'Check it.', why: 'Left side: ' + T(a + '(' + x0 + pc(b) + ')' + pc(-c) + ' = ' + (a * (x0 + b) - c)) + '. Right side: ' + T(d + '(' + x0 + ')' + pc(e) + ' = ' + (d * x0 + e)) + '. ✓',
+          trap: 'When a term moves across the equals sign its sign changes. Check by substituting.',
+          verify: () => a * (x0 + b) - c === d * x0 + e
+        };
+      } },
+
+    fractions: { name: 'Fraction arithmetic', level: 'core',
+      tip: 'Add or subtract with a common denominator; multiply straight across; divide by multiplying by the reciprocal. Simplify at the end.',
+      gen(){
+        const op = pick(['+', '-', '×', '÷']); let p, q, r, s; do { p = nz(-7, 7); q = R(2, 9); r = R(1, 7); s = R(2, 9); } while (gcd(p, q) !== 1 || gcd(r, s) !== 1 || q === s);
+        let n, d, steps;
+        if (op === '+' || op === '-') { const sg = op === '+' ? 1 : -1, L = q * s / gcd(q, s); n = p * (L / q) + sg * r * (L / s); d = L;
+          steps = ['Common denominator ' + L + ': ' + T('\\tfrac{' + p * (L / q) + '}{' + L + '} ' + op + ' \\tfrac{' + r * (L / s) + '}{' + L + '}') + '.', 'Combine the numerators: ' + T('\\tfrac{' + n + '}{' + L + '} = ' + fr(n, d)) + '.']; }
+        else if (op === '×') { n = p * r; d = q * s; steps = ['Multiply across: ' + T('\\tfrac{' + p + ' \\times ' + r + '}{' + q + ' \\times ' + s + '} = \\tfrac{' + n + '}{' + d + '}') + '.', 'Simplify: ' + T(fr(n, d)) + '.']; }
+        else { n = p * s; d = q * r; steps = ['Multiply by the reciprocal: ' + T(fr(p, q) + ' \\times \\tfrac{' + s + '}{' + r + '} = \\tfrac{' + n + '}{' + d + '}') + '.', 'Simplify: ' + T(fr(n, d)) + '.']; }
+        const tex = op === '×' ? '\\times' : op === '÷' ? '\\div' : op;
+        return {
+          q: '<p>Calculate without a calculator: ' + T(fr(p, q) + ' ' + tex + ' ' + fr(r, s)) + '.</p>', hint: op === '+' || op === '-' ? 'Find a common denominator first.' : op === '×' ? 'Multiply numerators together and denominators together.' : 'Dividing by a fraction is multiplying by its reciprocal.',
+          ans: T(fr(n, d)), steps: steps,
+          whyT: 'Why it matters.', why: 'Every rational-expression question in Units 1 and 4 uses exactly these moves, with algebra in place of numbers.',
+          trap: op === '+' || op === '-' ? 'Never add the denominators.' : op === '÷' ? 'Flip the second fraction, not the first.' : 'Simplify the final fraction fully.',
+          verify: () => near(op === '+' ? p / q + r / s : op === '-' ? p / q - r / s : op === '×' ? p / q * (r / s) : p / q / (r / s), n / d)
+        };
+      } },
+
+    explaws: { name: 'Exponent laws', level: 'core',
+      tip: 'Multiply: add exponents. Divide: subtract. Power of a power: multiply. A power outside a bracket applies to the coefficient too.',
+      gen(){
+        const c1 = pick([2, 3]), a = R(1, 4), m = pick([2, 3]), b = R(1, 5), k = pick([1, 2, 3, 4, 6]);
+        const cnum = Math.pow(c1, m), e1 = a * m, c = R(1, e1 + b - 1), e = e1 + b - c;
+        return {
+          q: '<p>Simplify ' + T(dfr('(' + c1 + pw('x', a) + ')^{' + m + '} \\cdot ' + pw('x', b), k === 1 ? pw('x', c) : k + pw('x', c))) + '. Write your answer with a positive exponent.</p>',
+          hint: 'Deal with the bracket first: the power applies to both the ' + c1 + ' and the ' + T(pw('x', a)) + '.',
+          ans: T((fr(cnum, k) === '1' ? '' : fr(cnum, k)) + pw('x', e)),
+          steps: ['Power of a product: ' + T('(' + c1 + pw('x', a) + ')^{' + m + '} = ' + cnum + pw('x', e1)) + ' (multiply the exponents, and raise ' + c1 + ' to the power too).',
+            'Multiply: ' + T(cnum + pw('x', e1) + ' \\cdot ' + pw('x', b) + ' = ' + cnum + pw('x', e1 + b)) + ' (add the exponents).',
+            'Divide: ' + T(dfr(cnum + pw('x', e1 + b), k === 1 ? pw('x', c) : k + pw('x', c)) + ' = ' + (fr(cnum, k) === '1' ? '' : fr(cnum, k)) + pw('x', e)) + ' (subtract the exponents, simplify the numbers).'],
+          whyT: 'Coming up.', why: 'Unit 5 starts with exactly these laws, then builds exponential equations on top of them.',
+          trap: T('(' + c1 + pw('x', a) + ')^{' + m + '}') + ' is ' + T(cnum + pw('x', e1)) + ', not ' + T(c1 + pw('x', e1)) + ': the coefficient gets the power too.',
+          verify: () => near(Math.pow(c1 * Math.pow(1.3, a), m) * Math.pow(1.3, b) / (k * Math.pow(1.3, c)), cnum / k * Math.pow(1.3, e))
+        };
+      } },
+
+    zeroneg: { name: 'Zero and negative exponents', level: 'core',
+      tip: 'Anything (non-zero) to the power 0 is 1. A negative exponent means reciprocal: a^(−n) = 1/aⁿ.',
+      gen(){
+        const v = pick([1, 2, 3]);
+        if (v === 1) { const a = pick([2, 3, 4, 5]), n = pick([1, 2, 3]), b = pick([2, 5, 7, 9]); const N = 1 + Math.pow(a, n), D = Math.pow(a, n);
+          return { q: '<p>Evaluate ' + T(a + '^{-' + n + '} + ' + b + '^{0}') + ' as a fraction.</p>', hint: 'What does a negative exponent mean? What is anything to the power 0?', ans: T(fr(N, D)),
+            steps: [T(a + '^{-' + n + '} = \\dfrac{1}{' + a + '^{' + n + '}} = \\dfrac{1}{' + D + '}') + '.', T(b + '^{0} = 1') + '.', T('\\dfrac{1}{' + D + '} + 1 = ' + fr(N, D)) + '.'],
+            whyT: 'Why ' + T('a^0 = 1') + '?', why: T('\\dfrac{a^n}{a^n} = a^{n - n} = a^0') + ', and anything divided by itself is 1.', trap: T(a + '^{-' + n + '}') + ' is not negative. It is a small positive fraction.',
+            verify: () => near(Math.pow(a, -n) + 1, N / D) }; }
+        if (v === 2) { let p, q; do { p = R(1, 5); q = R(2, 6); } while (gcd(p, q) !== 1 || p === q); const n = 2;
+          return { q: '<p>Evaluate ' + T('\\left(\\dfrac{' + p + '}{' + q + '}\\right)^{-' + n + '}') + '.</p>', hint: 'A negative exponent on a fraction flips the fraction.', ans: T(fr(q * q, p * p)),
+            steps: ['Flip the fraction and make the exponent positive: ' + T('\\left(\\dfrac{' + q + '}{' + p + '}\\right)^{2}') + '.', 'Square top and bottom: ' + T(fr(q * q, p * p)) + '.'],
+            whyT: 'Shortcut.', why: T('\\left(\\tfrac{a}{b}\\right)^{-n} = \\left(\\tfrac{b}{a}\\right)^{n}') + '.', trap: p < q ? 'The answer is bigger than 1 here, because the fraction inside is less than 1.' : 'The answer is less than 1 here, because the fraction inside is bigger than 1.',
+            verify: () => near(Math.pow(p / q, -n), q * q / (p * p)) }; }
+        const a = pick([2, 3, 5]), m = R(2, 5), n = R(1, m + 2), e = m - n - 1, val = Math.pow(a, e);
+        return { q: '<p>Evaluate ' + T(dfr(a + '^{' + m + '} \\cdot ' + a + '^{-1}', a + '^{' + n + '}')) + '.</p>', hint: 'Use exponent laws to combine everything into one power of ' + a + ' first.', ans: T(e >= 0 ? String(val) : fr(1, Math.pow(a, -e))),
+          steps: ['Numerator: ' + T(a + '^{' + m + '} \\cdot ' + a + '^{-1} = ' + a + '^{' + (m - 1) + '}') + '.', 'Divide: ' + T(a + '^{' + (m - 1) + ' - ' + n + '} = ' + a + '^{' + e + '}') + '.', T(a + '^{' + e + '} = ' + (e >= 0 ? val : fr(1, Math.pow(a, -e)))) + '.'],
+          whyT: 'Efficient.', why: 'Combining first keeps the numbers small.', trap: 'Adding a negative exponent subtracts: ' + T(m + ' + (-1) = ' + (m - 1)) + '.',
+          verify: () => near(Math.pow(a, m) * Math.pow(a, -1) / Math.pow(a, n), Math.pow(a, e)) };
+      } },
+
+    pythag: { name: 'Pythagorean theorem', level: 'core',
+      tip: 'a² + b² = c², where c is the hypotenuse (opposite the right angle). To find a leg, subtract.',
+      gen(){
+        const [x, y, z] = pick([[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [6, 8, 10], [9, 12, 15]]), k = pick([1, 1, 2, 3]), a = x * k, b = y * k, c = z * k, findHyp = Math.random() < 0.5;
+        return {
+          q: findHyp ? '<p>A right triangle has legs ' + a + ' cm and ' + b + ' cm. Find the length of the hypotenuse.</p>' : '<p>A right triangle has hypotenuse ' + c + ' cm and one leg ' + a + ' cm. Find the other leg.</p>',
+          hint: T('a^2 + b^2 = c^2') + ', with ' + T('c') + ' the hypotenuse.',
+          ans: (findHyp ? c : b) + ' cm',
+          steps: findHyp ? [T('c^2 = ' + a + '^2 + ' + b + '^2 = ' + a * a + ' + ' + b * b + ' = ' + c * c) + '.', T('c = \\sqrt{' + c * c + '} = ' + c) + ' cm.'] : [T('b^2 = ' + c + '^2 - ' + a + '^2 = ' + c * c + ' - ' + a * a + ' = ' + b * b) + '.', T('b = \\sqrt{' + b * b + '} = ' + b) + ' cm.'],
+          whyT: 'Coming up.', why: 'Unit 6 uses this constantly for special triangles and angles on the coordinate plane.',
+          trap: findHyp ? 'Add the squares, then take the root. ' + T(a + ' + ' + b) + ' is not the answer.' : 'For a leg, subtract: the hypotenuse is always the longest side.',
+          verify: () => a * a + b * b === c * c
+        };
+      } },
+
+    trigside: { name: 'Trig ratios: finding a side', level: 'core',
+      tip: 'Label the sides from the given angle (opposite, adjacent, hypotenuse), pick SOH, CAH or TOA, then solve.',
+      gen(){
+        const th = R(20, 70), hyp = R(8, 30), opp = hyp * Math.sin(th * DEG), adj = hyp * Math.cos(th * DEG);
+        const v = pick(['sin', 'cos', 'tan']);
+        let given, gv, want, ans, steps;
+        if (v === 'sin') { given = 'AB'; gv = hyp; want = 'BC'; ans = opp; steps = ['From ' + T('\\angle A') + ': BC is opposite, AB is the hypotenuse. Use SOH: ' + T('\\sin A = \\dfrac{BC}{AB}') + '.', T('BC = ' + hyp + '\\sin ' + th + '^\\circ \\approx ' + toFix(ans, 1)) + ' cm.']; }
+        else if (v === 'cos') { given = 'AB'; gv = hyp; want = 'AC'; ans = adj; steps = ['From ' + T('\\angle A') + ': AC is adjacent, AB is the hypotenuse. Use CAH: ' + T('\\cos A = \\dfrac{AC}{AB}') + '.', T('AC = ' + hyp + '\\cos ' + th + '^\\circ \\approx ' + toFix(ans, 1)) + ' cm.']; }
+        else { const ac = R(5, 20); given = 'AC'; gv = ac; want = 'BC'; ans = ac * Math.tan(th * DEG); steps = ['From ' + T('\\angle A') + ': BC is opposite, AC is adjacent. Use TOA: ' + T('\\tan A = \\dfrac{BC}{AC}') + '.', T('BC = ' + ac + '\\tan ' + th + '^\\circ \\approx ' + toFix(ans, 1)) + ' cm.']; }
+        return {
+          q: '<p>In right triangle ' + T('ABC') + ', ' + T('\\angle C = 90^\\circ') + ', ' + T('\\angle A = ' + th + '^\\circ') + ' and ' + given + ' = ' + gv + ' cm. Find ' + want + ' to one decimal place.</p>',
+          hint: 'Label the sides from ' + T('\\angle A') + ': opposite, adjacent, hypotenuse. Then choose SOH, CAH or TOA.',
+          ans: want + ' ≈ ' + toFix(ans, 1) + ' cm', steps: steps,
+          whyT: 'Coming up.', why: 'Unit 6 extends these ratios to any angle and to non-right triangles (sine and cosine law).',
+          trap: 'Make sure your calculator is in degree mode.',
+          verify: () => Math.abs(ans - (v === 'sin' ? gv * Math.sin(th * DEG) : v === 'cos' ? gv * Math.cos(th * DEG) : gv * Math.tan(th * DEG))) < 1e-9 && ans > 0
+        };
+      } },
+
+    trigangle: { name: 'Trig ratios: finding an angle', level: 'core',
+      tip: 'Pick the ratio that uses the two sides you know, then use the inverse (sin⁻¹, cos⁻¹, tan⁻¹).',
+      gen(){
+        const v = pick(['sin', 'cos', 'tan']); let s1, s2; do { s1 = R(3, 20); s2 = R(4, 25); } while ((v !== 'tan' && s1 >= s2) || s1 === s2);
+        const ang = (v === 'sin' ? Math.asin(s1 / s2) : v === 'cos' ? Math.acos(s1 / s2) : Math.atan(s1 / s2)) / DEG;
+        const names = v === 'sin' ? ['BC (opposite)', 'AB (hypotenuse)', 'BC', 'AB'] : v === 'cos' ? ['AC (adjacent)', 'AB (hypotenuse)', 'AC', 'AB'] : ['BC (opposite)', 'AC (adjacent)', 'BC', 'AC'];
+        const inv = v === 'sin' ? '\\sin^{-1}' : v === 'cos' ? '\\cos^{-1}' : '\\tan^{-1}';
+        return {
+          q: '<p>In right triangle ' + T('ABC') + ', ' + T('\\angle C = 90^\\circ') + ', ' + names[2] + ' = ' + s1 + ' cm and ' + names[3] + ' = ' + s2 + ' cm. Find ' + T('\\angle A') + ' to the nearest degree.</p>',
+          hint: 'From ' + T('\\angle A') + ', which sides do you know? That decides the ratio.',
+          ans: T('\\angle A \\approx ' + Math.round(ang) + '^\\circ'),
+          steps: ['From ' + T('\\angle A') + ': you know ' + names[0] + ' and ' + names[1] + ', so use ' + T('\\' + v + ' A = \\dfrac{' + s1 + '}{' + s2 + '}') + '.', T('\\angle A = ' + inv + '\\left(\\dfrac{' + s1 + '}{' + s2 + '}\\right) \\approx ' + toFix(ang, 1) + '^\\circ \\approx ' + Math.round(ang) + '^\\circ') + '.'],
+          whyT: 'Check.', why: 'The angle must be between 0° and 90° in a right triangle, and the bigger the opposite side, the bigger the angle.',
+          trap: 'Use the inverse key (' + T(inv) + '), not ' + T('\\' + v) + ' itself.',
+          verify: () => ang > 0 && ang < 90
+        };
+      } }
+  };
+
+  const REG = { rationals: rationals, quadratics: quadratics, radicals: radicals, ratfuncs: ratfuncs, prereq: prereq };
   function solHtml(o){
     return '<ol class="steps">' + o.steps.map(s => '<li>' + s + '</li>').join('') + '</ol>' +
       (o.why ? '<p class="why"><b>' + o.whyT + '</b> ' + o.why + '</p>' : '') +
@@ -2216,10 +2373,26 @@ window.STUDY_GEN = (function(){
     }
     return items;
   }
+  /* ================= Diagnostic ================= */
+  const DIAG_AREAS = [
+    ['found', 'Algebra foundations (Grades 9–10)'], ['u1', 'Unit 1 · Rational Expressions & Factoring'], ['u2', 'Unit 2 · Quadratic Functions'],
+    ['u3', 'Unit 3 · Radicals'], ['u5', 'Ready for Unit 5 · Exponent laws'], ['u6', 'Ready for Unit 6 · Right-triangle trig']];
+  const DIAG_PLAN = [
+    ['found', 'prereq', 'expand'], ['found', 'prereq', 'linear'], ['found', 'prereq', 'fractions'],
+    ['u1', 'rationals', 'factor'], ['u1', 'rationals', 'simplify'], ['u1', 'rationals', 'addsub'], ['u1', 'rationals', 'divide'],
+    ['u2', 'quadratics', 'vertex'], ['u2', 'quadratics', 'factorsolve'], ['u2', 'quadratics', 'formula'], ['u2', 'quadratics', 'discriminant'],
+    ['u3', 'radicals', 'simplify'], ['u3', 'radicals', 'multiply'], ['u3', 'radicals', 'transform'], ['u3', 'radicals', 'inverse'],
+    ['u5', 'prereq', 'explaws'], ['u5', 'prereq', 'zeroneg'],
+    ['u6', 'prereq', 'pythag'], ['u6', 'prereq', 'trigside'], ['u6', 'prereq', 'trigangle']];
+  function diagnostic(){
+    return DIAG_PLAN.map(([area, u, k]) => { const sk = REG[u][k]; let o; do { o = sk.gen(); } while (!o.verify());
+      return { area: area, unit: u, skill: k, q: o.q, hint: o.hint, ans: o.ans, sol: solHtml(o), verify: o.verify }; });
+  }
+
   const TESTS = { ratfuncs: testRatfuncs };
   const TEST_META = { ratfuncs: { title: 'Unit 4 Practice Test: Rational Functions', minutes: 60, forTest: 'Mon Nov 9' } };
 
-  return { units: REG, make: make, tests: TESTS, testMeta: TEST_META };
+  return { units: REG, make: make, tests: TESTS, testMeta: TEST_META, diagnostic: diagnostic, diagAreas: DIAG_AREAS };
 })();
 </script>
 
@@ -2229,6 +2402,7 @@ window.STUDY_GEN = (function(){
     quadratics:{name:'Quadratic Functions', blurb:'Completing the square, factoring, the formula, the discriminant, line–parabola systems and max/min problems.'},
     radicals:{name:'Radicals & Radical Functions', blurb:'Simplifying and multiplying radicals, transformations of y = √x, domain and range, inverses.'},
     rationals:{name:'Rational Expressions', blurb:'Simplifying, multiplying, dividing, adding and subtracting, and getting every restriction right.'},
+    prereq:{name:'Foundations', blurb:'The Grade 9–10 skills this course is built on: expanding, solving, fractions, exponent laws, Pythagoras and right-triangle trig.'},
     ratfuncs:{name:'Rational Functions', blurb:'The reciprocal function y = 1/x and its transformations: asymptotes, domain and range, holes, inverses and applications.'},
     mixed:{name:'Mixed Review', blurb:'Every card from every unit, shuffled, plus questions that join units together. Use this before a test.'}
   };
@@ -2268,6 +2442,18 @@ window.STUDY_GEN = (function(){
   function renderHome(){
     const grid = $('#unitGrid');
     grid.innerHTML = '';
+    if (hasDiag()) {
+      let status = '20 questions, about 40 minutes. Finds the gaps in Units 1–3 and the Grade 9–10 skills underneath, and checks you’re ready for Units 5 and 6.';
+      let btn = 'Start the diagnostic';
+      if (dstore && dstore.items && !dstore.revealed) { status = 'You have a diagnostic in progress.'; btn = 'Continue'; }
+      if (dstore && dstore.revealed) { const st = areaStatus(), vals = Object.values(st); const gaps = vals.filter(v => v.cls === 'gap').length, shaky = vals.filter(v => v.cls === 'shaky').length;
+        status = 'Done ' + dstore.created + ': ' + gaps + (gaps === 1 ? ' gap' : ' gaps') + ', ' + shaky + ' shaky. Retake it in a few weeks to see what’s improved.'; btn = 'See results'; }
+      const el = document.createElement('div');
+      el.className = 'unit mixed testcard diagcard';
+      el.innerHTML = '<p class="eyebrow">Diagnostic · not for marks</p><h2>Find the gaps</h2><p>' + status + '</p><div class="meta"><span></span><button class="btn primary" type="button">' + btn + ' →</button></div>';
+      el.querySelector('button').addEventListener('click', () => { location.hash = 'diagnostic'; });
+      grid.appendChild(el);
+    }
     if (hasTests()) Object.keys(GEN.tests).forEach(u => {
       const meta = GEN.testMeta[u], t = tstore[u];
       let status = 'A full test in your teacher’s categories, with a marking scheme to mark yourself. New numbers every version.';
@@ -2280,7 +2466,7 @@ window.STUDY_GEN = (function(){
       el.querySelector('button').addEventListener('click', () => { location.hash = 'test-' + u; });
       grid.appendChild(el);
     });
-    ['ratfuncs','rationals','quadratics','radicals','mixed'].forEach(u => {
+    ['ratfuncs','rationals','quadratics','radicals','prereq','mixed'].forEach(u => {
       const list = cardsFor(u);
       const got = list.filter(c => marks[c.id] === 'got').length;
       const counts = {core:0, think:0, challenge:0};
@@ -2289,7 +2475,7 @@ window.STUDY_GEN = (function(){
       el.className = 'unit' + (u === 'mixed' ? ' mixed' : '');
       if (isStudy(u)) {
         el.innerHTML =
-          '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : 'Unit ' + UNIT_NO[u]) + (u === CURRENT ? ' · current unit' : '') + ' · endless practice</p>' +
+          '<p class="eyebrow">' + (u === 'mixed' ? 'All units' : u === 'prereq' ? 'Grades 9–10' : 'Unit ' + UNIT_NO[u]) + (u === CURRENT ? ' · current unit' : '') + ' · endless practice</p>' +
           '<h2>' + UNITS[u].name + '</h2>' +
           '<p>' + UNITS[u].blurb + '</p>' +
           '<p class="studynote">' + (u === 'mixed' ? 'Questions from every unit, mixed together the way a test mixes them. Best for test and exam review.' : 'Fresh questions every time, weighted toward the skills you miss. Check your progress whenever you want.') + '</p>' +
@@ -2505,7 +2691,7 @@ window.STUDY_GEN = (function(){
 
   function summaryText(){
     const {done, got} = sessionTotals();
-    const title = S.unit === 'mixed' ? 'Mixed review' : 'Unit ' + UNIT_NO[S.unit] + ' ' + UNITS[S.unit].name;
+    const title = S.unit === 'mixed' ? 'Mixed review' : S.unit === 'prereq' ? 'Foundations' : 'Unit ' + UNIT_NO[S.unit] + ' ' + UNITS[S.unit].name;
     const lines = [title + ' study, ' + new Date().toLocaleDateString(),
       'This session: ' + done + ' questions, ' + got + ' got it, ' + (done - got) + ' still learning.', 'Recent accuracy by skill (last 10 tries):'];
     studyUnits().forEach(u => {
@@ -2788,10 +2974,112 @@ window.STUDY_GEN = (function(){
   }
   $('#testBack').addEventListener('click', () => { location.hash = ''; });
 
+  /* ---------- Diagnostic ---------- */
+  const DKEY = 'mcr3u-diag-v1';
+  let dstore = null;
+  try { dstore = JSON.parse(localStorage.getItem(DKEY) || 'null'); } catch(e) { dstore = null; }
+  function dsave(){ try { localStorage.setItem(DKEY, JSON.stringify(dstore)); } catch(e) {} }
+  const DMARK = {right: ['Right', 1], partly: ['Partly', 0.5], missed: ['Missed or blank', 0]};
+  function hasDiag(){ return !!(GEN && GEN.diagnostic); }
+  function newDiag(){
+    const items = GEN.diagnostic().map(it => ({ area: it.area, unit: it.unit, skill: it.skill, q: it.q, ans: it.ans, sol: it.sol }));
+    dstore = { created: new Date().toLocaleDateString(), items: items, revealed: false, marks: items.map(() => null), recorded: items.map(() => false) };
+    dsave();
+  }
+  function areaStatus(){
+    const out = {};
+    GEN.diagAreas.forEach(([a]) => { const ms = dstore.items.map((it, i) => [it, dstore.marks[i]]).filter(([it, m]) => it.area === a && m);
+      const n = dstore.items.filter(it => it.area === a).length;
+      if (!ms.length) { out[a] = {label: 'not marked', cls: '', n: n, done: 0}; return; }
+      const avg = ms.reduce((s, [, m]) => s + DMARK[m][1], 0) / ms.length;
+      out[a] = avg >= 0.9 ? {label: 'Solid', cls: 'ok', n: n, done: ms.length} : avg >= 0.5 ? {label: 'Shaky', cls: 'shaky', n: n, done: ms.length} : {label: 'Gap', cls: 'gap', n: n, done: ms.length}; });
+    return out;
+  }
+  function fixList(){
+    const order = GEN.diagAreas.map(a => a[0]);
+    return dstore.items.map((it, i) => [it, dstore.marks[i]]).filter(([, m]) => m === 'missed' || m === 'partly')
+      .sort((x, y) => (order.indexOf(x[0].area) - order.indexOf(y[0].area)) || ((x[1] === 'missed' ? 0 : 1) - (y[1] === 'missed' ? 0 : 1)));
+  }
+  function diagResultsInner(){
+    const st = areaStatus(), marked = dstore.marks.filter(Boolean).length, fix = fixList();
+    const rows = GEN.diagAreas.map(([a, name]) => '<div class="row"><span>' + name + '</span><span class="num">' + st[a].done + ' / ' + st[a].n + '</span><span class="status ' + st[a].cls + '">' + st[a].label + '</span></div>').join('');
+    return '<p class="eyebrow">What the diagnostic found</p><h2>' + (marked < dstore.items.length ? 'Marked ' + marked + ' of ' + dstore.items.length + ' so far' : 'All ' + marked + ' marked') + '</h2>' +
+      '<div class="skills"><div class="row head"><span>Area</span><span>Marked</span><span>Status</span></div>' + rows + '</div>' +
+      (fix.length ? '<h3>Fix these first, in this order</h3><p class="studynote">Foundations come first because the later units are built on them.</p><div class="weak">' + fix.slice(0, 6).map(([it, m]) => {
+        const sk = GEN.units[it.unit][it.skill];
+        return '<div class="item"><b>' + sk.name + '</b><p>' + (m === 'missed' ? 'Missed' : 'Partly right') + ' · ' + GEN.diagAreas.find(a => a[0] === it.area)[1] + '. ' + sk.tip + '</p><button class="btn" type="button" data-dfix="' + it.unit + ':' + it.skill + '">Practise this →</button></div>';
+      }).join('') + '</div>' + (fix.length > 6 ? '<p class="studynote">' + (fix.length - 6) + ' more after these. Your misses also make those skills come up more often in study mode.</p>' : '<p class="studynote">Your misses also make these skills come up more often in study mode.</p>')
+        : (marked ? '<p class="studynote">Nothing to fix so far. If that holds, put your time into the current unit and Thinking questions.</p>' : '')) ;
+  }
+  function openDiag(){
+    if (!dstore || !dstore.items) newDiag();
+    home.hidden = true; deck.hidden = true; testSec.hidden = false; ST.on = false;
+    renderDiag(); window.scrollTo(0, 0);
+  }
+  function renderDiag(){
+    const d = dstore;
+    $('#testTitle').textContent = 'Diagnostic: find the gaps';
+    let n = 0, html = '<div class="howto"><h3>How this works</h3><ol>' +
+      '<li>About 40 minutes, pencil and paper. Calculator for the last three only.</li>' +
+      '<li>This is not for marks. If you don’t know how to start a question, leave it blank and move on. Blanks are useful: they show exactly what to fix.</li>' +
+      '<li>When you’ve done all you can, show the answers and mark each question Right, Partly or Missed. You get a list of what to fix first, in order.</li></ol>' +
+      '<p class="studynote">Made ' + d.created + '. It covers Units 1–3, the Grade 9–10 algebra underneath, and what Units 5 and 6 will need. Unit 4 isn’t here because you’re still learning it; the practice test covers that.</p></div>';
+    if (d.revealed) html += '<div class="summary" id="dres">' + diagResultsInner() + '</div>';
+    GEN.diagAreas.forEach(([a, name]) => {
+      const list = d.items.map((it, i) => [it, i]).filter(([it]) => it.area === a);
+      html += '<h2 class="part"><span>' + name + '</span></h2>';
+      list.forEach(([it, i]) => {
+        n++;
+        html += '<article class="tq"><div class="tqhead"><b>' + n + '.</b></div><div class="q">' + it.q + '</div>';
+        if (d.revealed) html += '<div class="ans"><b>Answer</b>' + it.ans + '</div><details><summary>Full solution</summary>' + it.sol + '</details>' +
+          '<div class="dmark" role="group" aria-label="How did you do?">' + Object.entries(DMARK).map(([k, [lab]]) => '<button type="button" class="' + k + '" data-di="' + i + '" data-dm="' + k + '" aria-pressed="' + (d.marks[i] === k) + '">' + lab + '</button>').join('') + '</div>';
+        html += '</article>';
+      });
+    });
+    if (!d.revealed) html += '<div class="actions" id="dRevealRow"><button class="btn primary" type="button" id="dRevealBtn">I’ve done what I can: show the answers</button><button class="btn ghost" type="button" id="dPrintBtn">Print</button></div>' +
+      '<p class="studynote" id="dRevealConfirm" hidden>Ready? <button class="btn warn" type="button" id="dRevealYes">Yes, show the answers</button> <button class="btn ghost" type="button" id="dRevealNo">Not yet</button></p>';
+    else html += '<div class="actions"><button class="btn" type="button" id="dCopy">Copy results to send</button><button class="btn ghost" type="button" id="dNew">Take a fresh version</button></div>' +
+      '<p class="studynote" id="dNewConfirm" hidden>Start over with new questions? These results will be replaced. <button class="btn warn" type="button" id="dNewYes">Yes, start over</button> <button class="btn ghost" type="button" id="dNewNo">Keep these</button></p>' +
+      '<textarea class="sumtext" id="dText" readonly hidden></textarea>';
+    $('#testBody').innerHTML = html;
+    typeset($('#testBody'));
+    const on = (id, fn) => { const b = document.getElementById(id); if (b) b.addEventListener('click', fn); };
+    on('dRevealBtn', () => { $('#dRevealConfirm').hidden = false; $('#dRevealRow').hidden = true; });
+    on('dRevealNo', () => { $('#dRevealConfirm').hidden = true; $('#dRevealRow').hidden = false; });
+    on('dRevealYes', () => { d.revealed = true; dsave(); renderDiag(); window.scrollTo(0, 0); });
+    on('dPrintBtn', () => { try { window.print(); } catch(e) {} });
+    on('dNew', () => { $('#dNewConfirm').hidden = false; });
+    on('dNewNo', () => { $('#dNewConfirm').hidden = true; });
+    on('dNewYes', () => { newDiag(); renderDiag(); window.scrollTo(0, 0); });
+    on('dCopy', () => {
+      const st = areaStatus(), fix = fixList();
+      const text = ['Diagnostic results, ' + new Date().toLocaleDateString()]
+        .concat(GEN.diagAreas.map(([a, name]) => name + ': ' + st[a].label))
+        .concat(fix.length ? ['To fix: ' + fix.map(([it, m]) => GEN.units[it.unit][it.skill].name + ' (' + (m === 'missed' ? 'missed' : 'partly') + ')').join(', ')] : ['Nothing marked wrong.']).join('\n');
+      const box = $('#dText'), showBox = () => { box.hidden = false; box.value = text; box.focus(); box.select(); $('#dCopy').textContent = 'Select and copy the text below'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $('#dCopy').textContent = 'Copied'; }, showBox); else showBox();
+    });
+    const wireFix = () => document.querySelectorAll('[data-dfix]').forEach(b => b.addEventListener('click', () => { const [u] = b.dataset.dfix.split(':'); pendingSkill = b.dataset.dfix; location.hash = u; }));
+    wireFix();
+    document.querySelectorAll('.dmark button').forEach(b => b.addEventListener('click', () => {
+      const i = +b.dataset.di, m = b.dataset.dm, it = d.items[i];
+      d.marks[i] = m;
+      /* The first mark on each question feeds study mode, so missed skills come up more often there. */
+      if (!d.recorded[i]) {
+        d.recorded[i] = true; shist[it.unit] = shist[it.unit] || {};
+        const h = shist[it.unit][it.skill] = (shist[it.unit][it.skill] || []); h.push(m === 'right' ? 1 : 0); if (h.length > 20) h.splice(0, h.length - 20); ssave();
+      }
+      dsave();
+      b.parentNode.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      const r = $('#dres'); if (r) { r.innerHTML = diagResultsInner(); wireFix(); }
+    }));
+  }
+
   /* ---------- Routing ---------- */
   function route(){
     const h = location.hash.replace('#', '');
-    if (h.indexOf('test-') === 0 && hasTests() && GEN.tests[h.slice(5)]) openTest(h.slice(5));
+    if (h === 'diagnostic' && hasDiag()) openDiag();
+    else if (h.indexOf('test-') === 0 && hasTests() && GEN.tests[h.slice(5)]) openTest(h.slice(5));
     else if (UNITS[h]) { testSec.hidden = true; openDeck(h); if (pendingSkill && ST.on) { ST.skillOnly = pendingSkill; restartStream(); } pendingSkill = null; }
     else { deck.hidden = true; testSec.hidden = true; home.hidden = false; ST.on = false; renderHome(); }
   }

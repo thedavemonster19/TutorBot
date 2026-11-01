@@ -46,6 +46,10 @@ node tests/generators.test.js 5000
 
 The home page has a practice test card for the current unit (Unit 4, for the Nov 9 test). It shows a full 60-minute test on one page, grouped into Knowledge and Understanding, Application, Thinking and Communication with marks per question. After "I'm finished", each question shows the answer, a marking scheme with one tickbox per mark, and the full solution (the sketch question draws the correct graph). Results show marks per category, the Ontario level and the skills that lost marks, each with a button into study mode for that skill. A version in progress is saved in `localStorage` (`mcr3u-tests-v1`); "Start a new version" makes a fresh one.
 
+### Diagnostic and Foundations
+
+**Find the gaps** on the home page is a 20-question diagnostic covering Units 1–3, the Grade 9–10 algebra underneath, and readiness for Units 5 and 6. He works on paper, leaves blanks instead of guessing, then reveals the answers and marks each question Right, Partly or Missed. Results show Solid / Shaky / Gap per area and an ordered "fix these first" list with buttons into study mode; misses also raise those skills' weighting in study mode. Saved under `mcr3u-diag-v1`. The **Foundations** study deck practises the Grade 9–10 skills the diagnostic checks.
+
 ### Adding cards
 
 Cards live in the hidden `<div id="cards">` block as `<article>` elements:
