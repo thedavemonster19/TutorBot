@@ -8,7 +8,7 @@ The parent's standing instruction: **the goal is to raise his marks, not to ente
 2. **Short, frequent, mixed practice.** 15–20 minutes most days, current unit plus earlier units, with missed questions coming back sooner. Beats re-reading and cramming.
 3. **Work on paper, then get it marked.** He photographs his written work and Claude shows exactly where it went wrong. This gives the most improvement per minute.
 4. **Practice tests in the teacher's format** a few days before each real test, marked across Knowledge, Thinking, Communication and Application. Thinking and Communication are where marks usually go.
-5. **Keep an error log.** Track his repeat mistakes and drill those specifically.
+5. **Keep an error log.** Track his repeat mistakes and drill those specifically. The log is `docs/error-log.md`: read it before planning practice or building material, and add to it whenever you see his work.
 
 Build on the teacher's schedule (`docs/course-plan.md`): have each unit's material ready **before** the unit starts and a practice test ready **3–4 days before** each test date.
 
