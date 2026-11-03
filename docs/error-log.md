@@ -32,6 +32,6 @@ Minor: wrote −7² for (−7)² (Q11; got the right number anyway). Didn't map 
 | 13 | U3 · multiplying radicals | Missed | Correct: 3 + √35 |
 | 14 | U3 · transformations | Right | Didn't map key points (asked for) |
 | 15 | U3 · inverses | Missed | Correct: f⁻¹(x) = −4 − √(x + 4), x ≥ −4 |
-| 16–20 | Exponent laws, zero/negative exponents, Pythagoras, trig side, trig angle | Blank | Not attempted. Ask whether he ran out of time or didn't know how |
+| 16–20 | Exponent laws, zero/negative exponents, Pythagoras, trig side, trig angle | Not yet taught | He says he hasn't learned these yet. Not a gap: pre-teach alongside Unit 5 (exponent laws, from Nov 10) and Unit 6 (trig ratios, from Nov 26) |
 
-Areas: Foundations shaky (expanding), **Unit 1 is the main gap**, Unit 2 mostly solid, Unit 3 shaky (radical FOIL, inverses), Units 5–6 readiness unknown.
+Areas: Foundations shaky (expanding), **Unit 1 is the main gap**, Unit 2 mostly solid, Unit 3 shaky (radical FOIL, inverses), Units 5–6 material not yet taught (he hasn't seen exponent laws or right-triangle trig), so the teacher's Unit 5 and 6 lessons will be his first exposure; have the Foundations cards ready to support them.
