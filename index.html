@@ -2427,7 +2427,7 @@ window.STUDY_GEN = (function(){
   const KEY = 'mcr3u-flashcards-v1';
   let marks = {};
   try { marks = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { marks = {}; }
-  function save(){ try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch(e) {} }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch(e) {} queueSync('marks'); }
 
   const $ = s => document.querySelector(s);
   const home = $('#home'), deck = $('#deck'), stage = $('#stage');
@@ -2504,7 +2504,7 @@ window.STUDY_GEN = (function(){
     });
     const total = CARDS.length, got = CARDS.filter(c => marks[c.id] === 'got').length;
     const learning = CARDS.filter(c => marks[c.id] === 'learning').length;
-    $('#overall').textContent = 'Your progress is saved in this browser.';
+    $('#overall').textContent = SYNC_TEXT[SYNC.status];
     typeset(grid);
   }
 
@@ -2522,7 +2522,7 @@ window.STUDY_GEN = (function(){
   const SKEY = 'mcr3u-study-v1';
   let shist = {};
   try { shist = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch(e) { shist = {}; }
-  function ssave(){ try { localStorage.setItem(SKEY, JSON.stringify(shist)); } catch(e) {} }
+  function ssave(){ try { localStorage.setItem(SKEY, JSON.stringify(shist)); } catch(e) {} queueSync('study'); }
   const ST = { on:false, item:null, flipped:false, hint:false, n:0, recent:[], requeue:[], session:{}, showProgress:false, skillOnly:null };
   const pickOne = a => a[Math.floor(Math.random() * a.length)];
   const sid = (u, k) => u + ':' + k;
@@ -2621,6 +2621,7 @@ window.STUDY_GEN = (function(){
     const h = shist[c.unit][c.skill] = (shist[c.unit][c.skill] || []);
     h.push(got ? 1 : 0); if (h.length > 20) h.splice(0, h.length - 20);
     ssave();
+    logEvent(c.unit, c.skill, got, 'study');
     if (c.id) { marks[c.id] = got ? 'got' : 'learning'; save(); }
     /* A missed question comes back about four questions later, once. */
     if (!got && !c.requeued) ST.requeue.push({ item: Object.assign({}, c, {requeued:true}), due: ST.n + 4 });
@@ -2888,7 +2889,7 @@ window.STUDY_GEN = (function(){
   const TKEY = 'mcr3u-tests-v1';
   let tstore = {};
   try { tstore = JSON.parse(localStorage.getItem(TKEY) || '{}') || {}; } catch(e) { tstore = {}; }
-  function tsave(){ try { localStorage.setItem(TKEY, JSON.stringify(tstore)); } catch(e) {} }
+  function tsave(){ try { localStorage.setItem(TKEY, JSON.stringify(tstore)); } catch(e) {} queueSync('tests'); }
   const CATS = [['K', 'Knowledge and Understanding'], ['A', 'Application'], ['T', 'Thinking'], ['C', 'Communication']];
   const testSec = $('#test');
   let TU = null, pendingSkill = null;
@@ -2995,7 +2996,7 @@ window.STUDY_GEN = (function(){
   const DKEY = 'mcr3u-diag-v1';
   let dstore = null;
   try { dstore = JSON.parse(localStorage.getItem(DKEY) || 'null'); } catch(e) { dstore = null; }
-  function dsave(){ try { localStorage.setItem(DKEY, JSON.stringify(dstore)); } catch(e) {} }
+  function dsave(){ try { localStorage.setItem(DKEY, JSON.stringify(dstore)); } catch(e) {} queueSync('diag'); }
   const DMARK = {right: ['Right', 1], partly: ['Partly', 0.5], missed: ['Missed or blank', 0], notyet: ['Not taught yet', null]};
   function hasDiag(){ return !!(GEN && GEN.diagnostic); }
   function newDiag(){
@@ -3041,6 +3042,7 @@ window.STUDY_GEN = (function(){
       '<li>About 40 minutes, pencil and paper. Calculator for the last three only.</li>' +
       '<li>This is not for marks. If you don’t know how to start a question, leave it blank and move on. Blanks are useful: they show exactly what to fix.</li>' +
       '<li>When you’ve done all you can, show the answers and mark each question Right, Partly or Missed. Use <b>Not taught yet</b> for anything your class hasn’t covered: it won’t count as a gap. You get a list of what to fix first, in order.</li></ol>' +
+      (d.note ? '<p class="studynote"><b>' + d.note + '</b></p>' : '') +
       '<p class="studynote">Made ' + d.created + '. It covers Units 1–3, the Grade 9–10 algebra underneath, and what Units 5 and 6 will need. Unit 4 isn’t here because you’re still learning it; the practice test covers that.</p></div>';
     if (d.revealed) html += '<div class="summary" id="dres">' + diagResultsInner() + '</div>';
     GEN.diagAreas.forEach(([a, name]) => {
@@ -3093,11 +3095,88 @@ window.STUDY_GEN = (function(){
       if (!d.recorded[i] && m !== 'notyet') {
         d.recorded[i] = true; shist[it.unit] = shist[it.unit] || {};
         const h = shist[it.unit][it.skill] = (shist[it.unit][it.skill] || []); h.push(m === 'right' ? 1 : 0); if (h.length > 20) h.splice(0, h.length - 20); ssave();
+        logEvent(it.unit, it.skill, m === 'right', 'diagnostic');
       }
       dsave();
       b.parentNode.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
       const r = $('#dres'); if (r) { r.innerHTML = diagResultsInner(); wireFix(); }
     }));
+  }
+
+  /* ---------- Account sync ----------
+     When the page is opened inside Claude by the artifact's owner, progress is mirrored to the
+     artifact's private db (path "progress", owner-only) so it survives reloads, follows him across
+     devices, and Claude can read it. Anywhere else it stays in this browser's localStorage. */
+  const LKEY = 'mcr3u-log-v1';
+  let LOG = [];
+  try { LOG = JSON.parse(localStorage.getItem(LKEY) || '[]') || []; } catch(e) { LOG = []; }
+  const SYNC = { db: null, on: false, status: 'local', timers: {}, busy: {}, again: {} };
+  const DOCS = {
+    marks: { key: KEY,  get: () => ({ marks: marks }), set: d => { marks = d.marks || {}; }, has: () => Object.keys(marks).length > 0 },
+    study: { key: SKEY, get: () => ({ shist: shist }), set: d => { shist = d.shist || {}; }, has: () => Object.keys(shist).length > 0 },
+    tests: { key: TKEY, get: () => ({ tstore: tstore }), set: d => { tstore = d.tstore || {}; }, has: () => Object.keys(tstore).length > 0 },
+    diag:  { key: DKEY, get: () => ({ dstore: dstore }), set: d => { dstore = d.dstore || null; }, has: () => !!dstore },
+    log:   { key: LKEY, get: () => ({ entries: LOG }), set: d => { LOG = d.entries || []; }, has: () => LOG.length > 0 }
+  };
+  const SYNC_TEXT = {
+    local: 'Progress is saved in this browser only. Open it inside Claude on the family account to keep it safe.',
+    saving: 'Saving to your Claude account…',
+    saved: 'Progress is saved to your Claude account.',
+    off: 'Couldn’t reach your Claude account, so progress is being kept in this browser for now.'
+  };
+  function setSyncStatus(s){ SYNC.status = s; const el = $('#overall'); if (el) el.textContent = SYNC_TEXT[s]; }
+  function queueSync(name){
+    if (!SYNC.on) return;
+    clearTimeout(SYNC.timers[name]);
+    SYNC.timers[name] = setTimeout(() => flushSync(name), 1200);
+  }
+  async function flushSync(name){
+    if (!SYNC.on) return;
+    if (SYNC.busy[name]) { SYNC.again[name] = true; return; }
+    SYNC.busy[name] = true; setSyncStatus('saving');
+    try {
+      const body = JSON.parse(JSON.stringify(DOCS[name].get()));
+      body.updatedAt = new Date().toISOString();
+      await SYNC.db.doc('progress/' + name).set(body);
+      setSyncStatus('saved');
+    } catch(e) {
+      if (e && e.code === 'unavailable') setTimeout(() => queueSync(name), 1500 + Math.random() * 1500);
+      else { SYNC.on = false; setSyncStatus('off'); }
+    } finally {
+      SYNC.busy[name] = false;
+      if (SYNC.again[name]) { SYNC.again[name] = false; queueSync(name); }
+    }
+  }
+  function logEvent(unit, skill, got, src){
+    LOG.push({ t: new Date().toISOString(), u: unit, k: skill, g: got ? 1 : 0, s: src });
+    if (LOG.length > 400) LOG.splice(0, LOG.length - 400);
+    try { localStorage.setItem(LKEY, JSON.stringify(LOG)); } catch(e) {}
+    queueSync('log');
+  }
+  async function startSync(){
+    if (!window.claude || typeof window.claude.use !== 'function') return;
+    let db = null, user = null;
+    try { [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]); } catch(e) { return; }
+    const owner = user ? await user.isOwner() : false;
+    if (!db || !owner) return;
+    SYNC.db = db; setSyncStatus('saving');
+    try {
+      const names = Object.keys(DOCS);
+      const snaps = await Promise.all(names.map(n => db.doc('progress/' + n).get()));
+      let pulled = false; const push = [];
+      snaps.forEach((sn, i) => {
+        const n = names[i];
+        if (sn.exists) {
+          DOCS[n].set(JSON.parse(JSON.stringify(sn.data())));
+          try { localStorage.setItem(DOCS[n].key, JSON.stringify(Object.values(DOCS[n].get())[0])); } catch(e) {}
+          pulled = true;
+        } else if (DOCS[n].has()) push.push(n);
+      });
+      SYNC.on = true;
+      for (const n of push) await flushSync(n);
+      setSyncStatus('saved');
+      if (pulled) { if (!home.hidden) renderHome(); else if (!testSec.hidden) route(); }
+    } catch(e) { SYNC.on = false; setSyncStatus('off'); }
   }
 
   /* ---------- Routing ---------- */
@@ -3110,6 +3189,7 @@ window.STUDY_GEN = (function(){
   }
   window.addEventListener('hashchange', route);
   route();
+  startSync();
 })();
 </script>
 
