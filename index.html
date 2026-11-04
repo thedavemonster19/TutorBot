@@ -175,6 +175,7 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 .dmark button.right[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--card)}
 .dmark button.partly[aria-pressed="true"]{background:var(--think);border-color:var(--think-ink);color:var(--think-ink)}
 .dmark button.missed[aria-pressed="true"]{background:var(--warn);border-color:var(--warn);color:var(--card)}
+.dmark button.notyet[aria-pressed="true"]{background:var(--core);border-color:var(--ink-soft);color:var(--ink)}
 .status{font:700 14px var(--body);color:var(--ink-soft)}
 .status.ok{color:var(--ok)} .status.shaky{color:var(--think-ink)} .status.gap{color:var(--warn)}
 h2.part{font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
@@ -2979,7 +2980,7 @@ window.STUDY_GEN = (function(){
   let dstore = null;
   try { dstore = JSON.parse(localStorage.getItem(DKEY) || 'null'); } catch(e) { dstore = null; }
   function dsave(){ try { localStorage.setItem(DKEY, JSON.stringify(dstore)); } catch(e) {} }
-  const DMARK = {right: ['Right', 1], partly: ['Partly', 0.5], missed: ['Missed or blank', 0]};
+  const DMARK = {right: ['Right', 1], partly: ['Partly', 0.5], missed: ['Missed or blank', 0], notyet: ['Not taught yet', null]};
   function hasDiag(){ return !!(GEN && GEN.diagnostic); }
   function newDiag(){
     const items = GEN.diagnostic().map(it => ({ area: it.area, unit: it.unit, skill: it.skill, q: it.q, ans: it.ans, sol: it.sol }));
@@ -2988,9 +2989,10 @@ window.STUDY_GEN = (function(){
   }
   function areaStatus(){
     const out = {};
-    GEN.diagAreas.forEach(([a]) => { const ms = dstore.items.map((it, i) => [it, dstore.marks[i]]).filter(([it, m]) => it.area === a && m);
+    GEN.diagAreas.forEach(([a]) => { const ms = dstore.items.map((it, i) => [it, dstore.marks[i]]).filter(([it, m]) => it.area === a && m && m !== 'notyet');
+      const nt = dstore.items.filter((it, i) => it.area === a && dstore.marks[i] === 'notyet').length;
       const n = dstore.items.filter(it => it.area === a).length;
-      if (!ms.length) { out[a] = {label: 'not marked', cls: '', n: n, done: 0}; return; }
+      if (!ms.length) { out[a] = {label: nt ? 'not taught yet' : 'not marked', cls: '', n: n, done: nt}; return; }
       const avg = ms.reduce((s, [, m]) => s + DMARK[m][1], 0) / ms.length;
       out[a] = avg >= 0.9 ? {label: 'Solid', cls: 'ok', n: n, done: ms.length} : avg >= 0.5 ? {label: 'Shaky', cls: 'shaky', n: n, done: ms.length} : {label: 'Gap', cls: 'gap', n: n, done: ms.length}; });
     return out;
@@ -3022,7 +3024,7 @@ window.STUDY_GEN = (function(){
     let n = 0, html = '<div class="howto"><h3>How this works</h3><ol>' +
       '<li>About 40 minutes, pencil and paper. Calculator for the last three only.</li>' +
       '<li>This is not for marks. If you don’t know how to start a question, leave it blank and move on. Blanks are useful: they show exactly what to fix.</li>' +
-      '<li>When you’ve done all you can, show the answers and mark each question Right, Partly or Missed. You get a list of what to fix first, in order.</li></ol>' +
+      '<li>When you’ve done all you can, show the answers and mark each question Right, Partly or Missed. Use <b>Not taught yet</b> for anything your class hasn’t covered: it won’t count as a gap. You get a list of what to fix first, in order.</li></ol>' +
       '<p class="studynote">Made ' + d.created + '. It covers Units 1–3, the Grade 9–10 algebra underneath, and what Units 5 and 6 will need. Unit 4 isn’t here because you’re still learning it; the practice test covers that.</p></div>';
     if (d.revealed) html += '<div class="summary" id="dres">' + diagResultsInner() + '</div>';
     GEN.diagAreas.forEach(([a, name]) => {
@@ -3063,9 +3065,16 @@ window.STUDY_GEN = (function(){
     wireFix();
     document.querySelectorAll('.dmark button').forEach(b => b.addEventListener('click', () => {
       const i = +b.dataset.di, m = b.dataset.dm, it = d.items[i];
+      const prev = d.marks[i];
+      /* "Not taught yet" takes the question out of the results and undoes its effect on study mode. */
+      if (m === 'notyet' && d.recorded[i] && prev && prev !== 'notyet') {
+        const h = (shist[it.unit] || {})[it.skill] || [], val = prev === 'right' ? 1 : 0, at = h.lastIndexOf(val);
+        if (at >= 0) { h.splice(at, 1); ssave(); }
+        d.recorded[i] = false;
+      }
       d.marks[i] = m;
       /* The first mark on each question feeds study mode, so missed skills come up more often there. */
-      if (!d.recorded[i]) {
+      if (!d.recorded[i] && m !== 'notyet') {
         d.recorded[i] = true; shist[it.unit] = shist[it.unit] || {};
         const h = shist[it.unit][it.skill] = (shist[it.unit][it.skill] || []); h.push(m === 'right' ? 1 : 0); if (h.length > 20) h.splice(0, h.length - 20); ssave();
       }
