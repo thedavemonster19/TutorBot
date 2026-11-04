@@ -2712,7 +2712,7 @@ window.STUDY_GEN = (function(){
     /* Always-available way to drill one skill, independent of saved history. */
     const sel = $('#skillPick'), units = S.unit === 'mixed' ? STUDY_ORDER.filter(u => GEN.units[u]) : [S.unit];
     const opt = (u, k) => '<option value="' + u + ':' + k + '">' + GEN.units[u][k].name + '</option>';
-    sel.innerHTML = '<option value="">All skills</option>' + units.map(u => S.unit === 'mixed'
+    sel.innerHTML = '<option value="">Practise one skill: all skills ▾</option>' + units.map(u => S.unit === 'mixed'
       ? '<optgroup label="Unit ' + UNIT_NO[u] + ' · ' + UNITS[u].name + '">' + Object.keys(GEN.units[u]).map(k => opt(u, k)).join('') + '</optgroup>'
       : Object.keys(GEN.units[u]).map(k => opt(u, k)).join('')).join('');
   }
