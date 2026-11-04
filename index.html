@@ -170,7 +170,15 @@ mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;p
 .sumtext{width:100%;min-height:120px;font:13px/1.5 var(--mono);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px}
 .unit.testcard{border-left:5px solid var(--accent)}
 .unit.testcard::before{display:none}
+.unit.testcard h2::after{content:none}
 .unit.diagcard{border-left-color:var(--ok)}
+.unit.plancard{border-left-color:var(--margin);background:var(--card)}
+.plansteps{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.plansteps li{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;border:1px solid var(--line);border-radius:8px;padding:10px 12px;flex-wrap:wrap}
+.plansteps label{display:flex;gap:10px;align-items:flex-start;flex:1 1 220px;cursor:pointer;font-size:15.5px;color:var(--ink)}
+.plansteps input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--ok)}
+.plansteps .btn{min-height:36px;padding:6px 14px;font-size:14.5px}
+.plansteps li.done label{color:var(--ink-soft);text-decoration:line-through}
 .dmark{display:flex;flex-wrap:wrap;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
 .dmark button{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;min-height:40px;font-size:15px;font-weight:700}
 .dmark button.right[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--card)}
@@ -2445,6 +2453,38 @@ window.STUDY_GEN = (function(){
   function renderHome(){
     const grid = $('#unitGrid');
     grid.innerHTML = '';
+    if (PLAN && Array.isArray(PLAN.steps)) {
+      /* Written by Claude into the owner-only db (progress/plan); rendered as text only. */
+      const pid = PLAN.id || PLAN.day || 'plan', done = PDONE[pid] || [];
+      const el = document.createElement('div');
+      el.className = 'unit mixed testcard plancard';
+      const eb = document.createElement('p'); eb.className = 'eyebrow'; eb.textContent = 'Today’s plan' + (PLAN.day ? ' · ' + PLAN.day : '');
+      const h = document.createElement('h2'); h.textContent = PLAN.title || 'Today';
+      el.appendChild(eb); el.appendChild(h);
+      if (PLAN.intro) { const ip = document.createElement('p'); ip.textContent = PLAN.intro; el.appendChild(ip); }
+      const ol = document.createElement('ol'); ol.className = 'plansteps';
+      PLAN.steps.forEach((st, i) => {
+        const li = document.createElement('li');
+        const lab = document.createElement('label');
+        const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[i];
+        cb.addEventListener('change', () => { const arr = PDONE[pid] = (PDONE[pid] || []); arr[i] = cb.checked; try { localStorage.setItem('mcr3u-plandone-v1', JSON.stringify(PDONE)); } catch(e) {} queueSync('plandone'); li.classList.toggle('done', cb.checked); });
+        const body = document.createElement('span');
+        const b = document.createElement('b'); b.textContent = (st.minutes ? st.minutes + ' min · ' : '') + (st.title || '');
+        body.appendChild(b);
+        if (st.text) { const t = document.createElement('span'); t.textContent = ' ' + st.text; body.appendChild(t); }
+        lab.appendChild(cb); lab.appendChild(body); li.appendChild(lab);
+        if (st.deck) {
+          const go = document.createElement('button'); go.type = 'button'; go.className = 'btn'; go.textContent = 'Start →';
+          go.addEventListener('click', () => { if (st.skill) pendingSkill = st.deck + ':' + st.skill; location.hash = st.deck; });
+          li.appendChild(go);
+        }
+        if (done[i]) li.classList.add('done');
+        ol.appendChild(li);
+      });
+      el.appendChild(ol);
+      if (PLAN.note) { const np = document.createElement('p'); np.className = 'studynote'; np.textContent = PLAN.note; el.appendChild(np); }
+      grid.appendChild(el);
+    }
     if (hasDiag()) {
       let status = '20 questions, about 40 minutes. Finds the gaps in Units 1–3 and the Grade 9–10 skills underneath, and checks you’re ready for Units 5 and 6.';
       let btn = 'Start the diagnostic';
@@ -3111,12 +3151,15 @@ window.STUDY_GEN = (function(){
   let LOG = [];
   try { LOG = JSON.parse(localStorage.getItem(LKEY) || '[]') || []; } catch(e) { LOG = []; }
   const SYNC = { db: null, on: false, status: 'local', timers: {}, busy: {}, again: {} };
+  let PLAN = null, PDONE = {};
+  try { PDONE = JSON.parse(localStorage.getItem('mcr3u-plandone-v1') || '{}') || {}; } catch(e) { PDONE = {}; }
   const DOCS = {
     marks: { key: KEY,  get: () => ({ marks: marks }), set: d => { marks = d.marks || {}; }, has: () => Object.keys(marks).length > 0 },
     study: { key: SKEY, get: () => ({ shist: shist }), set: d => { shist = d.shist || {}; }, has: () => Object.keys(shist).length > 0 },
     tests: { key: TKEY, get: () => ({ tstore: tstore }), set: d => { tstore = d.tstore || {}; }, has: () => Object.keys(tstore).length > 0 },
     diag:  { key: DKEY, get: () => ({ dstore: dstore }), set: d => { dstore = d.dstore || null; }, has: () => !!dstore },
-    log:   { key: LKEY, get: () => ({ entries: LOG }), set: d => { LOG = d.entries || []; }, has: () => LOG.length > 0 }
+    log:   { key: LKEY, get: () => ({ entries: LOG }), set: d => { LOG = d.entries || []; }, has: () => LOG.length > 0 },
+    plandone: { key: 'mcr3u-plandone-v1', get: () => ({ done: PDONE }), set: d => { PDONE = d.done || {}; }, has: () => Object.keys(PDONE).length > 0 }
   };
   const SYNC_TEXT = {
     local: 'Progress is saved in this browser only. Open it inside Claude on the family account to keep it safe.',
@@ -3172,6 +3215,7 @@ window.STUDY_GEN = (function(){
           pulled = true;
         } else if (DOCS[n].has()) push.push(n);
       });
+      try { const sp = await db.doc('progress/plan').get(); if (sp.exists) { PLAN = JSON.parse(JSON.stringify(sp.data())); pulled = true; } } catch(e) {}
       SYNC.on = true;
       for (const n of push) await flushSync(n);
       setSyncStatus('saved');
