@@ -43,6 +43,9 @@ A flashcard-style app: question on the front, full worked solution with explanat
 
 ## Delivery
 
+- **Reading his progress (preferred):** he now uses the artifact inside Claude on the parent's account, which saves everything to the artifact's owner-only database. Read it with the `ArtifactData` tool, url above, collection `progress`: `study` (`shist[unit][skill]` = last 20 results, 1 = got it), `log` (`entries`: `{t, u, k, g, s}` one per marked question), `diag` (`dstore`), `tests` (`tstore`), `marks`. Read these before planning a session; the parent should not have to paste summaries. When you mark his work from photos, write your verdicts into `study`/`log` (pin `if_version`) and record patterns in `docs/error-log.md`. Ask the parent to reload the page afterwards, since an open page holds its own copy and would overwrite your write on its next save.
+- **Marking:** Claude marking photos of his written work beats self-marking (he marked a swapped-asymptote answer "Got it"). Self-marks in the app are for quick reps between photo checks; Claude's marks win where they differ.
+
 - He uses the shared claude.ai artifact link as a signed-out visitor (he can't have an account), so the page must work fully as a static page. Progress lives in `localStorage`.
 - Results get back to Claude by an end-of-quiz summary he screenshots or copies to the parent, who pastes it into a session.
 - In-page Claude features (`sample`, `db`) only work signed in on the parent's account. Use those only for supervised sessions, never as his everyday tool.
