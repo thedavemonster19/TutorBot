@@ -35,7 +35,7 @@ for (const [unit, build] of Object.entries(G.tests || {})) {
     for (const it of items) {
       const marks = it.scheme.reduce((s, [m]) => s + m, 0);
       const txt = [it.q, it.ans, it.sol, ...it.scheme.map(x => x[1])].join(' ').replace(/is undefined/g, '');
-      if (!it.verify() || !marks || !['K', 'A', 'T', 'C'].includes(it.cat) || !G.units[unit][it.skill] || BAD.test(txt)) { bad++; if (!sample) sample = it.cat + '/' + it.skill; }
+      if (!it.verify() || !marks || !['K', 'A', 'T', 'C'].includes(it.cat) || (it.skill !== null && !G.units[unit][it.skill]) || BAD.test(txt)) { bad++; if (!sample) sample = it.cat + '/' + it.skill; }
     }
   }
   if (bad) failed++;

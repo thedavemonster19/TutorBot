@@ -2382,6 +2382,12 @@ window.STUDY_GEN = (function(){
         sol: '', scheme: [[1, 'Identifies the error: the coefficient ' + k + ' was ignored (didn’t factor)'], [1, 'Correct asymptote ' + T('x = ' + d) + ' with working or a check'], [1, 'States the general rule clearly in a full sentence']],
         verify: () => k * d + m === 0 && -m !== d });
     }
+    /* His teacher gives a Communication form mark out of 4 for the whole test (he got 1/4 on Unit 3). */
+    items.push({ cat: 'C', skill: null,
+      q: '<p><b>Communication form mark.</b> Your teacher marks how the whole test is written, out of 4. After you finish, look back over every page and mark these honestly.</p>',
+      ans: '<p>Full marks means a reader can follow every line without guessing: each step written out (no answers straight from the calculator), equal signs only between equal things, correct notation, and a clear final statement for each answer.</p>',
+      sol: '', scheme: [[1, 'Every step shown, including simplifying radicals and expanding; no answer that looks copied from a calculator'], [1, 'Equal signs only between things that are actually equal; no chains of unequal expressions'], [1, 'Correct notation throughout: ' + T('f^{-1}(x)') + ', restrictions like ' + T('x \\ne 3') + ', set notation for domain and range, asymptotes written as equations'], [1, 'A concluding statement for each question (for example “∴ ' + T('x = -2') + '” or “VA: ' + T('x = 3') + ', HA: ' + T('y = 1') + '”)']],
+      verify: () => true });
     return items;
   }
   /* ================= Diagnostic ================= */
@@ -2956,7 +2962,7 @@ window.STUDY_GEN = (function(){
   const level = p => p >= 80 ? 'Level 4' : p >= 70 ? 'Level 3' : p >= 60 ? 'Level 2' : p >= 50 ? 'Level 1' : 'below Level 1';
   function lostBySkill(u){
     const t = tstore[u], lost = {};
-    t.items.forEach((it, i) => it.scheme.forEach(([m], j) => { if (!t.got[i][j]) lost[it.skill] = (lost[it.skill] || 0) + m; }));
+    t.items.forEach((it, i) => it.scheme.forEach(([m], j) => { if (!t.got[i][j] && it.skill) lost[it.skill] = (lost[it.skill] || 0) + m; }));
     return Object.entries(lost).sort((a, b) => b[1] - a[1]);
   }
 
@@ -2978,7 +2984,7 @@ window.STUDY_GEN = (function(){
     $('#testTitle').textContent = meta.title;
     let n = 0, html = '<div class="howto"><h3>Before you start</h3><ol>' +
       '<li>' + meta.minutes + ' minutes, pencil and paper, calculator allowed, no notes.</li>' +
-      '<li>Do the whole test before you look at any answers. Show your work: that’s where Thinking and Communication marks come from.</li>' +
+      '<li>Do the whole test before you look at any answers. Show every step, the way your teacher asks: “Show all your steps to receive full marks.” Use equal signs only between things that are equal.</li>' +
       '<li>Then open the marking scheme and mark yourself honestly. A mark you give yourself now is one you might lose on ' + meta.forTest + '.</li></ol>' +
       '<p class="studynote">This version was made ' + t.created + '. The layout follows the usual Ontario test categories and will be matched to your teacher’s format once we see one of their tests.</p></div>';
     if (t.revealed) html += '<div class="summary" id="tres">' + resultsInner() + '</div>';
