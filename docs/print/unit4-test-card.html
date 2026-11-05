@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Unit 4 Test Card</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:wght@600;700&display=swap">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+  @page { size: letter; margin: 0.45in 0.5in; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: #111; background: #fff; font: 10.6pt/1.38 "Source Serif 4", Georgia, serif; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2.5px solid #1c2a42; padding-bottom: 4px; margin-bottom: 9px; }
+  h1 { font: 700 17pt/1.1 "Source Sans 3", Arial, sans-serif; margin: 0; color: #1c2a42; }
+  header span { font: 600 9pt "Source Sans 3", Arial, sans-serif; color: #555; letter-spacing: .04em; text-transform: uppercase; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 12px; }
+  section { border: 1.2px solid #9aa6b8; border-radius: 4px; padding: 7px 10px 8px; break-inside: avoid; }
+  section.wide { grid-column: 1 / -1; }
+  h2 { font: 700 10.5pt/1.2 "Source Sans 3", Arial, sans-serif; margin: 0 0 4px; color: #1c2a42; text-transform: uppercase; letter-spacing: .03em; }
+  h2 b { display: inline-block; min-width: 1.4em; color: #fff; background: #1c2a42; border-radius: 3px; text-align: center; margin-right: 6px; }
+  p { margin: 3px 0; }
+  .rule { background: #eef2f7; border-left: 3px solid #1c2a42; padding: 4px 8px; margin: 4px 0; }
+  .eg { margin: 3px 0 0; }
+  .eg em { font-style: normal; font-weight: 600; font-family: "Source Sans 3", Arial, sans-serif; font-size: 9pt; color: #555; text-transform: uppercase; letter-spacing: .04em; margin-right: 4px; }
+  .no { color: #a33; } .yes { color: #1f6b3a; }
+  mjx-container[display="true"] { margin: 4px 0 !important; }
+  table { border-collapse: collapse; width: 100%; margin-top: 3px; font-size: 10pt; }
+  td { border-top: 1px solid #cfd6e0; padding: 3px 4px; vertical-align: middle; }
+  td:first-child { color: #333; width: 46%; }
+  footer { margin-top: 8px; text-align: center; font: 600 9.5pt "Source Sans 3", Arial, sans-serif; color: #1c2a42; }
+</style>
+</head>
+<body>
+<header><h1>Unit 4 Test Card: Rational Functions</h1><span>Grade 11 Functions · MCR3U</span></header>
+
+<div class="grid">
+
+<section class="wide">
+  <h2><b>1</b>Transformations: factor out k first</h2>
+  <div class="grid" style="gap:6px 14px">
+    <div>
+      \[ y = a\,f\big(k(x-d)\big) + c \qquad\qquad (x,\,y)\ \to\ \left(\frac{x}{k} + d,\ \ ay + c\right) \]
+      <div class="rule">Horizontal stretch factor is \(\dfrac{1}{k}\). &nbsp;The shift is the <b>opposite sign</b> of what is in the bracket.</div>
+    </div>
+    <div>
+      <p class="eg"><em>Factor</em> \( y = \sqrt{\tfrac12 x + 4} \;=\; \sqrt{\tfrac12\,(x + 8)} \)</p>
+      <p class="eg"><em>Read</em> \(k = \tfrac12\): horizontal stretch by a factor of \(2\); &nbsp;\(d = -8\): left \(8\).</p>
+      <p class="eg"><em>Rational</em> \( y = \dfrac{1}{2x - 6} = \dfrac{1}{2(x - 3)} \): compression by \(\tfrac12\), right \(3\).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><b>2</b>Rational functions</h2>
+  \[ y = \frac{a}{k(x - d)} + c \]
+  <table>
+    <tr><td>Vertical asymptote</td><td>\( x = d \)</td></tr>
+    <tr><td>Horizontal asymptote</td><td>\( y = c \)</td></tr>
+    <tr><td>Domain</td><td>\( \{x \in \mathbb{R} \mid x \ne d\} \)</td></tr>
+    <tr><td>Range</td><td>\( \{y \in \mathbb{R} \mid y \ne c\} \)</td></tr>
+  </table>
+  <div class="rule">A vertical line is always \(x = \ldots\) &nbsp; A horizontal line is always \(y = \ldots\)</div>
+</section>
+
+<section>
+  <h2><b>3</b>Restrictions, holes and asymptotes</h2>
+  <p>First line of every rational question: &nbsp;denominator \(= 0\ \Rightarrow\ x \ne \ldots\)</p>
+  \[ f(x) = \frac{x-2}{(x-2)(x+2)} = \frac{1}{x+2},\quad x \ne 2,\,-2 \]
+  <table>
+    <tr><td>Factor cancels</td><td>hole at \( \left(2,\ \tfrac14\right) \)</td></tr>
+    <tr><td>Factor stays</td><td>vertical asymptote \( x = -2 \)</td></tr>
+  </table>
+  <p style="margin-top:4px">List restrictions <b>before</b> you cancel. Check factoring by expanding.</p>
+</section>
+
+<section>
+  <h2><b>4</b>Solving rational equations</h2>
+  \[ \frac{3}{x+3} + 1 = 4 \]
+  <p>\( x \ne -3 \) &nbsp;→&nbsp; \( \dfrac{3}{x+3} = 3 \) &nbsp;→&nbsp; \( 3 = 3(x+3) \) &nbsp;→&nbsp; \( x = -2 \)</p>
+  <p>Restriction first. Get the fraction alone. Then multiply by the denominator. Check the answer is not the restriction.</p>
+</section>
+
+<section>
+  <h2><b>5</b>Inverses</h2>
+  <p>Swap \(x\) and \(y\), then solve for \(y\). Write the answer as \(f^{-1}(x) = \ldots\)</p>
+  \[ f^{-1}(a) = b \quad\Longleftrightarrow\quad f(b) = a \]
+  <p>For a squared bracket: isolate \((y - h)^2\) first, then take \(\pm\sqrt{\ }\), then choose the sign from the domain.</p>
+</section>
+
+<section>
+  <h2><b>6</b>Show every step</h2>
+  \[ \sqrt{192} = \sqrt{64 \cdot 3} = \sqrt{64}\,\sqrt{3} = 8\sqrt{3} \]
+  \[ \sqrt{a}\cdot\sqrt{a} = a \qquad 4\sqrt{11}\cdot 6\sqrt{11} = 24 \cdot 11 = 264 \]
+  <p>An answer with no steps can lose most of its marks, even when it is right.</p>
+</section>
+
+<section>
+  <h2><b>7</b>Equal signs and final statements</h2>
+  <p class="yes">✓ Use \(=\) only between things that are equal.</p>
+  <p class="no">✗ Never chain different expressions with \(=\). Start a new line instead.</p>
+  <p>End every question with a statement:</p>
+  \[ \therefore\ x = -2 \qquad \text{VA: } x = 3,\quad \text{HA: } y = 1 \]
+</section>
+
+</div>
+<footer>Every step on its own line &nbsp;·&nbsp; equal signs only between equal things &nbsp;·&nbsp; factor out k first &nbsp;·&nbsp; finish with ∴</footer>
+</body>
+</html>
